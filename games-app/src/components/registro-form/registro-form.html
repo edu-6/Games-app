@@ -2,54 +2,75 @@
   <section class="vh-100">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="col-12 col-md-10 col-lg-8">
           <div class="card shadow-2-strong" style="border-radius: 1rem;">
             <div class="card-body p-5">
 
-              <h3 class="mb-5 text-center">Registro / Datos</h3>
+              <h3 class="mb-5 text-center">Registro usuario</h3>
 
-              <div class="mb-4">
-                <label for="code" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="code" name="code" formControlName="code">
-                <div class="invalid-feedback">
-                  Por favor ingrese un código válido
+              
+
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                <label for="formFile" class="form-label">Suba su avatar (Opcional)</label>
+                <input class="form-control" type="file" id="formFile"  (change)="AlCargarArchivo($event)">
+              </div>
+              @if(hayArchivoCargado){
+                <div class="col-md-6">
+                 <img [src]="urlTemporal" alt="..." class="img-thumbnail">
+                </div>
+              }
+                
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                  <label for="code" class="form-label">Nickname:</label>
+                  <input type="text" class="form-control" id="code" name="code" formControlName="code">
+                </div>
+
+                <div class="col-md-6">
+                  <label for="name" class="form-label">Nombre:</label>
+                  <input type="text" class="form-control" id="name" name="name" formControlName="name">
                 </div>
               </div>
 
-              <div class="mb-4">
-                <label for="name" class="form-label">Nickname:</label>
-                <input type="text" class="form-control" id="name" name="name" formControlName="name">
-              </div>
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                  <label for="code" class="form-label">Correo:</label>
+                  <input type="email" class="form-control" id="code" name="code" formControlName="code">
+                </div>
 
-              <div class="mb-5">
-                <label for="price" class="form-label">Correo:</label>
-                <input type="email" class="form-control" id="price" name="price" formControlName="price">
-              </div>
-
-              <div class="mb-5">
-                <label for="price" class="form-label">Contraseña:</label>
-                <input type="password" class="form-control" id="price" name="price" formControlName="price">
-              </div>
-
-              <div class="mb-4">
-                <label for="eventType" class="form-label">País:</label>
-                <select id="eventType" name="eventType" class="form-control" formControlName="eventType"></select>
+                <div class="col-md-6">
+                  <label for="name" class="form-label">Contraseña:</label>
+                  <input type="password" class="form-control" id="name" name="name" formControlName="name">
+                </div>
               </div>
 
 
               <div class="row mb-4">
-                <div class="col-6">
+                <div class="col-md-6 mb-4 mb-md-0">
+                  <label for="eventType" class="form-label">País:</label>
+                  <select id="eventType" name="eventType" class="form-control" formControlName="eventType"></select>
+                </div>
+
+                <div class="col-md-6">
                   <label for="limit" class="form-label">Número telefónico:</label>
                   <input type="number" class="form-control" id="limit" name="limit" formControlName="limit">
                 </div>
-                <div class="col-6">
+              </div>
+
+
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
                   <label for="startDate" class="form-label">Fecha de nacimiento:</label>
                   <input type="date" class="form-control" id="startDate" name="startDate" formControlName="startDate">
                 </div>
               </div>
 
-
-              <button class="btn btn-primary w-100 py-2" type="submit">Guardar</button>
+              <div class="mt-4">
+                <button class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>
+              </div>
 
             </div>
           </div>
