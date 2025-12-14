@@ -1,4 +1,4 @@
-<form>
+<form [formGroup]="formulario" (submit)="enviar()">
   <section class="vh-100">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -8,42 +8,67 @@
 
               <h3 class="mb-5 text-center">Registro usuario</h3>
 
-              
+
 
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
-                <label for="formFile" class="form-label">Suba su avatar (Opcional)</label>
-                <input class="form-control" type="file" id="formFile"  (change)="AlCargarArchivo($event)">
-              </div>
-              @if(hayArchivoCargado){
-                <div class="col-md-6">
-                 <img [src]="urlTemporal" alt="..." class="img-thumbnail">
+                  <label for="formFile" class="form-label">Suba su avatar (Opcional)</label>
+                  <input class="form-control" type="file" id="formFile" (change)="AlCargarArchivo($event)">
                 </div>
-              }
-                
+                @if(hayArchivoCargado){
+                <div class="col-md-6">
+                  <img [src]="urlTemporal" alt="..." class="img-thumbnail avatar">
+                </div>
+                }
+
               </div>
 
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
                   <label for="code" class="form-label">Nickname:</label>
-                  <input type="text" class="form-control" id="code" name="code" formControlName="code">
+
+                  <input type="text" class="form-control" name="code" formControlName="nickname"
+                    [class.is-invalid]="formulario.controls['nickname'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      ingrese un nickname
+                    </div>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
                   <label for="name" class="form-label">Nombre:</label>
-                  <input type="text" class="form-control" id="name" name="name" formControlName="name">
+                  <input type="text" class="form-control" name="name" formControlName="nombre"
+                   [class.is-invalid]="formulario.controls['nombre'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      ingrese su nombre
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
                   <label for="code" class="form-label">Correo:</label>
-                  <input type="email" class="form-control" id="code" name="code" formControlName="code">
+                  <input type="email" class="form-control" name="code" formControlName="correo"
+                  [class.is-invalid]="formulario.controls['correo'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      ingrese un correo
+                    </div>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
                   <label for="name" class="form-label">Contraseña:</label>
-                  <input type="password" class="form-control" id="name" name="name" formControlName="name">
+                  <input type="password" class="form-control" name="name" formControlName="contraseña"
+                  [class.is-invalid]="formulario.controls['contraseña'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      ingrese una contraseña
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -51,12 +76,29 @@
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
                   <label for="eventType" class="form-label">País:</label>
-                  <select id="eventType" name="eventType" class="form-control" formControlName="eventType"></select>
+
+                  <select id="eventType" name="eventType" class="form-control" formControlName="pais"
+                   [class.is-invalid]="formulario.controls['pais'].invalid && intentoEnviarlo">
+                    <option *ngFor="let option of paisesEnums | keyvalue" [value]="option.key">
+                      {{ option.value }}
+                    </option>
+                  </select>
+                  <div class="invalid-feedback">
+                    <div>
+                      Seleccione un pais
+                    </div>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
                   <label for="limit" class="form-label">Número telefónico:</label>
-                  <input type="number" class="form-control" id="limit" name="limit" formControlName="limit">
+                  <input type="number" class="form-control" id="limit" name="limit" formControlName="telefono"
+                  [class.is-invalid]="formulario.controls['telefono'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      ingrese un telefono
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -64,7 +106,14 @@
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
                   <label for="startDate" class="form-label">Fecha de nacimiento:</label>
-                  <input type="date" class="form-control" id="startDate" name="startDate" formControlName="startDate">
+                  <input type="date" class="form-control" id="startDate" name="startDate"
+                    formControlName="fechaNacimiento"
+                    [class.is-invalid]="formulario.controls['fechaNacimiento'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      Ingrese su fecha de nacimiento
+                    </div>
+                  </div>
                 </div>
               </div>
 

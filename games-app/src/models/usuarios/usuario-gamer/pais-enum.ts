@@ -1,0 +1,6 @@
+export enum PaisEnum {
+    GUATEMALA = "GUATEMALA",
+    HONDURAS = "HONDURAS",
+    NICARAGUA = "NICARAGUA",
+    COSTARICA = "COSTARICA",
+}
