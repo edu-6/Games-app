@@ -62,8 +62,8 @@
 
                 <div class="col-md-6">
                   <label for="name" class="form-label">Contraseña:</label>
-                  <input type="password" class="form-control" name="name" formControlName="contraseña"
-                  [class.is-invalid]="formulario.controls['contraseña'].invalid && intentoEnviarlo">
+                  <input type="password" class="form-control" name="name" formControlName="contrasena"
+                  [class.is-invalid]="formulario.controls['contrasena'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
                     <div>
                       ingrese una contraseña
@@ -77,8 +77,8 @@
                 <div class="col-md-6 mb-4 mb-md-0">
                   <label for="eventType" class="form-label">País:</label>
 
-                  <select id="eventType" name="eventType" class="form-control" formControlName="pais"
-                   [class.is-invalid]="formulario.controls['pais'].invalid && intentoEnviarlo">
+                  <select id="eventType" name="eventType" class="form-control" formControlName="nombrePais"
+                   [class.is-invalid]="formulario.controls['nombrePais'].invalid && intentoEnviarlo">
                     <option *ngFor="let option of paisesEnums | keyvalue" [value]="option.key">
                       {{ option.value }}
                     </option>

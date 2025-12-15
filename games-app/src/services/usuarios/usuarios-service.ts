@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
-
 import { GamerRegistro } from "../../models/usuarios/usuario-gamer/gamer-registro";
 import { ConstantesRest } from "../../shared/restapi/constantes-rest";
 

@@ -32,8 +32,8 @@ export class RegistroForm implements OnInit {
         correo: [null, [Validators.required, Validators.maxLength(100)]],
         nickname: [null, Validators.required],
         nombre: [null, Validators.required],
-        pais: [null, Validators.required],
-        contraseña: [null, Validators.required],
+        nombrePais: [null, Validators.required],
+        contrasena: [null, Validators.required],
         fechaNacimiento: [new Date().toISOString().substring(0, 10), Validators.required],
       }
     );
