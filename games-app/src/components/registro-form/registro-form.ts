@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { PaisEnum } from '../../models/usuarios/usuario-gamer/pais-enum';
 import { GamerRegistro } from '../../models/usuarios/usuario-gamer/gamer-registro';
 import { UsuarioServicios } from '../../services/usuarios/usuarios-service';
+import { ErrorResponse } from '../../services/ErrorResponse';
 @Component({
   selector: 'app-registro-form',
   templateUrl: './registro-form.html',
@@ -16,7 +17,8 @@ export class RegistroForm implements OnInit {
   hayArchivoCargado: boolean = false;
   intentoEnviarlo: boolean = false;
   urlTemporal: String = "url";
-
+  mensajeError !: String ;
+  hayError: boolean = false;
   nuevoUsuario !: GamerRegistro;
   formulario!: FormGroup;
   paisesEnums = PaisEnum;
@@ -28,12 +30,12 @@ export class RegistroForm implements OnInit {
   ngOnInit(): void {
     this.formulario = this.formBuilder.group(
       {
-        telefono: [null, [Validators.required, Validators.maxLength(10)]],
-        correo: [null, [Validators.required, Validators.maxLength(100)]],
-        nickname: [null, Validators.required],
-        nombre: [null, Validators.required],
+        telefono: ['', [ Validators.required,Validators.pattern(/^[0-9]{8}$/)]],
+        correo: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
+        nickname: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+        nombre: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
         nombrePais: [null, Validators.required],
-        contrasena: [null, Validators.required],
+        contrasena: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
         fechaNacimiento: [new Date().toISOString().substring(0, 10), Validators.required],
       }
     );
@@ -66,6 +68,7 @@ export class RegistroForm implements OnInit {
 
   enviar(): void {
     this.intentoEnviarlo = true;
+    this.hayError = false;
     if (this.formulario.valid) {
       this.nuevoUsuario = this.formulario.value as GamerRegistro;
       console.log("formulario listo");
@@ -74,6 +77,8 @@ export class RegistroForm implements OnInit {
           console.log(this.nuevoUsuario);
         },
         error: (error: any) => {
+          this.mensajeError = error.error.mensaje;
+          this.hayError = true;
           console.log(error);
         }
       });

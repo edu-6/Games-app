@@ -6,6 +6,7 @@ package com.mycompany.rest.api.games.modelos.gamers;
 
 import java.time.LocalDate;
 import java.time.Period;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**
@@ -18,11 +19,11 @@ public class Gamer {
     private String correo;
     private String nickname;
     private String constraseña;
-    private int telefono;
+    private String telefono;
     private LocalDate fechaNacimiento;
     private int edad;
 
-    public Gamer(String nombre, String nombrePais, String correo, String nickname, String constraseña, int telefono, LocalDate fechaNacimiento) {
+    public Gamer(String nombre, String nombrePais, String correo, String nickname, String constraseña, String telefono, LocalDate fechaNacimiento) {
         this.nombre = nombre;
         this.nombrePais = nombrePais;
         this.correo = correo;
@@ -52,7 +53,7 @@ public class Gamer {
         return constraseña;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
@@ -67,6 +68,18 @@ public class Gamer {
     
     
     public boolean valido(){
-        return true;
+     
+        return StringUtils.isNotBlank(nombre)
+                && StringUtils.isNotBlank(nombrePais)
+                && StringUtils.isNotBlank(correo)
+                && StringUtils.isNotBlank(nickname)
+                && StringUtils.isNotBlank(constraseña)
+                && StringUtils.isNotBlank(telefono)
+                && nombre.length() <= 100
+                && nickname.length() <= 50 
+                && constraseña.length() <= 100
+                && correo.length() <= 100
+                && telefono.length() == 8
+                && fechaNacimiento != null;
     }
 }

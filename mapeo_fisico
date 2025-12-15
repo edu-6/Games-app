@@ -1,5 +1,5 @@
-CREATE DATABASE games_shop;
-USE games_shop;
+CREATE DATABASE gamesdb;
+USE gamesdb;
 
 CREATE TABLE pais (
     pais_nombre VARCHAR(20) PRIMARY KEY NOT NULL,
@@ -20,6 +20,7 @@ CREATE TABLE gamer(
     gamer_edad INTEGER NOT NULL,
     gamer_fecha_nacimiento DATE NOT NULL,
     nombre_pais VARCHAR(20) NOT NULL,
+    gamer_telefono CHAR(8) NOT NULL,
     avatar MEDIUMBLOB,
     CONSTRAINT pk_gamer PRIMARY KEY (gamer_correo, nickname),
     CONSTRAINT fk_gamer FOREIGN KEY (nombre_pais) REFERENCES pais (pais_nombre)

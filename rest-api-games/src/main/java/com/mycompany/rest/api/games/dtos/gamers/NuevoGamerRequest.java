@@ -20,7 +20,7 @@ public class NuevoGamerRequest {
     private String correo;
     private String nickname;
     private String contrasena;
-    private int telefono;
+    private String telefono;
     
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -46,7 +46,7 @@ public class NuevoGamerRequest {
         return contrasena;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 

@@ -3,6 +3,16 @@
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-10 col-lg-8">
+
+
+          @if (hayError) {
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{mensajeError}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          }
+
+          
           <div class="card shadow-2-strong" style="border-radius: 1rem;">
             <div class="card-body p-5">
 
@@ -31,7 +41,7 @@
                     [class.is-invalid]="formulario.controls['nickname'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
                     <div>
-                      ingrese un nickname
+                      ingrese un nickname (Max 50)
                     </div>
                   </div>
                 </div>
@@ -39,10 +49,10 @@
                 <div class="col-md-6">
                   <label for="name" class="form-label">Nombre:</label>
                   <input type="text" class="form-control" name="name" formControlName="nombre"
-                   [class.is-invalid]="formulario.controls['nombre'].invalid && intentoEnviarlo">
+                    [class.is-invalid]="formulario.controls['nombre'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
                     <div>
-                      ingrese su nombre
+                      ingrese su nombre (Max 100)
                     </div>
                   </div>
                 </div>
@@ -52,10 +62,10 @@
                 <div class="col-md-6 mb-4 mb-md-0">
                   <label for="code" class="form-label">Correo:</label>
                   <input type="email" class="form-control" name="code" formControlName="correo"
-                  [class.is-invalid]="formulario.controls['correo'].invalid && intentoEnviarlo">
+                    [class.is-invalid]="formulario.controls['correo'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
                     <div>
-                      ingrese un correo
+                      ingrese un correo (Max 100)
                     </div>
                   </div>
                 </div>
@@ -63,10 +73,10 @@
                 <div class="col-md-6">
                   <label for="name" class="form-label">Contraseña:</label>
                   <input type="password" class="form-control" name="name" formControlName="contrasena"
-                  [class.is-invalid]="formulario.controls['contrasena'].invalid && intentoEnviarlo">
+                    [class.is-invalid]="formulario.controls['contrasena'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
                     <div>
-                      ingrese una contraseña
+                      ingrese una contraseña (Max 100)
                     </div>
                   </div>
                 </div>
@@ -78,7 +88,7 @@
                   <label for="eventType" class="form-label">País:</label>
 
                   <select id="eventType" name="eventType" class="form-control" formControlName="nombrePais"
-                   [class.is-invalid]="formulario.controls['nombrePais'].invalid && intentoEnviarlo">
+                    [class.is-invalid]="formulario.controls['nombrePais'].invalid && intentoEnviarlo">
                     <option *ngFor="let option of paisesEnums | keyvalue" [value]="option.key">
                       {{ option.value }}
                     </option>
@@ -93,10 +103,10 @@
                 <div class="col-md-6">
                   <label for="limit" class="form-label">Número telefónico:</label>
                   <input type="number" class="form-control" id="limit" name="limit" formControlName="telefono"
-                  [class.is-invalid]="formulario.controls['telefono'].invalid && intentoEnviarlo">
+                    [class.is-invalid]="formulario.controls['telefono'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
                     <div>
-                      ingrese un telefono
+                      Ingrese telefono valido (8 digitos)
                     </div>
                   </div>
                 </div>
@@ -111,7 +121,7 @@
                     [class.is-invalid]="formulario.controls['fechaNacimiento'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
                     <div>
-                      Ingrese su fecha de nacimiento
+                      Ingrese una fecha valida
                     </div>
                   </div>
                 </div>

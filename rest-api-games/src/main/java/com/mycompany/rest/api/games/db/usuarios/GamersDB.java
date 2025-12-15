@@ -17,8 +17,8 @@ import java.sql.SQLException;
  * @author edu
  */
 public class GamersDB {
-    private static final String CREATE_GAMER_QUERY = "insert into gamer (gamer_nombre, nickname, gamer_correo,gamer_contraseña,gamer_edad, gamer_fecha_nacimiento,nombre_pais) values "
-            + "(?,?,?,?,?,?,?)";
+    private static final String CREATE_GAMER_QUERY = "insert into gamer (gamer_nombre, nickname, gamer_correo,gamer_contraseña,gamer_edad, gamer_fecha_nacimiento,nombre_pais, gamer_telefono) values "
+            + "(?,?,?,?,?,?,?,?)";
     
     private static final String BUSCAR_GAMER_POR_CORREO = "select *from gamer where gamer_correo = ?";
     private static final String BUSCAR_GAMER_POR_NICKNAME = "select *from gamer where nickname = ?";
@@ -34,6 +34,7 @@ public class GamersDB {
             insert.setInt(5, gamer.getEdad());
             insert.setDate(6, Date.valueOf(gamer.getFechaNacimiento()));
             insert.setString(7, gamer.getNombrePais());
+            insert.setString(8, gamer.getTelefono());
             
             insert.executeUpdate();
             
