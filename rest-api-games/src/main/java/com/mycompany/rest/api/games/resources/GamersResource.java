@@ -8,7 +8,7 @@ import com.mycompany.rest.api.games.dtos.gamers.NuevoGamerRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;
-import com.mycompany.rest.api.games.servicios.clase.GamersCrudService;
+import com.mycompany.rest.api.games.servicios.GamersCrudService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
