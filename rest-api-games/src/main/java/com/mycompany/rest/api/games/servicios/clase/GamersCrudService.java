@@ -8,6 +8,7 @@ import com.mycompany.rest.api.games.db.usuarios.GamersDB;
 import com.mycompany.rest.api.games.dtos.gamers.NuevoGamerRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
+import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;
 import com.mycompany.rest.api.games.modelos.gamers.Gamer;
 
 /**
@@ -58,6 +59,17 @@ public class GamersCrudService {
         } catch (IllegalArgumentException | NullPointerException e) {
             throw new DatosInvalidosException("Error en los datos enviados");
         }
+    }
+    
+    public void agregarImagenGamer(AvatarGamer avatarGamer){
+        GamersDB db = new GamersDB();
+        try {
+            db.agregarImagenGamer(avatarGamer);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
     
     

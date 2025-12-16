@@ -5,7 +5,9 @@
 package com.mycompany.rest.api.games.db.usuarios;
 
 import com.mycompany.rest.api.games.db.DBConnectionSingleton;
+import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;
 import com.mycompany.rest.api.games.modelos.gamers.Gamer;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -22,6 +24,7 @@ public class GamersDB {
     
     private static final String BUSCAR_GAMER_POR_CORREO = "select *from gamer where gamer_correo = ?";
     private static final String BUSCAR_GAMER_POR_NICKNAME = "select *from gamer where nickname = ?";
+    private static final String AGREGAR_IMAGEN = "update gamer set avatar = ? where gamer_correo = ? ";
     
     
     public void crearNuevoGamer(Gamer gamer){
@@ -66,6 +69,17 @@ public class GamersDB {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    
+    public void agregarImagenGamer(AvatarGamer avatar){
+        try ( Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement query = connection.prepareStatement(AGREGAR_IMAGEN);) {
+            query.setBlob(1, avatar.getImagen());
+            query.setString(2, avatar.getCorreo());
+            query.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     

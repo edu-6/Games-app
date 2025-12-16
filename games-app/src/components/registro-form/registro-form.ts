@@ -19,6 +19,8 @@ export class RegistroForm implements OnInit {
   urlTemporal: String = "url";
   mensajeError !: String ;
   hayError: boolean = false;
+  creacionExitosa: boolean = false;
+  creacionJsonExistosa: boolean = false;
   nuevoUsuario !: GamerRegistro;
   formulario!: FormGroup;
   paisesEnums = PaisEnum;
@@ -74,6 +76,8 @@ export class RegistroForm implements OnInit {
       console.log("formulario listo");
       this.usuariosServicios.crearNuevoGamer(this.nuevoUsuario).subscribe({
         next: () => {
+          this.creacionExitosa = true;
+          this.creacionJsonExistosa = true;
           console.log(this.nuevoUsuario);
         },
         error: (error: any) => {
@@ -84,6 +88,11 @@ export class RegistroForm implements OnInit {
       });
     } else {
       console.log("form invalido");
+    }
+
+
+    if(this.creacionJsonExistosa){
+      
     }
   }
 }

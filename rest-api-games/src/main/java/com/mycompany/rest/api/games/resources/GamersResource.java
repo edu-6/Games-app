@@ -7,6 +7,7 @@ package com.mycompany.rest.api.games.resources;
 import com.mycompany.rest.api.games.dtos.gamers.NuevoGamerRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
+import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;
 import com.mycompany.rest.api.games.servicios.clase.GamersCrudService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -15,6 +16,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.io.InputStream;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 /**
  *
@@ -43,5 +46,18 @@ public class GamersResource {
                 .status(Response.Status.CONFLICT).entity(new ErrorResponse(e.getMessage())).build();
     }
     }
+    
+    
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response agregarFotoGamer(@FormDataParam("correo") String correo, @FormDataParam("fileObject") InputStream imagenCargada){
+        
+        GamersCrudService crudService = new GamersCrudService();
+        crudService.agregarImagenGamer(new AvatarGamer (correo,imagenCargada));
+        return Response.status(Response.Status.CREATED).build();
+        
+    }
+    
     
 }

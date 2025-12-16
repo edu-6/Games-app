@@ -12,7 +12,14 @@
           </div>
           }
 
-          
+          @if (creacionExitosa) {
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Exito!</strong> Se registró exitosamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          }
+
+
           <div class="card shadow-2-strong" style="border-radius: 1rem;">
             <div class="card-body p-5">
 
