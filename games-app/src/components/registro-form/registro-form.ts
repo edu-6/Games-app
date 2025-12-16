@@ -85,16 +85,19 @@ export class RegistroForm implements OnInit {
           console.log(this.nuevoUsuario);
 
           // se sube la imagen después del usuario
-          console.log(" se va subir imagen");
-          this.usuariosServicios.subirImagen(this.fotoSeleccionada, this.nuevoUsuario.correo).subscribe({
-            next: () => {
-              console.log("supuestamente se subió");
-            },
-            error: (error: any) => {
-              console.log(error);
-            }
+          if (this.fotoSeleccionada) {
+            console.log(" se va subir imagen");
+            this.usuariosServicios.subirImagen(this.fotoSeleccionada, this.nuevoUsuario.correo).subscribe({
+              next: () => {
+                console.log("supuestamente se subió");
+              },
+              error: (error: any) => {
+                console.log(error);
+              }
 
-          });
+            });
+          }
+
         },
         error: (error: any) => {
           this.mensajeError = error.error.mensaje;
