@@ -11,6 +11,7 @@ import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;
 import com.mycompany.rest.api.games.servicios.clase.GamersCrudService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
@@ -48,10 +49,10 @@ public class GamersResource {
     }
     
     
-    @POST
+    @PUT
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response agregarFotoGamer(@FormDataParam("correo") String correo, @FormDataParam("fileObject") InputStream imagenCargada){
+    public Response agregarFotoGamer(@FormDataParam("correo") String correo, @FormDataParam("imagen") InputStream imagenCargada){
         
         GamersCrudService crudService = new GamersCrudService();
         crudService.agregarImagenGamer(new AvatarGamer (correo,imagenCargada));

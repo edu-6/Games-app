@@ -13,17 +13,21 @@ import { ErrorResponse } from '../../services/ErrorResponse';
 })
 
 export class RegistroForm implements OnInit {
-  fotoSeleccionada: File | null = null;
-  hayArchivoCargado: boolean = false;
-  intentoEnviarlo: boolean = false;
-  urlTemporal: String = "url";
-  mensajeError !: String ;
-  hayError: boolean = false;
-  creacionExitosa: boolean = false;
-  creacionJsonExistosa: boolean = false;
+  fotoSeleccionada!: File;
   nuevoUsuario !: GamerRegistro;
   formulario!: FormGroup;
   paisesEnums = PaisEnum;
+  urlTemporal: String = "url";
+  mensajeError !: String;
+
+  hayArchivoCargado: boolean = false;
+  intentoEnviarlo: boolean = false;
+  hayError: boolean = false;
+  creacionExitosa: boolean = false;
+  creacionJsonExistosa: boolean = false;
+
+
+
 
   constructor(private formBuilder: FormBuilder, private usuariosServicios: UsuarioServicios) {
 
@@ -32,7 +36,7 @@ export class RegistroForm implements OnInit {
   ngOnInit(): void {
     this.formulario = this.formBuilder.group(
       {
-        telefono: ['', [ Validators.required,Validators.pattern(/^[0-9]{8}$/)]],
+        telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]],
         correo: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
         nickname: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
         nombre: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
@@ -79,6 +83,18 @@ export class RegistroForm implements OnInit {
           this.creacionExitosa = true;
           this.creacionJsonExistosa = true;
           console.log(this.nuevoUsuario);
+
+          // se sube la imagen después del usuario
+          console.log(" se va subir imagen");
+          this.usuariosServicios.subirImagen(this.fotoSeleccionada, this.nuevoUsuario.correo).subscribe({
+            next: () => {
+              console.log("supuestamente se subió");
+            },
+            error: (error: any) => {
+              console.log(error);
+            }
+
+          });
         },
         error: (error: any) => {
           this.mensajeError = error.error.mensaje;
@@ -88,11 +104,6 @@ export class RegistroForm implements OnInit {
       });
     } else {
       console.log("form invalido");
-    }
-
-
-    if(this.creacionJsonExistosa){
-      
     }
   }
 }

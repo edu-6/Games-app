@@ -2,9 +2,9 @@ import { PaisEnum } from "./pais-enum";
 
 export interface GamerRegistro {
     telefono: number,
-    correo: String,
-    nickname: String,
-    constraseña: String,
+    correo: string,
+    nickname: string,
+    constraseña: string,
     fechaNacimiento: Date,
     pais: PaisEnum
 
