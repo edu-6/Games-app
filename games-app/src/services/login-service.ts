@@ -15,7 +15,7 @@ export class LoginServicio{
 
     constructor(private httpCliente: HttpClient){}
 
-  // se usó put porque get no permite el envio de parametros
+  
     public loguearUsuario(usuarioLogin: UsuarioLogin):  Observable<UsuarioSesion>{
       return this.httpCliente.post<UsuarioSesion>(this.constantesRest.getApiURL() + 'login',usuarioLogin);
     }

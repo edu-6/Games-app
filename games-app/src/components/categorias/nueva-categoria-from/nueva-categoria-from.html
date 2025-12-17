@@ -1,0 +1,58 @@
+<form [formGroup]="formulario" (submit)="enviar()">
+    <section class="vh-100">
+        <div class="container py-10 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-0">
+                <div class="col-12 col-md-10 col-lg-7">
+
+                    <!--ERRORES Y MENSAJES-->
+                    @if (hayError) {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error!</strong> {{mensajeError}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+
+                    @if (creacionExitosa) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Exito!</strong> Se agregó la nueva categoría.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+
+                    <!---EL MERO FOMULARIO-->
+
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+
+                            <h3 class="mb-5 text-center">Registro categoría</h3>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <label class="form-label">categoría:</label>
+
+                                    <input type="text" class="form-control" name="code" formControlName="categoria"
+                                        [class.is-invalid]="formulario.controls['categoria'].invalid && intentoEnviarlo">
+                                    <div class="invalid-feedback">
+                                        <!-- boostrap verifica si hay un input anteriro erroneo para aplicar esta clase-->
+                                        <div>
+                                            ingrese el nombre de la categoría (Max 50)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <button class="btn btn-primary w-100 py-1" type="submit">Crear categoría</button>
+                    </div>
+
+                    <div class="mt-2">
+                        <button type="button" routerLink="/categorias"
+                            class="btn btn-secondary py-1 w-100">Regresar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
