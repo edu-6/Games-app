@@ -12,6 +12,9 @@ public class UsuarioSesion {
     private String correo;
     private String rol;
 
+    public UsuarioSesion(){
+        
+    }
     public UsuarioSesion(String correo, String rol) {
         this.correo = correo;
         this.rol = rol;

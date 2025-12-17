@@ -12,6 +12,10 @@ public class UsuarioLogin {
     
     private String correo;
     private String contraseña;
+    
+    public UsuarioLogin(){
+        
+    }
 
     public UsuarioLogin(String correo, String contraseña) {
         this.correo = correo;

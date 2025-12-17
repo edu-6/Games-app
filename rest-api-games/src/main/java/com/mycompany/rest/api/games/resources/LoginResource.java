@@ -6,13 +6,11 @@ package com.mycompany.rest.api.games.resources;
 
 import com.mycompany.rest.api.games.exceptions.CredencialesIncorrectasException;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
-import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.modelos.usuarios.UsuarioLogin;
 import com.mycompany.rest.api.games.modelos.usuarios.UsuarioSesion;
-import com.mycompany.rest.api.games.servicios.GamersCrudService;
 import com.mycompany.rest.api.games.servicios.LoginService;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
@@ -25,10 +23,10 @@ import jakarta.ws.rs.core.Response;
 @Path("login")
 public class LoginResource {
 
-    @GET
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response crearNuevoGamer(UsuarioLogin gamerRequest) {
+    public Response loguearUsuario(UsuarioLogin gamerRequest) {
         LoginService service = new LoginService();
         try {
              UsuarioSesion usuarioSesion = service.loguearUsuario(gamerRequest);

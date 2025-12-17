@@ -5,10 +5,11 @@ import { PaisEnum } from '../../models/usuarios/usuario-gamer/pais-enum';
 import { GamerRegistro } from '../../models/usuarios/usuario-gamer/gamer-registro';
 import { UsuarioServicios } from '../../services/usuarios/usuarios-service';
 import { ErrorResponse } from '../../services/ErrorResponse';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-registro-form',
   templateUrl: './registro-form.html',
-  imports: [FormsModule, ReactiveFormsModule, KeyValuePipe, NgFor],
+  imports: [RouterLink,FormsModule, ReactiveFormsModule, KeyValuePipe, NgFor],
   styleUrl: './registro-form.css',
 })
 
@@ -30,7 +31,6 @@ export class RegistroForm implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private usuariosServicios: UsuarioServicios) {
-
   }
 
   ngOnInit(): void {

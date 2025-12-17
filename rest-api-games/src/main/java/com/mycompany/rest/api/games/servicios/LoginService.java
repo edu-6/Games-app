@@ -22,6 +22,7 @@ public class LoginService {
         LoginDB db = new LoginDB();
         
         if(!usuarioLogin.valido()){
+            System.out.println("Usuario no valido por alguna razón");
             throw new DatosInvalidosException("ingrese correo y contraseña");
         }
         
@@ -29,13 +30,16 @@ public class LoginService {
             return new UsuarioSesion(usuarioLogin.getCorreo(), "ADMIN_SISTEMA");
         }
         if(db.existeAdminEmpresa(usuarioLogin)){
+            
             return new UsuarioSesion(usuarioLogin.getCorreo(), "ADMIN_EMPRESA");
         }
         
         if(db.existeGamer(usuarioLogin)){
+            
             return new UsuarioSesion(usuarioLogin.getCorreo(), "GAMER");
         }
         
+        System.out.println("NO existe ninguno");
         throw new CredencialesIncorrectasException();
     }
     

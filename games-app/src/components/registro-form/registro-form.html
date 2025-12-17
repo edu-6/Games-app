@@ -29,7 +29,7 @@
 
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
-                  <label  class="form-label">Suba su avatar (Opcional)</label>
+                  <label class="form-label">Suba su avatar (Opcional)</label>
                   <input class="form-control" type="file" id="formFile" (change)="AlCargarArchivo($event)">
                 </div>
                 @if(hayArchivoCargado){
@@ -42,7 +42,7 @@
 
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
-                  <label  class="form-label">Nickname:</label>
+                  <label class="form-label">Nickname:</label>
 
                   <input type="text" class="form-control" name="code" formControlName="nickname"
                     [class.is-invalid]="formulario.controls['nickname'].invalid && intentoEnviarlo">
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="col-md-6">
-                  <label  class="form-label">Nombre:</label>
+                  <label class="form-label">Nombre:</label>
                   <input type="text" class="form-control" name="name" formControlName="nombre"
                     [class.is-invalid]="formulario.controls['nombre'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
@@ -67,7 +67,7 @@
 
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
-                  <label  class="form-label">Correo:</label>
+                  <label class="form-label">Correo:</label>
                   <input type="email" class="form-control" name="code" formControlName="correo"
                     [class.is-invalid]="formulario.controls['correo'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="col-md-6">
-                  <label  class="form-label">Contraseña:</label>
+                  <label class="form-label">Contraseña:</label>
                   <input type="password" class="form-control" name="name" formControlName="contrasena"
                     [class.is-invalid]="formulario.controls['contrasena'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
@@ -137,6 +137,13 @@
               <div class="mt-4">
                 <button class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>
               </div>
+              
+              <div class="mt-4">
+                <button type="button" routerLink="" class="btn btn-secondary py-3 w-100">Regresar</button>
+              </div>
+
+
+
 
             </div>
           </div>

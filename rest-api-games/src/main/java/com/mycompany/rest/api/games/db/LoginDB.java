@@ -18,8 +18,8 @@ import java.sql.SQLException;
 public class LoginDB {
     
     private static final String ENCONTRAR_ADMIN_SISTEMA = "select *from admin_sistema where admin_correo = ? and admin_contraseña = ?";
-    private static final String ENCONTRAR_ADMIN_EMPRESA = "select *from admin_empresa where admin_correo = ? and admin_contraseña =?";
-    private static final String ENCONTRAR_GAMER = "select *from gamer where gamer_correo = ? and gamer_contraseña =?";
+    private static final String ENCONTRAR_ADMIN_EMPRESA = "select *from admin_empresa where admin_correo = ? and admin_contraseña = ?";
+    private static final String ENCONTRAR_GAMER = "select *from gamer where gamer_correo = ? and gamer_contraseña = ?";
     
     
     private boolean existeUsuario(UsuarioLogin usuario, String consulta){
