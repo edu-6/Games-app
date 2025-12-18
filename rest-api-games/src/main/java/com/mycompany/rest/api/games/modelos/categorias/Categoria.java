@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.rest.api.games.modelos.gamers;
+package com.mycompany.rest.api.games.modelos.categorias;
 
 /**
  *
@@ -25,6 +25,11 @@ public class Categoria {
 
     public String getCategoria() {
         return categoria;
+    }
+    
+    
+    public boolean valido(){
+        return this.categoria != null && this.categoria.length() <= 50;
     }
     
     

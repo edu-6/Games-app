@@ -14,7 +14,8 @@ INSERT INTO pais (pais_nombre, pais_codigo) VALUES
 
 
 CREATE TABLE categoria(
-	categoria_nombre VARCHAR(50) NOT NULL PRIMARY KEY
+	categoria_nombre VARCHAR(50) NOT NULL,
+    id  INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY
 );
 
 CREATE TABLE admin_sistema (

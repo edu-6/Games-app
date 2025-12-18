@@ -1,0 +1,6 @@
+<app-header></app-header>
+@if(categoriaAntigua){
+<app-nueva-categoria-from [estaEnEdicion]="true" [categoriaAEditar]="this.categoriaAntigua"></app-nueva-categoria-from>
+} @else{
+No se encontró la categoria {{categoriaParametro}}
+}

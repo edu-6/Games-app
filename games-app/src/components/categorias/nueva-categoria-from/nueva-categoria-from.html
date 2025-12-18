@@ -4,7 +4,6 @@
             <div class="row d-flex justify-content-center align-items-center h-0">
                 <div class="col-12 col-md-10 col-lg-7">
 
-                    <!--ERRORES Y MENSAJES-->
                     @if (hayError) {
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Error!</strong> {{mensajeError}}
@@ -14,13 +13,22 @@
 
                     @if (creacionExitosa) {
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Exito!</strong> Se agregó la nueva categoría.
+                        <strong>Exito!</strong> Se creó la categoría <strong>{{nuevaCategoria.categoria}}</strong>
+                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+
+
+                    @if (edicionExistosa) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Exito!</strong> Se editó existosamente <strong>{{categoriaAEditar.categoria}}</strong>
+                        <br>
+                        <strong>{{nuevaCategoria.categoria}}</strong> Es su nuevo nombre
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     }
 
                     <!---EL MERO FOMULARIO-->
-
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5">
 
@@ -42,9 +50,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="mt-2">
-                        <button class="btn btn-primary w-100 py-1" type="submit">Crear categoría</button>
+                        <button class="btn btn-primary w-100 py-1" type="submit">Guardar</button>
                     </div>
 
                     <div class="mt-2">
