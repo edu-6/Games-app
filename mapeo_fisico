@@ -13,6 +13,10 @@ INSERT INTO pais (pais_nombre, pais_codigo) VALUES
 ('COSTARICA', 'CR');
 
 
+CREATE TABLE categoria(
+	categoria_nombre VARCHAR(50) NOT NULL PRIMARY KEY
+);
+
 CREATE TABLE admin_sistema (
     admin_nombre VARCHAR(100) NOT NULL,
     admin_correo VARCHAR(100) NOT NULL PRIMARY KEY,
