@@ -31,4 +31,8 @@ export class CategoriasService {
     return this.httpCliente.put<void>(this.constantesRest.getApiURL() + 'categorias', nueva);
   }
 
+  public eliminarCategoria(categoria: Categoria): Observable<void>{
+    return this.httpCliente.delete<void>(`${this.constantesRest.getApiURL()}categorias/${categoria.categoria}`);
+  }
+
 }

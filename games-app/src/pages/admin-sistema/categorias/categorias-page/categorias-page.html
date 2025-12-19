@@ -7,6 +7,15 @@
 </div>
 }
 
+@if(huboEliminacion) {
+<div class="alert alert-success d-flex align-items-center">
+    <i class="bi bi-check-circle flex-shrink-0 me-2"></i>
+    <div>
+        Operacion realizada con exito.
+    </div>
+</div>
+}
+
 <div class="container text-center my-5">
 
     <div class="d-flex flex-column align-items-center gap-3 w-100">
@@ -34,7 +43,9 @@
 @if(mostrandoTodas){
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @for (categoria of categorias; track $index) {
-    <app-categoria-tarjeta [categoria]="categoria" />
+    <app-categoria-tarjeta [categoriaSeleccionada]="categoria"
+        (categoriaFueSeleccionada)="guardarCategoriaSelecionada($event)" />
+    <!--Aquió se pone la categoría en interación como atributo de la tarjeta-->
     }
 </div>
 }
@@ -42,6 +53,11 @@
 
 @if(categoriaEncontrada){
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    <app-categoria-tarjeta [categoria]="categoriaEncontrada" />
+    <app-categoria-tarjeta [categoriaSeleccionada]="categoriaEncontrada"
+        (categoriaFueSeleccionada)="guardarCategoriaSelecionada($event)" />
+    <!--Aquí se pone como atributo de la tarjeta la categoría que se encontrós-->
 </div>
 }
+
+<!--Este modal sirve la eliminación-->
+<app-modal-generico [mensaje]="mensajeEliminacion" (confirmationExecuter)="eliminarRegistro()" />

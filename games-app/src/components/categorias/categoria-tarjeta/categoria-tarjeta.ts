@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Categoria } from '../../../models/categorias/categoria';
 import { RouterLink } from '@angular/router';
 
@@ -10,20 +10,14 @@ import { RouterLink } from '@angular/router';
 })
 export class CategoriaTarjeta {
 @Input({ required: true })
-  categoria!: Categoria;
+  categoriaSeleccionada!: Categoria;
 
-  /**
   @Output()
-  eventSelected = new EventEmitter<Event>();
+  categoriaFueSeleccionada = new EventEmitter<Categoria>(); // se le pone de nombre al "evento que se lanza" categoría fue seleccionada 
 
-  isAdmin: boolean;
 
-  constructor(private roleGuardService: RoleGuardService) {
-    this.isAdmin = roleGuardService.userRoleInAllowedRoles(['ADMIN']);
+  eliminarAccion(): void {
+    this.categoriaFueSeleccionada.emit(this.categoriaSeleccionada);
   }
-
-  deleteAction(): void {
-    this.eventSelected.emit(this.selectedEvent);
-  }
-  */
+  
 }

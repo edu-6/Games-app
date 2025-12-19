@@ -1,11 +1,16 @@
 <div class="card">
     <div class="card-header">
-        {{categoria.categoria}}
+        {{categoriaSeleccionada.categoria}}
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{ categoria.categoria }}</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Categoria: {{ categoria.categoria }}</h6>
+        <h5 class="card-title">{{ categoriaSeleccionada.categoria }}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Categoria: {{ categoriaSeleccionada.categoria }}</h6>
 
-        <a routerLink="/categorias/edicion/{{categoria.categoria}}" class="btn btn-primary">Editar</a>
+        <a routerLink="/categorias/edicion/{{categoriaSeleccionada.categoria}}" class="btn btn-primary">Editar</a>
+        
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+            title="Eliminar" (click)="eliminarAccion()">
+            <i class="bi bi-trash"></i>
+        </button>
     </div>
 </div>

@@ -5,9 +5,10 @@ import { Categoria } from '../../../../models/categorias/categoria';
 import { CategoriasService } from '../../../../services/categorias-service';
 import { CategoriaTarjeta } from '../../../../components/categorias/categoria-tarjeta/categoria-tarjeta';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ModalGenerico } from '../../../../shared/modal-generico/modal-generico';
 @Component({
   selector: 'app-categorias-page',
-  imports: [Header, RouterLink, CategoriaTarjeta,FormsModule, ReactiveFormsModule],
+  imports: [Header, RouterLink, CategoriaTarjeta, FormsModule, ReactiveFormsModule, ModalGenerico],
   templateUrl: './categorias-page.html',
   styleUrl: './categorias-page.css',
 })
@@ -18,6 +19,11 @@ export class CategoriasPage implements OnInit {
   mensajeError !: string;
   categoriaEncontrada: Categoria | null = null;
   barraBusqueda!: FormGroup;
+  categoriaSeleccionada!: Categoria;
+
+  huboEliminacion: boolean = false;
+  mensajeEliminacion!: string;
+
   protected categorias: Categoria[] = [];
 
   constructor(private categoriaServicios: CategoriasService, private formBuilder: FormBuilder) { }
@@ -26,7 +32,7 @@ export class CategoriasPage implements OnInit {
     this.barraBusqueda = this.formBuilder.group(
 
       {
-        categoria: ["",[Validators.required]]
+        categoria: ["", [Validators.required]]
       }
     );
     //this.cargarDatos();
@@ -46,6 +52,28 @@ export class CategoriasPage implements OnInit {
 
     });
   }
+
+
+  guardarCategoriaSelecionada(categoria: Categoria): void {
+    this.categoriaSeleccionada = categoria;
+    this.mensajeEliminacion = "Desea elminar la categoria: " + categoria.categoria + "??";
+    this.huboEliminacion = false;
+  }
+
+
+  eliminarRegistro(): void {
+    this.categoriaServicios.eliminarCategoria(this.categoriaSeleccionada).subscribe({
+      next: () => {
+        this.huboEliminacion = true;
+      },
+      error: (error: any)=>{
+        this.hayError = true;
+        this.mensajeError = error.error.mensaje;
+        console.log(this.mensajeError);
+      }
+    });
+  }
+
 
   buscarCategoria(): void {
     this.categoriaEncontrada = null;
