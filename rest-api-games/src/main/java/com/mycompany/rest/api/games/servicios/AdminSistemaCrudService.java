@@ -30,6 +30,8 @@ public class AdminSistemaCrudService {
             throw new IdentidadRepetidaException("el correo "+ admin.getCorreo()+ " ya está asociado a una cuenta");
         }
         
+        db.crearAdmin(admin);
+        
         
     }
     public void editarAdmin(AdminSistemaSimple admin) throws DatosInvalidosException, SQLException{

@@ -5,6 +5,7 @@ import { InicioPage } from '../pages/inicio-page/inicio-page';
 import { CategoriasPage } from '../pages/admin-sistema/categorias/categorias-page/categorias-page';
 import { NuevaCategoriaPage } from '../pages/admin-sistema/categorias/nueva-categoria-page/nueva-categoria-page';
 import { EditarCategoriaPage } from '../pages/admin-sistema/categorias/editar-categoria-page/editar-categoria-page';
+import { AdminSistemaForm } from '../components/admin-sistema/admin-sistema-form/admin-sistema-form';
 
 export const routes: Routes = [
 
@@ -15,8 +16,14 @@ export const routes: Routes = [
     
     { path:"categorias",component:CategoriasPage },
     { path: "categorias/nueva", component: NuevaCategoriaPage},
-    { path: "categorias/edicion/:categoria", component: EditarCategoriaPage}
+    { path: "categorias/edicion/:categoria", component: EditarCategoriaPage},
 
+    //Admins sistema
+
+    { path: "admins-sistema/form", component:  AdminSistemaForm}
+    
+    
+    
 
 
 ];

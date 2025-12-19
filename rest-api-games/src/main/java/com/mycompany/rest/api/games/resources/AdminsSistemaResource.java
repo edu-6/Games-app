@@ -10,9 +10,7 @@ import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistema;
 import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistemaSimple;
 import com.mycompany.rest.api.games.modelos.adminSistema.AvatarAdminSistema;
-import com.mycompany.rest.api.games.modelos.categorias.Categoria;
 import com.mycompany.rest.api.games.servicios.AdminSistemaCrudService;
-import com.mycompany.rest.api.games.servicios.CategoriasCrudService;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
