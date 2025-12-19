@@ -10,6 +10,7 @@ import com.mycompany.rest.api.games.modelos.categorias.Categoria;
 import com.mycompany.rest.api.games.modelos.categorias.EdicionCategoria;
 import com.mycompany.rest.api.games.servicios.CategoriasCrudService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -91,5 +92,20 @@ public class CategoriasResource {
             return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(ex.getMessage())).build();
         } 
     }
+    
+    
+    @DELETE
+    @Path("{nombre}")
+    public Response eliminarCategoria(@PathParam("nombre") String nombre) {
+        CategoriasCrudService crudService = new CategoriasCrudService();
+
+        try {
+            crudService.eliminarCategoria(nombre);
+            return Response.status(Response.Status.OK).build();
+        } catch (DatosInvalidosException |NoEncontradoException  ex) {
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(ex.getMessage())).build();
+        } 
+    }
+    
 
 }

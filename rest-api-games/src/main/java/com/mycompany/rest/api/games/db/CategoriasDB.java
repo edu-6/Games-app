@@ -22,7 +22,7 @@ public class CategoriasDB {
     private static final String CREAR_CATEGORIA = "insert into categoria (categoria_nombre) values (?)";
     private static final String EDITAR_CATEGORIA = "update  categoria set categoria_nombre = ? where id = ?";
     private static final String BUSCAR_CATEGORIA = "select *from categoria where categoria_nombre = ?";
-    private static final String ELIMINAR_CATEGORIA = "delete * form categoria where categoria_nombre = ?";
+    private static final String ELIMINAR_CATEGORIA = "delete from categoria where categoria_nombre = ?";
 
     private static final String OBTENER_TODAS_LAS_CATEGORIAS = "select *from categoria order by categoria_nombre desc";
     

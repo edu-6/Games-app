@@ -67,4 +67,18 @@ public class CategoriasCrudService {
         return categoria;
     }
     
+    
+    public void eliminarCategoria(String nombre) throws DatosInvalidosException, NoEncontradoException{
+        CategoriasDB db = new CategoriasDB();
+        if(nombre == null){
+            throw new DatosInvalidosException("seleccione la categoría");
+        }
+        
+        if(!db.existeCategoria(nombre)){
+            throw new NoEncontradoException();
+        }
+        
+        db.eliminarCategoria(nombre);
+    }
+    
 }

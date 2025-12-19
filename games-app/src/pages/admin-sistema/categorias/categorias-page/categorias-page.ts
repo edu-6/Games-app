@@ -56,7 +56,7 @@ export class CategoriasPage implements OnInit {
 
   guardarCategoriaSelecionada(categoria: Categoria): void {
     this.categoriaSeleccionada = categoria;
-    this.mensajeEliminacion = "Desea elminar la categoria: " + categoria.categoria + "??";
+    this.mensajeEliminacion = " Se eliminaran todos los registros relacionados, desea elminar la categoria: " + categoria.categoria + "??";
     this.huboEliminacion = false;
   }
 
@@ -65,13 +65,17 @@ export class CategoriasPage implements OnInit {
     this.categoriaServicios.eliminarCategoria(this.categoriaSeleccionada).subscribe({
       next: () => {
         this.huboEliminacion = true;
+        this.cargarDatos();
       },
       error: (error: any)=>{
         this.hayError = true;
         this.mensajeError = error.error.mensaje;
         console.log(this.mensajeError);
+        this.cargarDatos();
       }
     });
+
+    
   }
 
 
