@@ -29,6 +29,10 @@ export class AdminsSistemaService {
     return this.httpCliente.get<AdminSistemaSimple []>(`${this.constantesRest.getApiURL()}admins-sistema/${nombre}`);
   }
 
+  public buscarAdminUnico(correo: string): Observable<AdminSistema>{
+    return this.httpCliente.get<AdminSistema >(`${this.constantesRest.getApiURL()}admins-sistema/adminUnico/${correo}`);
+  }
+
   public editarAdmin(admin: AdminSistemaSimple): Observable<void>{
     return this.httpCliente.put<void>(this.constantesRest.getApiURL() + 'admins-sistema', admin);
   }

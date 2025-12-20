@@ -1,0 +1,10 @@
+
+
+@if(adminEdicion){
+<app-admin-sistema-form [estaEnEdicion]="true" [adminEdicion]="adminEdicion"></app-admin-sistema-form>
+
+}@else {
+<div class="alert alert-danger" role="alert">
+    No se encontró el admin sistema con correo: {{correoAdmin}}
+</div>
+}

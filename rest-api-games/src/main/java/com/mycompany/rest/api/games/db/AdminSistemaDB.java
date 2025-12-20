@@ -7,8 +7,6 @@ package com.mycompany.rest.api.games.db;
 import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistema;
 import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistemaSimple;
 import com.mycompany.rest.api.games.modelos.adminSistema.AvatarAdminSistema;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,8 +20,8 @@ import java.util.ArrayList;
 public class AdminSistemaDB {
 
     private static final String CREAR_ADMIN = "INSERT INTO admin_sistema (admin_nombre, admin_correo, admin_contraseña) VALUES (?, ?, ?)";
-    private static final String EDITAR_ADMIN = "UPDATE admin_sistema SET admin_nombre = ?, admin_correo = ? WHERE admin_correo = ?";
-    private static final String BUSCAR_POR_CORREO_O_NOMBRE = "SELECT * FROM admin_sistema WHERE admin_correo = ? OR admin_nombre = ?";
+    private static final String EDITAR_ADMIN = "UPDATE admin_sistema SET admin_nombre = ?, admin_contraseña = ? WHERE admin_correo = ?";
+    private static final String BUSCAR_POR_CORREO = "SELECT * FROM admin_sistema WHERE admin_correo = ?";
     private static final String ELIMINAR_ADMIN = "DELETE FROM admin_sistema WHERE admin_correo = ?";
     private static final String OBTENER_TODOS = "SELECT * FROM admin_sistema";
     private static final String AGREGAR_IMAGEN = "update admin_sistema set admin_avatar = ? where admin_correo = ? ";
@@ -75,11 +73,28 @@ public class AdminSistemaDB {
         }
         return lista;
     }
+    
+    
+    public AdminSistema buscarAdminCompleto(String correo) throws SQLException {
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement ps = connection.prepareStatement(BUSCAR_POR_CORREO)) {
+            ps.setString(1, correo);
+            ResultSet result = ps.executeQuery();
+            if(result.next()){
+                AdminSistema admin = new AdminSistema();
+                admin.setNombre(result.getString("admin_nombre"));
+                admin.setCorreo(result.getString("admin_correo"));
+                admin.setContraseña(result.getString("admin_contraseña"));
+                return admin;
+            }
+        }
+        return null;
+    }
 
-    public void editarAdmin(AdminSistemaSimple admin) throws SQLException {
+    public void editarAdmin(AdminSistema admin) throws SQLException {
         try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement ps = connection.prepareStatement(EDITAR_ADMIN)) {
             ps.setString(1, admin.getNombre());
-            ps.setString(2, admin.getCorreo());
+            ps.setString(2, admin.getContraseña());
+            ps.setString(3, admin.getCorreo());
 
             ps.executeUpdate();
         }

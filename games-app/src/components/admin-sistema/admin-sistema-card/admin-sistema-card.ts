@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, OutputEmitterRef } from '@angular/core';
 import { AdminSistemaSimple } from '../../../models/admins-sistema/admin-simple';
 import { AdminsSistemaService } from '../../../services/admin-sistema-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-sistema-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './admin-sistema-card.html',
   styleUrl: './admin-sistema-card.css',
 })

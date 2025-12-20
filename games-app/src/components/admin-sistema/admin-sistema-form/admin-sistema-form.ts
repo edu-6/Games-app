@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AdminSistema } from '../../../models/admins-sistema/admin-creacion';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminsSistemaService } from '../../../services/admin-sistema-service';
@@ -24,12 +24,21 @@ export class AdminSistemaForm implements OnInit {
   hayError: boolean = false;
   creacionExitosa: boolean = false;
   creacionJsonExistosa: boolean = false;
+  edicionExistosa: boolean = false;
 
 
 
 
   constructor(private formBuilder: FormBuilder, private adminSistemaServicios: AdminsSistemaService) {
   }
+
+
+  @Input()
+  estaEnEdicion: boolean = false;
+
+  @Input()
+  adminEdicion: AdminSistema | null = null;
+
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group(
@@ -39,6 +48,21 @@ export class AdminSistemaForm implements OnInit {
         contraseña: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]]
       }
     );
+
+    if (this.estaEnEdicion) {
+      this.formulario.reset(this.adminEdicion);
+      this.recuperarImagen(); // recuperar imagen desde el servidor
+    }
+  }
+
+
+
+  enviar(): void {
+    if (this.estaEnEdicion) {
+      this.editar();
+    } else {
+      this.crear();
+    }
   }
 
 
@@ -60,31 +84,55 @@ export class AdminSistemaForm implements OnInit {
   }
 
 
-  enviar(): void {
+  recuperarImagen(): void {
+    if (this.adminEdicion) {
+      this.adminSistemaServicios.obtenerImagen(this.adminEdicion.correo).subscribe({
+        next:(imagen: Blob) =>{
+          this.urlTemporal = URL.createObjectURL(imagen); // se recupera la imagen
+        },
+        error:(error: any) =>{
+          console.log("no tenía foto o hay error interno");
+        }
+      });
+    }
+
+  }
+
+
+  subirImagen(correoAdmin: string): void {
+    if (this.fotoSeleccionada) {
+      console.log(" se va subir imagen");
+      this.adminSistemaServicios.subirImagen(this.fotoSeleccionada, correoAdmin).subscribe({
+        next: () => {
+          console.log("se subió");
+        },
+        error: (error: any) => {
+          console.log(error.error);
+        }
+
+      });
+    }
+  }
+
+  resetearEstados(): void{
     this.intentoEnviarlo = true;
     this.hayError = false;
+  }
+
+
+
+  crear(): void {
+      this.resetearEstados();
     if (this.formulario.valid) {
       this.nuevoAdmin = this.formulario.value as AdminSistema;
       console.log("formulario listo");
       this.adminSistemaServicios.crearAdmin(this.nuevoAdmin).subscribe({
         next: () => {
           this.creacionExitosa = true;
-          this.creacionJsonExistosa = true;
           console.log(this.nuevoAdmin);
 
           // se sube la imagen después del usuario
-          if (this.fotoSeleccionada) {
-            console.log(" se va subir imagen");
-            this.adminSistemaServicios.subirImagen(this.fotoSeleccionada, this.nuevoAdmin.correo).subscribe({
-              next: () => {
-                console.log("supuestamente se subió");
-              },
-              error: (error: any) => {
-                console.log(error.error);
-              }
-
-            });
-          }
+          this.subirImagen(this.nuevoAdmin.correo);
         },
         error: (error: any) => {
           this.mensajeError = error.error.mensaje;
@@ -95,6 +143,26 @@ export class AdminSistemaForm implements OnInit {
     } else {
       console.log("form invalido");
     }
+  }
+
+
+  editar(): void {
+    this.resetearEstados();
+    if(this.formulario.valid && this.adminEdicion != null){
+      this.adminEdicion = this.formulario.value as AdminSistema;
+      this.adminSistemaServicios.editarAdmin(this.adminEdicion).subscribe({
+        next:()=>{
+          this.edicionExistosa = true;
+          
+        },
+        error:(error: any)=>{
+          this.mensajeError = error.error.mensaje;
+          this.hayError = true;
+          console.log(error.error);
+        }
+      });
+    }
+
   }
 
 

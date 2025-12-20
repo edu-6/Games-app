@@ -21,6 +21,14 @@
                     </div>
                     }
 
+
+                    @if (edicionExistosa) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Exito!</strong> Se editó exitosamente.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5">
 
@@ -31,7 +39,7 @@
                                     <input class="form-control" type="file" id="formFile"
                                         (change)="AlCargarArchivo($event)">
                                 </div>
-                                @if(hayArchivoCargado){
+                                @if(hayArchivoCargado || urlTemporal){
                                 <div class="col-md-6">
                                     <img [src]="urlTemporal" alt="..." class="img-thumbnail avatar">
                                 </div>
@@ -50,6 +58,14 @@
                                 </div>
                             </div>
                             <div class="row mb-4">
+                                @if(estaEnEdicion){
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <label class="form-label">Correo:</label>
+                                    <label class="form-label">{{adminEdicion?.correo}}</label>
+                                <!-- <input type="hidden" class="form-control" name="code" formControlName="correo" >-->
+                                </div>
+
+                                }@else {
                                 <div class="col-md-6 mb-4 mb-md-0">
                                     <label class="form-label">Correo:</label>
                                     <input type="email" class="form-control" name="code" formControlName="correo"
@@ -60,6 +76,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                }
+
                                 <div class="col-md-6">
                                     <label class="form-label">Contraseña:</label>
                                     <input type="password" class="form-control" name="name" formControlName="contraseña"

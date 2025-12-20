@@ -45,6 +45,9 @@ public class AdminSistema {
         this.correo=correo;
     }
     
+    public void setContraseña(String contraseña){
+        this.contraseña = contraseña;
+    }
     
     public boolean valido(){
         return StringUtils.isNotBlank(nombre)

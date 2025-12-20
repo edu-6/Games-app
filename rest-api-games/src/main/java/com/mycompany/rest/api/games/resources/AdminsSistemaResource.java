@@ -57,7 +57,7 @@ public class AdminsSistemaResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editarAdmin(AdminSistemaSimple admin) {
+    public Response editarAdmin(AdminSistema admin) {
         AdminSistemaCrudService crudService = new AdminSistemaCrudService();
         try {
             crudService.editarAdmin(admin);
@@ -77,6 +77,22 @@ public class AdminsSistemaResource {
             crudService.eliminarAdmin(correo);
             return Response.status(Response.Status.OK).build();
         } catch (DatosInvalidosException | NoEncontradoException ex) {
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(ex.getMessage())).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        }
+    }
+    
+    @GET
+    @Path("adminUnico/{correo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarAdminEspecifico(@PathParam("correo") String parametro) {
+        AdminSistemaCrudService crudService = new AdminSistemaCrudService();
+        try {
+            AdminSistema admin = crudService.buscarAdminCompleto(parametro);
+            return Response.ok(admin).build();
+        } 
+        catch (NoEncontradoException ex) {
             return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(ex.getMessage())).build();
         } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
@@ -118,7 +134,7 @@ public class AdminsSistemaResource {
 
         AdminSistemaCrudService crudService = new AdminSistemaCrudService();
         crudService.agregarImagenAdmin(new AvatarAdminSistema(correo, imagenCargada));
-        return Response.status(Response.Status.CREATED).build();
+        return Response.status(Response.Status.OK).build();
 
     }
 
@@ -140,10 +156,10 @@ public class AdminsSistemaResource {
             }
             return Response.ok(stream).build();
         } catch (SQLException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
            // return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         } catch (NoEncontradoException ex) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(ex.getMessage())).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(ex.getMessage())).build();
         }
     }
 

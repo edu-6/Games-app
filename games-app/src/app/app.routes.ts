@@ -7,6 +7,7 @@ import { NuevaCategoriaPage } from '../pages/admin-sistema/categorias/nueva-cate
 import { EditarCategoriaPage } from '../pages/admin-sistema/categorias/editar-categoria-page/editar-categoria-page';
 import { AdminSistemaForm } from '../components/admin-sistema/admin-sistema-form/admin-sistema-form';
 import { AdminsSistemaPage } from '../pages/admin-sistema/admin-sistema-pages/admins-sistema-page/admins-sistema-page';
+import { AdminsSistemaEditarPage } from '../pages/admin-sistema/admin-sistema-pages/admins-sistema-editar-page/admins-sistema-editar-page';
 
 export const routes: Routes = [
 
@@ -21,7 +22,8 @@ export const routes: Routes = [
 
     //Admins sistema
     { path: "admins-sistema", component:  AdminsSistemaPage},
-    { path: "admins-sistema/form", component:  AdminSistemaForm}
+    { path: "admins-sistema/form", component:  AdminSistemaForm},
+    { path: "admins-sistema/edicion/:correo", component:  AdminsSistemaEditarPage}
 
     
     

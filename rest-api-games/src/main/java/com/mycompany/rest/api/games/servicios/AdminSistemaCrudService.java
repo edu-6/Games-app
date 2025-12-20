@@ -37,8 +37,17 @@ public class AdminSistemaCrudService {
         db.crearAdmin(admin);
 
     }
+    
+    public AdminSistema buscarAdminCompleto(String correo) throws NoEncontradoException, SQLException{
+        AdminSistemaDB db = new AdminSistemaDB();
+        AdminSistema admin = db.buscarAdminCompleto(correo);
+        if(admin == null){
+            throw new NoEncontradoException();
+        }
+        return admin;
+    }
 
-    public void editarAdmin(AdminSistemaSimple admin) throws DatosInvalidosException, SQLException {
+    public void editarAdmin(AdminSistema admin) throws DatosInvalidosException, SQLException {
         AdminSistemaDB db = new AdminSistemaDB();
         if (!admin.valido()) {
             throw new DatosInvalidosException("datos vacios o muy grandes");
