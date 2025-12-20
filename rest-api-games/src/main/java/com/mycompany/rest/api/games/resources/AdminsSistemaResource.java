@@ -22,6 +22,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.StreamingOutput;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -53,10 +54,10 @@ public class AdminsSistemaResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
-    
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editarAdmin(AdminSistemaSimple admin){
+    public Response editarAdmin(AdminSistemaSimple admin) {
         AdminSistemaCrudService crudService = new AdminSistemaCrudService();
         try {
             crudService.editarAdmin(admin);
@@ -67,8 +68,7 @@ public class AdminsSistemaResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
-    
-    
+
     @DELETE
     @Path("{correo}")
     public Response eliminarAdmin(@PathParam("correo") String correo) {
@@ -76,51 +76,75 @@ public class AdminsSistemaResource {
         try {
             crudService.eliminarAdmin(correo);
             return Response.status(Response.Status.OK).build();
-        } catch (DatosInvalidosException |NoEncontradoException  ex) {
+        } catch (DatosInvalidosException | NoEncontradoException ex) {
             return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(ex.getMessage())).build();
         } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
-    
-    
+
     @GET
     @Path("{nombre_correo}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarCategoria(@PathParam("nombre_correo") String parametro) {
-       AdminSistemaCrudService crudService = new AdminSistemaCrudService();
+    public Response buscarAdmins(@PathParam("nombre_correo") String parametro) {
+        AdminSistemaCrudService crudService = new AdminSistemaCrudService();
 
         try {
-           ArrayList<AdminSistemaSimple> lista =  crudService.buscarAdmins(parametro);
+            ArrayList<AdminSistemaSimple> lista = crudService.buscarAdmins(parametro);
             return Response.ok(lista).build();
-        } catch (DatosInvalidosException |NoEncontradoException  ex) {
+        } catch (DatosInvalidosException | NoEncontradoException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(ex.getMessage())).build();
         } catch (SQLException e) {
-           return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerAdmins() {
         AdminSistemaCrudService crudService = new AdminSistemaCrudService();
 
         try {
-           ArrayList<AdminSistemaSimple> lista =  crudService.obtenerAdmins();
+            ArrayList<AdminSistemaSimple> lista = crudService.obtenerAdmins();
             return Response.ok(lista).build();
         } catch (SQLException e) {
-           return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
 
     @PUT
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response agregarFotoAdminr(@FormDataParam("correo") String correo, @FormDataParam("imagen") InputStream imagenCargada) {
+    public Response agregarFotoAdmin(@FormDataParam("correo") String correo, @FormDataParam("imagen") InputStream imagenCargada) {
 
         AdminSistemaCrudService crudService = new AdminSistemaCrudService();
         crudService.agregarImagenAdmin(new AvatarAdminSistema(correo, imagenCargada));
         return Response.status(Response.Status.CREATED).build();
 
+    }
+
+    /**
+     * Para devolver la imagen MediaType.APPLICATION_OCTET_STREAM porque no se sabe el formato
+     *
+     * @return
+     */
+    @GET
+    @Path("imagenes/{correo}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response recuperarImagen(@PathParam("correo") String correo) {
+        AdminSistemaCrudService crudService = new AdminSistemaCrudService();
+        try {
+            StreamingOutput stream = crudService.recuperarImagen(correo);
+            
+            if (stream == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(stream).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(e.getMessage())).build();
+           // return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        } catch (NoEncontradoException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(ex.getMessage())).build();
+        }
     }
 
 }

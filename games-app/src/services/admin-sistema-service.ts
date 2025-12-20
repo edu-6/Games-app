@@ -21,15 +21,15 @@ export class AdminsSistemaService {
   public crearAdmin(admin: AdminSistema): Observable<void> {
     return this.httpCliente.post<void>(this.constantesRest.getApiURL() + 'admins-sistema', admin);
   }
-  public obtenerAdmins(): Observable<AdminSistema[]> {
+  public obtenerAdmins(): Observable<AdminSistemaSimple[]> {
     return this.httpCliente.get<AdminSistema[]>(this.constantesRest.getApiURL() + 'admins-sistema');
   }
 
-  public buscarAdmin(nombre: string): Observable<Categoria>{
-    return this.httpCliente.get<Categoria>(`${this.constantesRest.getApiURL()}categorias/${nombre}`);
+  public buscarAdmins(nombre: string): Observable<AdminSistemaSimple []>{
+    return this.httpCliente.get<AdminSistemaSimple []>(`${this.constantesRest.getApiURL()}admins-sistema/${nombre}`);
   }
 
-  public editrarAdmin(admin: AdminSistemaSimple): Observable<void>{
+  public editarAdmin(admin: AdminSistemaSimple): Observable<void>{
     return this.httpCliente.put<void>(this.constantesRest.getApiURL() + 'admins-sistema', admin);
   }
 
@@ -44,6 +44,13 @@ export class AdminsSistemaService {
     formData.append('imagen', imagen);
     return this.httpCliente.put<void>(this.constantesRest.API_URL + 'admins-sistema', formData);
   }
+
+
+  public obtenerImagen(correo: string): Observable<Blob> {
+  return this.httpCliente.get(`${this.constantesRest.getApiURL()}admins-sistema/imagenes/${correo}`, {
+    responseType: 'blob'
+  });
+}
 
 
 }

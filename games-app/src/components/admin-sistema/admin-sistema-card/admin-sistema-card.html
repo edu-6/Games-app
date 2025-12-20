@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+        {{admin.nombre}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Nombre: {{admin.nombre}}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Correo: {{ admin.correo }}</h6>
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+                @if(urlFoto){
+                <img [src]="urlFoto" class="img-thumbnail avatar" width="150">
+                }
+            </div>
+
+            <div class="col-md-6">
+                @if(!esElMismo){
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    title="Eliminar" (click)="eliminarAccion()">
+                    <i class="bi bi-trash"></i>
+                </button>
+                }
+            </div>
+        </div>
+        <!--<a routerLink="/categorias/edicion/{{categoriaSeleccionada.categoria}}" class="btn btn-primary">Editar</a>>-->
+    </div>
+</div>

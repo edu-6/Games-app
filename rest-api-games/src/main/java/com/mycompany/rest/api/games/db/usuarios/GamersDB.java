@@ -5,6 +5,7 @@
 package com.mycompany.rest.api.games.db.usuarios;
 
 import com.mycompany.rest.api.games.db.DBConnectionSingleton;
+import com.mycompany.rest.api.games.db.ValidadorUsuarioUnico;
 import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;
 import com.mycompany.rest.api.games.modelos.gamers.Gamer;
 import java.io.InputStream;
@@ -48,15 +49,8 @@ public class GamersDB {
     
     
     public boolean existeGamerConCorreo(String correo) {
-        
-        try ( Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement query = connection.prepareStatement(BUSCAR_GAMER_POR_CORREO);) {
-            query.setString(1, correo);
-            ResultSet result = query.executeQuery();
-            return result.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+         ValidadorUsuarioUnico validador = new ValidadorUsuarioUnico();
+        return validador.usuarioYaExiste(correo);
     }
     
     

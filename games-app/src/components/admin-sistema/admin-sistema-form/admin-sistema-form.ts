@@ -3,10 +3,11 @@ import { AdminSistema } from '../../../models/admins-sistema/admin-creacion';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminsSistemaService } from '../../../services/admin-sistema-service';
 import { RouterLink } from '@angular/router';
+import { Header } from '../../header/header';
 
 @Component({
   selector: 'app-admin-sistema-form',
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, Header],
   templateUrl: './admin-sistema-form.html',
   styleUrl: './admin-sistema-form.css',
 })
