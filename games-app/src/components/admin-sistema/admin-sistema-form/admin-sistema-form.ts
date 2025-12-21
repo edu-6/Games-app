@@ -18,7 +18,8 @@ export class AdminSistemaForm implements OnInit {
   formulario!: FormGroup;
   urlTemporal: String = "url";
   mensajeError !: String;
-
+  tipoInput : string = "password";
+  estado: string = "mostrar";
   hayArchivoCargado: boolean = false;
   intentoEnviarlo: boolean = false;
   hayError: boolean = false;
@@ -52,6 +53,17 @@ export class AdminSistemaForm implements OnInit {
     if (this.estaEnEdicion) {
       this.formulario.reset(this.adminEdicion);
       this.recuperarImagen(); // recuperar imagen desde el servidor
+    }
+  }
+
+
+  cambiarTipoInput(){
+    if(this.tipoInput === "password"){
+      this.tipoInput = "text";
+      this.estado = "ocultar";
+    }else{
+      this.tipoInput = "password";
+      this.tipoInput = "mostrar";
     }
   }
 
