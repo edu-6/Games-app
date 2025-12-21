@@ -153,6 +153,9 @@ export class AdminSistemaForm implements OnInit {
       this.adminSistemaServicios.editarAdmin(this.adminEdicion).subscribe({
         next:()=>{
           this.edicionExistosa = true;
+          if(this.adminEdicion){ // si existe el admin edicion
+            this.subirImagen(this.adminEdicion?.correo);
+          }
           
         },
         error:(error: any)=>{
