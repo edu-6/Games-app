@@ -5,8 +5,8 @@
 package com.mycompany.rest.api.games.db;
 
 import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistema;
-import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistemaSimple;
 import com.mycompany.rest.api.games.modelos.adminSistema.AvatarAdminSistema;
+import com.mycompany.rest.api.games.modelos.usuarios.UsuarioSimple;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,14 +43,14 @@ public class AdminSistemaDB {
         return validador.usuarioYaExiste(parametro);
     }
 
-    public ArrayList<AdminSistemaSimple> buscarAdmins(String parametro) throws SQLException {
-        ArrayList<AdminSistemaSimple> lista = new ArrayList<>();
+    public ArrayList<UsuarioSimple> buscarAdmins(String parametro) throws SQLException {
+        ArrayList<UsuarioSimple> lista = new ArrayList<>();
         try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement ps = connection.prepareStatement(BUSCAR_ADMINS)) {
             ps.setString(1, parametro);
             ps.setString(2, parametro);
             ResultSet result = ps.executeQuery();
             while (result.next()) {
-                AdminSistemaSimple admin = new AdminSistemaSimple();
+                UsuarioSimple admin = new UsuarioSimple();
                 admin.setNombre(result.getString("admin_nombre"));
                 admin.setCorreo(result.getString("admin_correo"));
                 lista.add(admin);
@@ -59,13 +59,13 @@ public class AdminSistemaDB {
         return lista;
     }
 
-    public ArrayList<AdminSistemaSimple> obtenerAdmins() throws SQLException {
-        ArrayList<AdminSistemaSimple> lista = new ArrayList<>();
+    public ArrayList<UsuarioSimple> obtenerAdmins() throws SQLException {
+        ArrayList<UsuarioSimple> lista = new ArrayList<>();
         try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement ps = connection.prepareStatement(OBTENER_TODOS)) {
 
             ResultSet result = ps.executeQuery();
             while (result.next()) {
-                AdminSistemaSimple admin = new AdminSistemaSimple();
+                UsuarioSimple admin = new UsuarioSimple();
                 admin.setNombre(result.getString("admin_nombre"));
                 admin.setCorreo(result.getString("admin_correo"));
                 lista.add(admin);

@@ -2,21 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.rest.api.games.modelos.adminSistema;
+package com.mycompany.rest.api.games.modelos.usuarios;
 
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @author edu   esta versión sirve para  no regresar contraseñas
+ *
+ * @author edu
  */
-public class AdminSistemaSimple {
-    private String nombre;
+public class UsuarioSimple {
     private String correo;
+    private String nombre;
     
-    public AdminSistemaSimple() {
+    // esta clase sirve para representar un usuario simple con nombre y correo
+    
+    public UsuarioSimple() {
     }
 
-    public AdminSistemaSimple(String nombre, String correo) {
+    public UsuarioSimple(String nombre, String correo) {
         this.nombre = nombre;
         this.correo = correo;
     }
@@ -49,4 +52,5 @@ public class AdminSistemaSimple {
                 && correo != null
                 && nombre != null;
     }
+    
 }

@@ -8,8 +8,8 @@ import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistema;
-import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistemaSimple;
 import com.mycompany.rest.api.games.modelos.adminSistema.AvatarAdminSistema;
+import com.mycompany.rest.api.games.modelos.usuarios.UsuarioSimple;
 import com.mycompany.rest.api.games.servicios.AdminSistemaCrudService;
 
 import jakarta.ws.rs.Consumes;
@@ -106,7 +106,7 @@ public class AdminsSistemaResource {
         AdminSistemaCrudService crudService = new AdminSistemaCrudService();
 
         try {
-            ArrayList<AdminSistemaSimple> lista = crudService.buscarAdmins(parametro);
+            ArrayList<UsuarioSimple> lista = crudService.buscarAdmins(parametro);
             return Response.ok(lista).build();
         } catch (DatosInvalidosException | NoEncontradoException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(ex.getMessage())).build();
@@ -121,7 +121,7 @@ public class AdminsSistemaResource {
         AdminSistemaCrudService crudService = new AdminSistemaCrudService();
 
         try {
-            ArrayList<AdminSistemaSimple> lista = crudService.obtenerAdmins();
+            ArrayList<UsuarioSimple> lista = crudService.obtenerAdmins();
             return Response.ok(lista).build();
         } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();

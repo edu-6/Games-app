@@ -9,8 +9,8 @@ import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistema;
-import com.mycompany.rest.api.games.modelos.adminSistema.AdminSistemaSimple;
 import com.mycompany.rest.api.games.modelos.adminSistema.AvatarAdminSistema;
+import com.mycompany.rest.api.games.modelos.usuarios.UsuarioSimple;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.StreamingOutput;
 import java.io.IOException;
@@ -70,7 +70,7 @@ public class AdminSistemaCrudService {
         db.eliminarAdmin(correo);
     }
 
-    public ArrayList<AdminSistemaSimple> buscarAdmins(String parametro) throws DatosInvalidosException, SQLException, NoEncontradoException {
+    public ArrayList<UsuarioSimple> buscarAdmins(String parametro) throws DatosInvalidosException, SQLException, NoEncontradoException {
         AdminSistemaDB db = new AdminSistemaDB();
         if (parametro == null) {
             throw new DatosInvalidosException("ingrese el correo o nombre");
@@ -79,7 +79,7 @@ public class AdminSistemaCrudService {
         return db.buscarAdmins(parametro);
     }
 
-    public ArrayList<AdminSistemaSimple> obtenerAdmins() throws SQLException {
+    public ArrayList<UsuarioSimple> obtenerAdmins() throws SQLException {
         AdminSistemaDB db = new AdminSistemaDB();
         return db.obtenerAdmins();
     }

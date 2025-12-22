@@ -6,6 +6,27 @@ CREATE TABLE pais (
     pais_codigo VARCHAR(10) NOT NULL
 );
 
+
+CREATE TABLE tabla_configuracion (
+    porcentaje_comision INTEGER NOT NULL,
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+
+CREATE TABLE empresa (
+    nombre_empresa VARCHAR(40) PRIMARY KEY NOT NULL,
+    permite_comentarios BOOLEAN NOT NULL
+);
+
+CREATE TABLE negociacion_empresa (
+    nombre_empresa VARCHAR(40) PRIMARY KEY NOT NULL,
+    porcentaje_comision INTEGER NOT NULL,
+    CONSTRAINT fk_empresa_nombre FOREIGN KEY (nombre_empresa) REFERENCES empresa (nombre_empresa)
+);
+
+
+
+INSERT INTO tabla_configuracion(porcentaje_comision) VALUES ('15');
+
 INSERT INTO pais (pais_nombre, pais_codigo) VALUES
 ('GUATEMALA', 'GT'),
 ('HONDURAS', 'HN'),
@@ -25,21 +46,15 @@ CREATE TABLE admin_sistema (
     admin_avatar MEDIUMBLOB
 );
 
-CREATE TABLE empresa (
-    em_codigo INT AUTO_INCREMENT PRIMARY KEY,
-    em_nombre VARCHAR(100) NOT NULL,
-    em_visibilidad_comentarios BOOLEAN DEFAULT TRUE,
-    em_porcentaje_comision INT NOT NULL
-);
 
 CREATE TABLE admin_empresa (
     admin_nombre VARCHAR(100) NOT NULL,
     admin_correo VARCHAR(100) NOT NULL PRIMARY KEY,
     admin_contraseña VARCHAR(100) NOT NULL,
     admin_fecha_nacimiento DATE NOT NULL,
-    codigo_empresa INT NOT NULL,
+    nombre_empresa VARCHAR(40) NOT NULL,
     avatar MEDIUMBLOB,
-    CONSTRAINT fk_admin_empresa_entidad FOREIGN KEY (codigo_empresa) REFERENCES empresa (em_codigo)
+    CONSTRAINT fk_admin_empresa FOREIGN KEY (nombre_empresa) REFERENCES empresa (nombre_empresa)
 );
 
 CREATE TABLE gamer(
@@ -56,14 +71,9 @@ CREATE TABLE gamer(
     CONSTRAINT fk_gamer FOREIGN KEY (nombre_pais) REFERENCES pais (pais_nombre)
 );
 
-INSERT INTO empresa (em_nombre, em_visibilidad_comentarios, em_porcentaje_comision)
-VALUES ('Bug games', true, 12);
 
 INSERT INTO admin_sistema(admin_nombre, admin_correo, admin_contraseña)
 VALUES ('Primer admin','admin1@gmail.com','12345');
-
-INSERT INTO admin_empresa (admin_nombre, admin_correo, admin_contraseña, admin_fecha_nacimiento, codigo_empresa, avatar)
-VALUES ('AdminEmpresa1', 'roberto@epicgames.com', '12345', '1990-03-25', 1, NULL);
 
 
 
