@@ -4,23 +4,24 @@
  */
 package com.mycompany.rest.api.games.modelos.empresas;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  *
  * @author edu
  */
-public class Empresa {
+public class EmpresaEdicion extends Empresa {
+    private String nuevoNombre;
 
-    protected String nombre;
-    protected boolean aceptaComentarios;
-
-    public Empresa(String nombre, boolean aceptaComentarios) {
-        this.nombre = nombre;
-        this.aceptaComentarios = aceptaComentarios;
+    public EmpresaEdicion(String nuevoNombre, String nombre, boolean aceptaComentarios) {
+        super(nombre, aceptaComentarios);
+        this.nuevoNombre = nuevoNombre;
     }
 
-    public Empresa() {
+    public EmpresaEdicion() {
+    }
+    
+
+    public String getNuevoNombre() {
+        return nuevoNombre;
     }
 
     public String getNombre() {
@@ -31,6 +32,10 @@ public class Empresa {
         return aceptaComentarios;
     }
 
+    public void setNuevoNombre(String nuevoNombre) {
+        this.nuevoNombre = nuevoNombre;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -38,11 +43,4 @@ public class Empresa {
     public void setAceptaComentarios(boolean aceptaComentarios) {
         this.aceptaComentarios = aceptaComentarios;
     }
-
-    public boolean valido() {
-        return this.nombre != null
-                && StringUtils.isNotBlank(nombre)
-                &&  nombre.length()  <= 40;
-    }
-
 }

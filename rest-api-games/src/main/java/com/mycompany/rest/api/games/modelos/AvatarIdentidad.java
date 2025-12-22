@@ -9,7 +9,7 @@ import java.io.InputStream;
 /**
  *
  * @author edu
- */
+ */  //Representa la imagen de alguna identidad teniendo un id (de la identidad) y su imagen
 public class AvatarIdentidad {
     private String idIdentidad;
     private InputStream imagen;
