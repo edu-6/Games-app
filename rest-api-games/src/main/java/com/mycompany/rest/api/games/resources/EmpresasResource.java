@@ -27,6 +27,7 @@ import java.util.ArrayList;
  *
  * @author edu
  */
+@Path("empresas")
 public class EmpresasResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

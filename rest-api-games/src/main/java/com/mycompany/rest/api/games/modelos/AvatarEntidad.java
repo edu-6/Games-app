@@ -10,11 +10,11 @@ import java.io.InputStream;
  *
  * @author edu
  */  //Representa la imagen de alguna identidad teniendo un id (de la identidad) y su imagen
-public class AvatarIdentidad {
+public class AvatarEntidad {
     private String idIdentidad;
     private InputStream imagen;
 
-    public AvatarIdentidad(String id, InputStream imagen) {
+    public AvatarEntidad(String id, InputStream imagen) {
         this.idIdentidad = id;
         this.imagen = imagen;
     }

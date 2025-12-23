@@ -4,23 +4,24 @@
  */
 package com.mycompany.rest.api.games.modelos.empresas.admin;
 
-import java.sql.Date;
+import com.mycompany.rest.api.games.modelos.EntidadBackend;
+import java.time.LocalDate;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author edu
  */
-public class AdminEmpresa {
+public class AdminEmpresa extends EntidadBackend{
     
     // Representa la clase para la edición y la creación
-    
     private String nombre;
     private String correo;
     private String contraseña;
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private String nombreEmpresa;
 
-    public AdminEmpresa(String nombre, String correo, String contraseña, Date fechaNacimiento, String nombreEmpresa) {
+    public AdminEmpresa(String nombre, String correo, String contraseña, LocalDate fechaNacimiento, String nombreEmpresa) {
         this.nombre = nombre;
         this.correo = correo;
         this.contraseña = contraseña;
@@ -43,7 +44,7 @@ public class AdminEmpresa {
         return contraseña;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
@@ -63,16 +64,27 @@ public class AdminEmpresa {
         this.contraseña = contraseña;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
     public void setNombreEmpresa(String nombreEmpresa) {
         this.nombreEmpresa = nombreEmpresa;
     }
-    
-    
-    
-    
+
+    @Override
+    public boolean valido() {
+        return this.nombre != null
+                && this.correo != null
+                && this.contraseña != null
+                && this.fechaNacimiento != null
+                && this.nombreEmpresa != null
+                && StringUtils.isNotBlank(nombre)
+                && StringUtils.isNotBlank(contraseña)
+                && StringUtils.isNotBlank(nombreEmpresa)
+                &&  nombre.length()  <=  100
+                &&  contraseña.length()  <= 100
+                &&  nombreEmpresa.length()  <= 40;
+    }
     
 }
