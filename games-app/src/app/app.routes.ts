@@ -8,6 +8,9 @@ import { EditarCategoriaPage } from '../pages/admin-sistema/categorias/editar-ca
 import { AdminSistemaForm } from '../components/admin-sistema/admin-sistema-form/admin-sistema-form';
 import { AdminsSistemaPage } from '../pages/admin-sistema/admin-sistema-pages/admins-sistema-page/admins-sistema-page';
 import { AdminsSistemaEditarPage } from '../pages/admin-sistema/admin-sistema-pages/admins-sistema-editar-page/admins-sistema-editar-page';
+import { EmpresasPage } from '../pages/empresas-pages/empresas-page/empresas-page';
+import { EmpresaForm } from '../components/empresas/empresa-form/empresa-form';
+import { EdicionEmpresa } from '../components/empresas/edicion-empresa/edicion-empresa';
 
 export const routes: Routes = [
 
@@ -23,9 +26,12 @@ export const routes: Routes = [
     //Admins sistema
     { path: "admins-sistema", component:  AdminsSistemaPage},
     { path: "admins-sistema/form", component:  AdminSistemaForm},
-    { path: "admins-sistema/edicion/:correo", component:  AdminsSistemaEditarPage}
+    { path: "admins-sistema/edicion/:correo", component:  AdminsSistemaEditarPage},
 
-    
+    //Empresas 
+    { path: "empresas", component: EmpresasPage},
+    { path: "empresas/form", component: EmpresaForm},
+    { path: "empresas/edicion/:nombre", component: EdicionEmpresa}
     
     
 

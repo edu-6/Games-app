@@ -1,0 +1,82 @@
+<app-header></app-header>
+
+<form [formGroup]="formulario" (submit)="enviar()">
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-10 col-lg-8">
+
+
+                    @if (hayError) {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error!</strong> {{mensajeError}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+
+                    @if (creacionExitosa) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Exito!</strong> Se registró exitosamente.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+
+
+                    @if (edicionExistosa) {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Exito!</strong> Se editó exitosamente.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+                            @if(estaEnEdicion){
+                            <h3 class="mb-5 text-center">{{mensajeEdicion}}</h3>
+                            }@else {
+                            <h3 class="mb-5 text-center">{{mensajeCreacion}}</h3>
+                            }
+
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <label class="form-label">Suba una imagen (Opcional)</label>
+                                    <input class="form-control" type="file" id="formFile"
+                                        (change)="AlCargarArchivo($event)">
+                                </div>
+                                @if(hayArchivoCargado || urlTemporal != null){
+                                <div class="col-md-6">
+                                    <img [src]="urlTemporal" class="img-thumbnail avatar" width="250">
+                                </div>
+                                }
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nombre:</label>
+                                    <input type="text" class="form-control" name="name" formControlName="nombre"
+                                        [class.is-invalid]="formulario.controls['nombre'].invalid && intentoEnviarlo">
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Nombre de la empresa (Max 100)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-md-6 form-check form-switch">
+                                    <input class="form-check-input" formControlName="aceptaComentarios"
+                                        type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                    <label class="form-check-label text-center" for="flexSwitchCheckDefault">Visualizacion de comentarios</label>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
+                            </div>
+                            <div class="mt-4">
+                                <button type="button" routerLink="/empresas"
+                                    class="btn btn-secondary py-3 w-100">Regresar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

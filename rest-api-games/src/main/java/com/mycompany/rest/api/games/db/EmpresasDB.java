@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.rest.api.games.db;
+import com.mycompany.rest.api.games.modelos.AvatarEntidad;
 import com.mycompany.rest.api.games.modelos.empresas.Empresa;
 import com.mycompany.rest.api.games.modelos.empresas.EmpresaEdicion;
 import java.sql.Connection;
@@ -21,7 +22,8 @@ public class EmpresasDB {
         private static final String EDITAR_EMPRESA = "update  empresa set nombre_empresa  = ?, permite_comentarios  = ? where nombre_empresa = ?";
         private static final String BUSCAR_EMPRESA = "select *from empresa where nombre_empresa = ?";
         private static final String ELIMINAR_EMPRESA = "delete from empresa where nombre_empresa = ?";
-
+        private static final String RECUPERAR_IMAGEN = "select avatar_empresa from empresa where nombre_empresa = ?";
+        private static final String AGREGAR_IMAGEN = "UPDATE  empresa set avatar_empresa = ? where nombre_empresa = ?";
         private static final String OBTENER_TODAS_LAS_EMPRESAS = "select * from empresa";
 
         public boolean existeEmpresa(String nombre) {
@@ -83,5 +85,21 @@ public class EmpresasDB {
                 return lista;
             }
         }
+        
+        
+        public void agregarImagen(AvatarEntidad avatar) {
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement query = connection.prepareStatement(AGREGAR_IMAGEN);) {
+            query.setBlob(1, avatar.getImagen());
+            query.setString(2, avatar.getIdIdentidad());
+            query.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public byte [] recuperarImagen(String id) throws SQLException {
+        ImagenesDB db = new ImagenesDB();
+        return  db.recuperarImagen(RECUPERAR_IMAGEN, id, "avatar_empresa");
+    }
     }
 

@@ -8,8 +8,13 @@ import com.mycompany.rest.api.games.db.EmpresasDB;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
+import com.mycompany.rest.api.games.modelos.AvatarEntidad;
 import com.mycompany.rest.api.games.modelos.empresas.Empresa;
 import com.mycompany.rest.api.games.modelos.empresas.EmpresaEdicion;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.StreamingOutput;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -76,5 +81,33 @@ public class EmpresasCrudService {
         }
         
         db.eliminarEmpresa(nombre);
+    }
+    
+    
+    public void agregarImagen(AvatarEntidad avatar) {
+        EmpresasDB db = new EmpresasDB();
+        try {
+            db.agregarImagen(avatar);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public StreamingOutput recuperarImagen(String correo) throws SQLException, NoEncontradoException {
+        EmpresasDB db = new EmpresasDB();
+        
+        byte [] imagen = db.recuperarImagen(correo);
+        if(imagen == null){
+            throw new NoEncontradoException();
+        }
+        // retornar un straming output
+        return new StreamingOutput() {
+        @Override
+        public void write(OutputStream os) throws IOException, WebApplicationException {
+            os.write(imagen);
+            os.flush();
+        }
+    };
     }
 }

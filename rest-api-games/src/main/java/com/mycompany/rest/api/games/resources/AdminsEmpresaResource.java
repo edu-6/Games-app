@@ -34,7 +34,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
  * @author edu
  */
 @Path("admins-empresa")
-public class AdminsEmpresaResource {
+public class AdminsEmpresaResource {    
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

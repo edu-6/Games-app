@@ -26,15 +26,12 @@ public abstract class CrudService {
     public abstract void crearEntidad(Entidad entidad) throws IdentidadRepetidaException, DatosInvalidosException, SQLException;
     public abstract void editarEntidad(Entidad  entidad) throws IdentidadRepetidaException, DatosInvalidosException, NoEncontradoException, SQLException;
     public abstract void eliminarEntidad(String parametro)throws DatosInvalidosException, NoEncontradoException, SQLException;
+   
     
-    public abstract  void agregarImagen(AvatarEntidad avatar);
-    public abstract StreamingOutput recuperarImagen(String correo);
-    
-    
-     public void agregarImagenAdmin(AvatarEntidad avatarEntidad, Crud db) {
+    public void agregarImagen(AvatarEntidad avatarEntidad, Crud db) {
             db.agregarImagen(avatarEntidad);
     }
-     
+    
     public StreamingOutput recuperarImagen(String correo, Crud db) throws SQLException, NoEncontradoException {
         byte [] imagen = db.recuperarImagen(correo);
         if(imagen == null){
