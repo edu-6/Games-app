@@ -22,8 +22,8 @@ public class EmpresasDB {
         private static final String EDITAR_EMPRESA = "update  empresa set nombre_empresa  = ?, permite_comentarios  = ? where nombre_empresa = ?";
         private static final String BUSCAR_EMPRESA = "select *from empresa where nombre_empresa = ?";
         private static final String ELIMINAR_EMPRESA = "delete from empresa where nombre_empresa = ?";
-        private static final String RECUPERAR_IMAGEN = "select avatar_empresa from empresa where nombre_empresa = ?";
-        private static final String AGREGAR_IMAGEN = "UPDATE  empresa set avatar_empresa = ? where nombre_empresa = ?";
+        private static final String RECUPERAR_IMAGEN = "select empresa_avatar from empresa where nombre_empresa = ?";
+        private static final String AGREGAR_IMAGEN = "UPDATE  empresa set empresa_avatar = ? where nombre_empresa = ?";
         private static final String OBTENER_TODAS_LAS_EMPRESAS = "select * from empresa";
 
         public boolean existeEmpresa(String nombre) {
@@ -99,7 +99,7 @@ public class EmpresasDB {
 
     public byte [] recuperarImagen(String id) throws SQLException {
         ImagenesDB db = new ImagenesDB();
-        return  db.recuperarImagen(RECUPERAR_IMAGEN, id, "avatar_empresa");
+        return  db.recuperarImagen(RECUPERAR_IMAGEN, id, "empresa_avatar");
     }
     }
 
