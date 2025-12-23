@@ -4,6 +4,7 @@
  */
 package com.mycompany.rest.api.games.resources;
 
+import com.mycompany.rest.api.games.db.AdminEmpresaDB;
 import com.mycompany.rest.api.games.dtos.usuarios.adminEmpresa.AdminEmpresaRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
@@ -22,6 +23,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.StreamingOutput;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -115,26 +117,34 @@ public class AdminsEmpresaResource {
     }
 
     @GET
-    @Path("admins/{}")
+    @Path("admins/{correo}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerAdmins() {
+    public Response obtenerAdmins(@PathParam("correo") String correoAdmin){
         AdminEmpresaCrudService crudService = new AdminEmpresaCrudService();
 
-        ArrayList<AdminEmpresaSimple> lista = crudService.obtenerTodosLosAdmins(correoAdmin);
-        return Response.ok(lista).build();
+        ArrayList<AdminEmpresaSimple> lista;
+        try {
+            lista = crudService.obtenerTodosLosAdmins(correoAdmin);
+            return Response.ok(lista).build();
+        } catch (DatosInvalidosException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(ex.getMessage())).build();
+        } catch (SQLException e) {
+           return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        }
+        
     }
 
-    /*
+
     @PUT
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response agregarFotoAdmin(@FormDataParam("correo") String correo, @FormDataParam("imagen") InputStream imagenCargada) {
         AdminEmpresaCrudService crudService = new AdminEmpresaCrudService();
-        crudService.agregarImagen(new AvatarEntidad(correo, imagenCargada));
+        AdminEmpresaDB db= new AdminEmpresaDB();
+        crudService.agregarImagen(new AvatarEntidad(correo, imagenCargada), db);
         return Response.status(Response.Status.OK).build();
-
     }
     
-    */ /// IMPORTANTE IMPLEMENTAR
+
 
     /**
      * Para devolver la imagen MediaType.APPLICATION_OCTET_STREAM porque no se sabe el formato
@@ -145,8 +155,9 @@ public class AdminsEmpresaResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response recuperarImagen(@PathParam("correo") String correo) {
         AdminEmpresaCrudService crudService = new AdminEmpresaCrudService();
+        AdminEmpresaDB db= new AdminEmpresaDB();
         try {
-            StreamingOutput stream = crudService.recuperarImagen(correo);
+            StreamingOutput stream = crudService.recuperarImagen(correo, db);
             
             if (stream == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();

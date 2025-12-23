@@ -7,9 +7,7 @@ package com.mycompany.rest.api.games.db;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.AvatarEntidad;
 import com.mycompany.rest.api.games.modelos.Entidad;
-import jakarta.ws.rs.core.StreamingOutput;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
