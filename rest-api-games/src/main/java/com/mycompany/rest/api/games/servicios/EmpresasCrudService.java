@@ -43,9 +43,13 @@ public class EmpresasCrudService {
         if(!edicion.valido()){
             throw new DatosInvalidosException("datos invalidos");
         }
-        if(db.existeEmpresa(edicion.getNuevoNombre())){
-            throw new IdentidadRepetidaException("ya existe la empresa "+ edicion.getNombre());
+        
+        if (!edicion.getNuevoNombre().equals(edicion.getNombre())) { // si no son mismos
+            if (db.existeEmpresa(edicion.getNuevoNombre())) { // si ya existe algo con el nuevo nombre
+                throw new IdentidadRepetidaException("ya existe la empresa " + edicion.getNuevoNombre());
+            }
         }
+        
         db.editarEmpresa(edicion);
     }
     

@@ -8,6 +8,7 @@ import { EdicionCategoria } from "../models/categorias/edicion-categoria";
 import { AdminSistema } from "../models/admins-sistema/admin-creacion";
 import { AdminSistemaSimple } from "../models/admins-sistema/admin-simple";
 import { Empresa } from "../models/empresa/empresa";
+import { EmpresaEdicion } from "../models/empresa/empresa-edicion";
 
 
 @Injectable({
@@ -34,7 +35,7 @@ export class EmpresasService {
     return this.httpCliente.get<Empresa >(`${this.constantesRest.getApiURL()}empresas/${correo}`);
   }
 
-  public editarEmpresa(empresa: Empresa): Observable<void>{
+  public editarEmpresa(empresa: EmpresaEdicion): Observable<void>{
     return this.httpCliente.put<void>(this.constantesRest.getApiURL() + 'empresas', empresa);
   }
 

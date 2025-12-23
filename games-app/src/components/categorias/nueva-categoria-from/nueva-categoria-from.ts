@@ -105,7 +105,7 @@ export class NuevaCategoriaFrom implements OnInit {
 
 
   generarModelo(): EdicionCategoria {
-    let edicion: EdicionCategoria = {
+    let edicion: EdicionCategoria = { 
       nombreAnterior: this.categoriaAEditar.categoria,
       nuevoNombre: this.formulario.value.categoria
     };

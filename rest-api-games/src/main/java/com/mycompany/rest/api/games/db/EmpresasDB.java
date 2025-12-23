@@ -42,8 +42,10 @@ public class EmpresasDB {
             try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement insert = connection.prepareStatement(BUSCAR_EMPRESA)) {
                 insert.setString(1, nombre);
                 ResultSet result = insert.executeQuery();
-                result.next();
-                return new Empresa(result.getString("nombre_empresa"), result.getBoolean("permite_comentarios"));
+                if(result.next()){
+                    return new Empresa(result.getString("nombre_empresa"), result.getBoolean("permite_comentarios"));
+                }
+                return null;
             }
         }
 

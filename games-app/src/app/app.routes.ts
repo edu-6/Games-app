@@ -10,7 +10,8 @@ import { AdminsSistemaPage } from '../pages/admin-sistema/admin-sistema-pages/ad
 import { AdminsSistemaEditarPage } from '../pages/admin-sistema/admin-sistema-pages/admins-sistema-editar-page/admins-sistema-editar-page';
 import { EmpresasPage } from '../pages/empresas-pages/empresas-page/empresas-page';
 import { EmpresaForm } from '../components/empresas/empresa-form/empresa-form';
-import { EdicionEmpresa } from '../components/empresas/edicion-empresa/edicion-empresa';
+import { EmpresasEditarPage } from '../pages/empresas-pages/empresas-editar-page/empresas-editar-page';
+
 
 export const routes: Routes = [
 
@@ -31,7 +32,7 @@ export const routes: Routes = [
     //Empresas 
     { path: "empresas", component: EmpresasPage},
     { path: "empresas/form", component: EmpresaForm},
-    { path: "empresas/edicion/:nombre", component: EdicionEmpresa}
+    { path: "empresas/edicion/:nombre", component: EmpresasEditarPage}
     
     
 

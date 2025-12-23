@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { EmpresasService } from '../../../services/empresas-service';
 import { Header } from "../../header/header";
 import { RouterLink } from '@angular/router';
+import { EmpresaCard } from '../empresa-card/empresa-card';
+import { EmpresaEdicion } from '../../../models/empresa/empresa-edicion';
 
 @Component({
   selector: 'app-empresa-form',
@@ -24,8 +26,11 @@ export class EmpresaForm implements OnInit {
   //creacionJsonExistosa: boolean = false;
   edicionExistosa: boolean = false;
 
-  mensajeEdicion : String = "Edicion empresa";
-  mensajeCreacion : String = "Creacion empresa";
+  mensajeEdicion: String = "Edicion empresa";
+  mensajeCreacion: String = "Creacion empresa";
+
+
+  empresaEditada !: EmpresaEdicion;
 
   constructor(private formBuilder: FormBuilder, private empresasServicio: EmpresasService) {
   }
@@ -35,7 +40,7 @@ export class EmpresaForm implements OnInit {
   estaEnEdicion: boolean = false;
 
   @Input()
-  empresaEdicion: Empresa | null = null;
+  empresaEdicion!: Empresa;
 
 
   ngOnInit(): void {
@@ -82,10 +87,10 @@ export class EmpresaForm implements OnInit {
   recuperarImagen(): void {
     if (this.empresaEdicion) {
       this.empresasServicio.obtenerImagen(this.empresaEdicion.nombre).subscribe({
-        next:(imagen: Blob) =>{
+        next: (imagen: Blob) => {
           this.urlTemporal = URL.createObjectURL(imagen); // se recupera la imagen
         },
-        error:(error: any) =>{
+        error: (error: any) => {
           console.log("no tenía foto o hay error interno");
         }
       });
@@ -103,12 +108,12 @@ export class EmpresaForm implements OnInit {
         error: (error: any) => {
           console.log(error.error.mensaje);
         }
-
       });
     }
   }
 
-  resetearEstados(): void{
+  resetearEstados(): void {
+    this.edicionExistosa = false;
     this.creacionExitosa = false;
     this.intentoEnviarlo = true;
     this.hayError = false;
@@ -117,7 +122,7 @@ export class EmpresaForm implements OnInit {
 
 
   crear(): void {
-      this.resetearEstados();
+    this.resetearEstados();
     if (this.formulario.valid) {
       this.nuevaEmpresa = this.formulario.value as Empresa;
       console.log("formulario listo");
@@ -142,18 +147,19 @@ export class EmpresaForm implements OnInit {
 
 
   editar(): void {
+    
     this.resetearEstados();
-    if(this.formulario.valid && this.empresaEdicion != null){
-      this.empresaEdicion = this.formulario.value as Empresa;
-      this.empresasServicio.editarEmpresa(this.empresaEdicion).subscribe({
-        next:()=>{
+    if (this.formulario.valid && this.empresaEdicion != null) {
+      this.empresaEditada = this.generarModelo();
+      this.empresasServicio.editarEmpresa(this.empresaEditada).subscribe({
+        next: () => {
           this.edicionExistosa = true;
-          if(this.empresaEdicion){ // si existe la empresa edicion
-            this.subirImagen(this.empresaEdicion.nombre);
+          if (this.empresaEdicion) { // si existe la empresa edicion
+            this.subirImagen(this.empresaEditada.nuevoNombre);
+            this.empresaEdicion = this.formulario.value as Empresa; /// se actualiza a  la nueva edición 
           }
-          
         },
-        error:(error: any)=>{
+        error: (error: any) => {
           this.mensajeError = error.error.mensaje;
           this.hayError = true;
           console.log(error.error);
@@ -161,5 +167,14 @@ export class EmpresaForm implements OnInit {
       });
     }
 
+  }
+
+  generarModelo(): EmpresaEdicion {
+    let edicion: EmpresaEdicion = {
+      nombre: this.empresaEdicion.nombre,
+      nuevoNombre:  this.formulario.value.nombre,
+      aceptaComentarios: this.formulario.value.aceptaComentarios
+    };
+    return edicion;
   }
 }
