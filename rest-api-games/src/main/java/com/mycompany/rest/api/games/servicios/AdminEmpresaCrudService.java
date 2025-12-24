@@ -38,8 +38,9 @@ public class AdminEmpresaCrudService extends CrudService {
 
     @Override
     public void editarEntidad(Entidad entidad) throws DatosInvalidosException, SQLException{
-         AdminEmpresaDB db = new AdminEmpresaDB();
-        AdminEmpresa admin = (AdminEmpresa) entidad; 
+        AdminEmpresaDB db = new AdminEmpresaDB();
+        AdminEmpresaRequest request = (AdminEmpresaRequest) entidad;
+        AdminEmpresa admin = this.extraerAdmin(request); 
         if (!admin.valido()) {
             throw new DatosInvalidosException("datos vacios o muy grandes");
         }

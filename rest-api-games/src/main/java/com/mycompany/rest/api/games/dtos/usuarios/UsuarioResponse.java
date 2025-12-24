@@ -19,6 +19,17 @@ public class UsuarioResponse extends Entidad {
     
     protected String nombre;
     protected String correo;
+
+    public UsuarioResponse() {
+    }
+
+    public UsuarioResponse(String nombre, String correo, LocalDate fechaNacimiento) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+    
+    
     
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)

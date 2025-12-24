@@ -13,6 +13,7 @@ import { EmpresaForm } from '../components/empresas/empresa-form/empresa-form';
 import { EmpresasEditarPage } from '../pages/empresas-pages/empresas-editar-page/empresas-editar-page';
 import { AmdinEmpresaPage } from '../pages/admin-empresa/amdin-empresa-page/amdin-empresa-page';
 import { AmdinEmpresaForm } from '../components/admin-empresa/amdin-empresa-form/amdin-empresa-form';
+import { AmdinEmpresaEditarPage } from '../pages/admin-empresa/amdin-empresa-editar-page/amdin-empresa-editar-page';
 
 
 export const routes: Routes = [
@@ -40,7 +41,7 @@ export const routes: Routes = [
     { path: "admins-empresa", component: AmdinEmpresaPage},
     { path: "admins-empresa/form/:nombre", component: AmdinEmpresaForm},
     { path: "admins-empresa/form", component: AmdinEmpresaForm},
-    { path: "admins-empresa/edicion/:correo", component: AdminsSistemaEditarPage}
+    { path: "admins-empresa/edicion/:correo", component: AmdinEmpresaEditarPage}
 
 
 

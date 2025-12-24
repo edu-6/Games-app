@@ -28,7 +28,7 @@ public class AdminEmpresaDB extends Crud {
     public static final String BUSCAR_ADMIN_POR_CORREO = "SELECT * FROM admin_empresa WHERE admin_correo = ?";
     public static final String BUSCAR_ADMIN_DENTRO_EMPRESA = "SELECT * FROM admin_empresa WHERE admin_correo = ? and  id_empresa = ?";
     public static final String BUSCAR_TODOS = "SELECT * FROM admin_empresa where id_empresa = ?";
-    public static final String RECUPERAR_IMAGEN = "select admin_avatar form admin_empresa where admin_correo = ?";
+    public static final String RECUPERAR_IMAGEN = "select admin_avatar from admin_empresa where admin_correo = ?";
     public static final String AGREGAR_IMAGEN = "update admin_empresa set admin_avatar = ? where admin_correo = ?";
     public static final String OBTENER_ID_EMPRESA = "select id_empresa from admin_empresa where admin_correo = ? ";
     public static final String OBTENER_ID_EMPRESA_POR_CORREO_ADMIN = "select empresa.id_empresa from empresa"
@@ -92,7 +92,8 @@ public class AdminEmpresaDB extends Crud {
         try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement ps = connection.prepareStatement(EDITAR_ADMIN)) {
             ps.setString(1, admin.getNombre());
             ps.setString(2, admin.getContraseña());
-            ps.setString(3, admin.getCorreo());
+            ps.setDate(3, Date.valueOf(admin.getFechaNacimiento()));
+            ps.setString(4, admin.getCorreo());
             ps.executeUpdate();
         }
     }

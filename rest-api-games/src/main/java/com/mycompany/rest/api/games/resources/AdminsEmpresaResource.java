@@ -6,6 +6,7 @@ package com.mycompany.rest.api.games.resources;
 
 import com.mycompany.rest.api.games.db.AdminEmpresaDB;
 import com.mycompany.rest.api.games.dtos.usuarios.adminEmpresa.AdminEmpresaRequest;
+import com.mycompany.rest.api.games.dtos.usuarios.adminEmpresa.AdminEmpresaResponse;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
@@ -91,7 +92,7 @@ public class AdminsEmpresaResource {
     public Response buscarAdminParaEditar(@PathParam("correo") String parametro) {
         AdminEmpresaCrudService crudService = new AdminEmpresaCrudService();
         try {
-            AdminEmpresa admin = crudService.buscarAdminParaEditar(parametro);
+            AdminEmpresaResponse admin =  new AdminEmpresaResponse(crudService.buscarAdminParaEditar(parametro));
             return Response.ok(admin).build();
         } 
         catch (NoEncontradoException ex) {
@@ -168,8 +169,8 @@ public class AdminsEmpresaResource {
             }
             return Response.ok(stream).build();
         } catch (SQLException e) {
+            e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
-           // return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         } catch (NoEncontradoException ex) {
             return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(ex.getMessage())).build();
         }

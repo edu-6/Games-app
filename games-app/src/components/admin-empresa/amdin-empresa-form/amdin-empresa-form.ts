@@ -41,7 +41,7 @@ export class AmdinEmpresaForm implements OnInit {
 
 
   ngOnInit(): void {
-    this.nombreEmpresa  = this.router.snapshot.params['nombre']; // se recojge el parametro si es que se envió
+    this.nombreEmpresa = this.router.snapshot.params['nombre']; // se recojge el parametro si es que se envió
     this.formulario = this.formBuilder.group(
       {
         nombre: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
@@ -55,6 +55,9 @@ export class AmdinEmpresaForm implements OnInit {
     if (this.estaEnEdicion) {
       this.formulario.reset(this.adminEdicion);
       this.recuperarImagen(); // recuperar imagen desde el servidor
+      this.formulario.patchValue({
+        correoAdminCreador: this.generarCorreoAdminCreador() // para que no inicie sin creador
+      });
     }
   }
 
@@ -63,18 +66,18 @@ export class AmdinEmpresaForm implements OnInit {
    * @returns 
    */
   generarCorreoAdminCreador(): string {
-    if(!this.nombreEmpresa){ // si no hay  nombre empresa se genera en base al usuario en login
+    if (!this.nombreEmpresa) { // si no hay  nombre empresa se genera en base al usuario en login
       let correoAdminEnSesion = localStorage.getItem('correo');
-       if(correoAdminEnSesion){
+      if (correoAdminEnSesion) {
         return correoAdminEnSesion;
-       }
+      }
     }
     return this.nombreEmpresa;
   }
 
-  
 
-   enviar(): void {
+
+  enviar(): void {
     if (this.estaEnEdicion) {
       this.editar();
     } else {
@@ -108,6 +111,8 @@ export class AmdinEmpresaForm implements OnInit {
         },
         error: (error: any) => {
           console.log("no tenía foto o hay error interno");
+          console.log(error.error.mensaje);
+
         }
       });
     }
@@ -131,6 +136,7 @@ export class AmdinEmpresaForm implements OnInit {
   }
 
   resetearEstados(): void {
+    this.edicionExistosa = false;
     this.intentoEnviarlo = true;
     this.hayError = false;
   }
@@ -164,13 +170,14 @@ export class AmdinEmpresaForm implements OnInit {
 
   editar(): void {
     this.resetearEstados();
-    if (this.formulario.valid && this.adminEdicion != null) {
+    if (this.formulario.valid) {
+      console.log("se está tratando de editar");
       this.adminEdicion = this.formulario.value as AdminEmpresa;
       this.adminEmpresaServicios.editarAdmin(this.adminEdicion).subscribe({
         next: () => {
           this.edicionExistosa = true;
           if (this.adminEdicion) { // si existe el admin edicion
-            this.subirImagen(this.adminEdicion?.correo);
+            this.subirImagen(this.adminEdicion.correo);
           }
 
         },
@@ -180,6 +187,8 @@ export class AmdinEmpresaForm implements OnInit {
           console.log(error.error);
         }
       });
+    } else {
+      console.log(this.formulario);
     }
 
   }

@@ -22,12 +22,16 @@ export class AmdinEmpresaEditarPage implements OnInit{
 
   ngOnInit(): void {
     this.correoAdmin = this.router.snapshot.params['correo'];
+    if(!this.correoAdmin){
+      console.log(" noe stá llegando bien ");
+    }
+    console.log(this.correoAdmin+ "si pues");
     this.adminServicios.buscarAdminUnico(this.correoAdmin).subscribe({
       next: (admin: AdminEmpresa) => {
         this.adminEdicion  = admin;
       },
       error: (error: any) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }
