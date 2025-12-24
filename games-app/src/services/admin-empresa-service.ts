@@ -7,8 +7,8 @@ import { core } from "@angular/compiler";
 import { EdicionCategoria } from "../models/categorias/edicion-categoria";
 import { AdminSistema } from "../models/admins-sistema/admin-creacion";
 import { AdminSistemaSimple } from "../models/admins-sistema/admin-simple";
-import { AdminEmpresa } from "../models/empresa/admin-empresa";
-import { AdminEmpresaSimple } from "../models/empresa/admin-empresa-simple";
+import { AdminEmpresa } from "../models/admin-empresa/admin-empresa";
+import { AdminEmpresaSimple } from "../models/admin-empresa/admin-empresa-simple";
 
 
 @Injectable({
@@ -23,16 +23,16 @@ export class AdminEmpresaService {
   public crearAdmin(admin: AdminEmpresa): Observable<void> {
     return this.httpCliente.post<void>(this.constantesRest.getApiURL() + 'admins-empresa', admin);
   }
-  public obtenerAdmins(): Observable<AdminEmpresaSimple[]> {
-    return this.httpCliente.get<AdminEmpresaSimple[]>(this.constantesRest.getApiURL() + 'admins-empresa');
+  public obtenerAdmins(correo: string ): Observable<AdminEmpresaSimple[]> {
+    return this.httpCliente.get<AdminEmpresaSimple[]>(`${this.constantesRest.getApiURL()}admins-empresa/lista-completa/${correo}`);
   }
 
-  public buscarAdmins(nombre: string): Observable<AdminEmpresaSimple []>{
-    return this.httpCliente.get<AdminEmpresaSimple []>(`${this.constantesRest.getApiURL()}admins-empresa/${nombre}`);
+  public buscarAdmins(correo: string): Observable<AdminEmpresaSimple []>{
+    return this.httpCliente.get<AdminEmpresaSimple[]>(`${this.constantesRest.getApiURL()}admins-empresa/lista-completa/${correo}`);
   }
 
-  public buscarAdminUnico(correo: string): Observable<AdminSistema>{
-    return this.httpCliente.get<AdminSistema >(`${this.constantesRest.getApiURL()}admins-empresa/adminUnico/${correo}`);
+  public buscarAdminUnico(correo: string): Observable<AdminEmpresa>{
+    return this.httpCliente.get<AdminEmpresa >(`${this.constantesRest.getApiURL()}admins-empresa/adminUnico/${correo}`);
   }
 
   public editarAdmin(admin: AdminEmpresa): Observable<void>{

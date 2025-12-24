@@ -1,0 +1,8 @@
+@if(adminEdicion){
+<app-amdin-empresa-form [estaEnEdicion]="true" [adminEdicion]="adminEdicion"></app-amdin-empresa-form >
+
+}@else {
+<div class="alert alert-danger" role="alert">
+    No se encontró admin-empresa con correo: {{correoAdmin}}
+</div>
+}

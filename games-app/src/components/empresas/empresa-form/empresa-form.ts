@@ -3,7 +3,7 @@ import { Empresa } from '../../../models/empresa/empresa';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmpresasService } from '../../../services/empresas-service';
 import { Header } from "../../header/header";
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { EmpresaCard } from '../empresa-card/empresa-card';
 import { EmpresaEdicion } from '../../../models/empresa/empresa-edicion';
 
@@ -32,7 +32,7 @@ export class EmpresaForm implements OnInit {
 
   empresaEditada !: EmpresaEdicion;
 
-  constructor(private formBuilder: FormBuilder, private empresasServicio: EmpresasService) {
+  constructor(private formBuilder: FormBuilder, private empresasServicio: EmpresasService, private router: Router) {
   }
 
 
@@ -133,6 +133,9 @@ export class EmpresaForm implements OnInit {
 
           // se sube la imagen después del usuario
           this.subirImagen(this.nuevaEmpresa.nombre);
+
+          // moverse a la pestaña de crear admin despues
+          this.router.navigate([`/admins-empresa/form/${this.nuevaEmpresa.nombre}`]);
         },
         error: (error: any) => {
           this.mensajeError = error.error.mensaje;
@@ -156,7 +159,7 @@ export class EmpresaForm implements OnInit {
           this.edicionExistosa = true;
           if (this.empresaEdicion) { // si existe la empresa edicion
             this.subirImagen(this.empresaEditada.nuevoNombre);
-            this.empresaEdicion = this.formulario.value as Empresa; /// se actualiza a  la nueva edición 
+            this.empresaEdicion = this.formulario.value as Empresa; /// se actualiza a  la nueva edición
           }
         },
         error: (error: any) => {

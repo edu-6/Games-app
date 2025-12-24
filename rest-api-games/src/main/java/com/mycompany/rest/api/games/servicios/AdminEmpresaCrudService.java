@@ -22,16 +22,18 @@ public class AdminEmpresaCrudService extends CrudService {
 
     @Override
     public void crearEntidad(Entidad entidad) throws SQLException, IdentidadRepetidaException, DatosInvalidosException {
-       AdminEmpresaDB db = new AdminEmpresaDB();
-       AdminEmpresa admin = (AdminEmpresa) entidad;
-       if(!admin.valido()){
-           throw new DatosInvalidosException(" datos vacios o muy largos");
-       }
-       if(db.existeEntidad(admin.getCorreo())){
-           throw new IdentidadRepetidaException(" el correo: "+ admin.getCorreo()+ " ya está en uso");
-       }
-       
-       db.crearEntidad(entidad);
+    AdminEmpresaDB db = new AdminEmpresaDB();
+    AdminEmpresaRequest elRequestQueLlego = (AdminEmpresaRequest) entidad;
+    AdminEmpresa adminParaGuardar = this.extraerAdmin(elRequestQueLlego);
+    if(!adminParaGuardar.valido()){
+        throw new DatosInvalidosException("Datos vacíos o muy largos");
+    }
+
+    if(db.existeEntidad(adminParaGuardar.getCorreo())){
+        throw new IdentidadRepetidaException("El correo ya está en uso");
+    }
+    db.crearEntidad(adminParaGuardar);
+    
     }
 
     @Override
@@ -81,8 +83,8 @@ public class AdminEmpresaCrudService extends CrudService {
     
     public ArrayList<AdminEmpresaSimple> buscarAdminsEnEmpresa(String correoAdmin) throws DatosInvalidosException, SQLException{
         AdminEmpresaDB db = new AdminEmpresaDB();
-        String nombreEmpresa = db.obtenerNombreEmpresa(correoAdmin);
-        return  db.buscarAdminsEmpresa(correoAdmin, nombreEmpresa);
+        int id_empresa = db.obtenerNombreEmpresa(correoAdmin);
+        return  db.buscarAdminsEmpresa(correoAdmin, id_empresa);
     }
     
     /**
@@ -94,21 +96,21 @@ public class AdminEmpresaCrudService extends CrudService {
      */
     public ArrayList<AdminEmpresaSimple> obtenerTodosLosAdmins(String correoAdmin) throws DatosInvalidosException, SQLException{
         AdminEmpresaDB db = new AdminEmpresaDB();
-        String nombreEmpresa = db.obtenerNombreEmpresa(correoAdmin);
-        return db.obtenerAdmins(nombreEmpresa);
+        int id_empresa = db.obtenerNombreEmpresa(correoAdmin);
+        return db.obtenerAdmins(id_empresa);
     }
     
     
     
     private AdminEmpresa extraerAdmin(AdminEmpresaRequest request) throws SQLException{
         AdminEmpresaDB db = new AdminEmpresaDB();
-        String nombreEmpresa = db.obtenerNombreEmpresa(request.getCorreoAdminCreador());
+        int idEmpresa = db.encontrarIdEmpresa(request.getCorreoAdminCreador());
         return new AdminEmpresa(
                 request.getNombre(),
                 request.getCorreo(),
                 request.getContrasena(),
                 request.getFechaNacimiento(),
-                nombreEmpresa
+                idEmpresa
         );
     }
 }

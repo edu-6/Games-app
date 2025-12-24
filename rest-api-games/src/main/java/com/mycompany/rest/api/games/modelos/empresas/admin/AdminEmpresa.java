@@ -19,14 +19,14 @@ public class AdminEmpresa extends EntidadBackend{
     private String correo;
     private String contraseña;
     private LocalDate fechaNacimiento;
-    private String nombreEmpresa;
+    private int idEmpresa;
 
-    public AdminEmpresa(String nombre, String correo, String contraseña, LocalDate fechaNacimiento, String nombreEmpresa) {
+    public AdminEmpresa(String nombre, String correo, String contraseña, LocalDate fechaNacimiento, int idEmpresa) {
         this.nombre = nombre;
         this.correo = correo;
         this.contraseña = contraseña;
         this.fechaNacimiento = fechaNacimiento;
-        this.nombreEmpresa = nombreEmpresa;
+        this.idEmpresa = idEmpresa;
     }
 
     public AdminEmpresa() {
@@ -48,9 +48,11 @@ public class AdminEmpresa extends EntidadBackend{
         return fechaNacimiento;
     }
 
-    public String getNombreEmpresa() {
-        return nombreEmpresa;
+    public int getIdEmpresa() {
+        return idEmpresa;
     }
+
+
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -68,9 +70,11 @@ public class AdminEmpresa extends EntidadBackend{
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public void setNombreEmpresa(String nombreEmpresa) {
-        this.nombreEmpresa = nombreEmpresa;
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
+
+    
 
     @Override
     public boolean valido() {
@@ -78,13 +82,11 @@ public class AdminEmpresa extends EntidadBackend{
                 && this.correo != null
                 && this.contraseña != null
                 && this.fechaNacimiento != null
-                && this.nombreEmpresa != null
+                && this.idEmpresa  > 0
                 && StringUtils.isNotBlank(nombre)
                 && StringUtils.isNotBlank(contraseña)
-                && StringUtils.isNotBlank(nombreEmpresa)
                 &&  nombre.length()  <=  100
-                &&  contraseña.length()  <= 100
-                &&  nombreEmpresa.length()  <= 40;
+                &&  contraseña.length()  <= 100;
     }
     
 }

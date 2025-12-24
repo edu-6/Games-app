@@ -29,7 +29,7 @@ export class AdminSistemaCard implements OnInit {
   }
 
   ngOnInit(): void {
-   this.esElMismo = this.admin.correo === localStorage.getItem("usuario_correo");
+   this.esElMismo = this.admin.correo === localStorage.getItem("correo");
     this.adminsService.obtenerImagen(this.admin.correo).subscribe({
       next: (datos: Blob) => {
         this.urlFoto = URL.createObjectURL(datos);

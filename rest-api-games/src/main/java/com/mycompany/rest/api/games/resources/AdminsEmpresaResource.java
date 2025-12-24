@@ -34,7 +34,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
  * @author edu
  */
 @Path("admins-empresa")
-public class AdminsEmpresaResource {    
+public class AdminsEmpresaResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -52,7 +52,8 @@ public class AdminsEmpresaResource {
             return Response
                     .status(Response.Status.CONFLICT).entity(new ErrorResponse(e.getMessage())).build();
         } catch (SQLException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage() + "si es aca")).build();
         }
     }
 
@@ -99,6 +100,8 @@ public class AdminsEmpresaResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
+    
+    /*
 
     @GET
     @Path("{correo}")
@@ -115,9 +118,10 @@ public class AdminsEmpresaResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
+    */
 
     @GET
-    @Path("admins/{correo}")
+    @Path("lista-completa/{correo}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerAdmins(@PathParam("correo") String correoAdmin){
         AdminEmpresaCrudService crudService = new AdminEmpresaCrudService();

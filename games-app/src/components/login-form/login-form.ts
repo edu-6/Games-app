@@ -45,8 +45,8 @@ export class LoginForm implements OnInit {
       this.loginServicio.loguearUsuario(this.usuarioLogin).subscribe({
         next: (usuario: UsuarioSesion) => {
           // hacer set a los datos para la sesión
-          localStorage.setItem('usuario_correo', usuario.correo);
-          localStorage.setItem('usuario_rol', usuario.rol);
+          localStorage.setItem('correo', usuario.correo);
+          localStorage.setItem('rol', usuario.rol);
 
           // redirigir a la pagina principal
           this.router.navigate(["/inicio"]);
