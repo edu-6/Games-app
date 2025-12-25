@@ -9,6 +9,7 @@ import { AdminSistema } from "../models/admins-sistema/admin-creacion";
 import { AdminSistemaSimple } from "../models/admins-sistema/admin-simple";
 import { AdminEmpresa } from "../models/admin-empresa/admin-empresa";
 import { AdminEmpresaSimple } from "../models/admin-empresa/admin-empresa-simple";
+import { BusquedaAdmins } from "../models/admin-empresa/busqueda-admins";
 
 
 @Injectable({
@@ -27,8 +28,10 @@ export class AdminEmpresaService {
     return this.httpCliente.get<AdminEmpresaSimple[]>(`${this.constantesRest.getApiURL()}admins-empresa/lista-completa/${correo}`);
   }
 
-  public buscarAdmins(correo: string): Observable<AdminEmpresaSimple []>{
-    return this.httpCliente.get<AdminEmpresaSimple[]>(`${this.constantesRest.getApiURL()}admins-empresa/lista-completa/${correo}`);
+
+  // post porque  en get solo se puede usar parametros 
+  public buscarAdmins(busqueda: BusquedaAdmins): Observable<AdminEmpresaSimple []>{
+    return this.httpCliente.post<AdminEmpresaSimple[]>(this.constantesRest.getApiURL() +"admins-empresa/busqueda", busqueda);
   }
 
   public buscarAdminUnico(correo: string): Observable<AdminEmpresa>{

@@ -34,6 +34,8 @@ public class AdminEmpresaDB extends Crud {
     public static final String OBTENER_ID_EMPRESA_POR_CORREO_ADMIN = "select empresa.id_empresa from empresa"
             + " join admin_empresa on admin_empresa.id_empresa = empresa.id_empresa where admin_correo = ? ";
     public static final String OBTENER_ID_EMPRESA_POR_NOMBRE_EMPRESA = "select id_empresa from empresa WHERE nombre_empresa = ? ";
+    
+     public static final String BUSCAR_ADMINS_CON_NOMBRE_O_CORREO = "SELECT * FROM admin_empresa WHERE  admin_correo = ? or admin_nombre = ? and id_empresa = ?";
 
     @Override
     public boolean existeEntidad(String correo) throws SQLException {
@@ -151,7 +153,7 @@ public class AdminEmpresaDB extends Crud {
      */
     public ArrayList<AdminEmpresaSimple> buscarAdminsEmpresa(String parametro, int id_empresa) throws SQLException {
         ArrayList<AdminEmpresaSimple> lista = new ArrayList<>();
-        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement ps = connection.prepareStatement(BUSCAR_TODOS)) {
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement ps = connection.prepareStatement(BUSCAR_ADMINS_CON_NOMBRE_O_CORREO)) {
             ps.setString(1, parametro);
             ps.setString(2, parametro);
             ps.setInt(3, id_empresa);

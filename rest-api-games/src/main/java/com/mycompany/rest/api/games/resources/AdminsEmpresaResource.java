@@ -13,6 +13,7 @@ import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.AvatarEntidad;
 import com.mycompany.rest.api.games.modelos.empresas.admin.AdminEmpresa;
 import com.mycompany.rest.api.games.modelos.empresas.admin.AdminEmpresaSimple;
+import com.mycompany.rest.api.games.modelos.empresas.admin.BusquedaAdmins;
 import com.mycompany.rest.api.games.servicios.AdminEmpresaCrudService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -102,16 +103,16 @@ public class AdminsEmpresaResource {
         }
     }
     
-    /*
+    
 
-    @GET
-    @Path("{correo}")
+    @POST
+    @Path("busqueda")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarAdmins(@PathParam("correo") String correoAdmin) {
+    public Response buscarAdmins(BusquedaAdmins busqueda) {
         AdminEmpresaCrudService crudService = new AdminEmpresaCrudService();
 
         try {
-            ArrayList<AdminEmpresaSimple> lista = crudService.buscarAdminsEnEmpresa(correoAdmin);
+            ArrayList<AdminEmpresaSimple> lista = crudService.buscarAdminsEnEmpresa(busqueda);
             return Response.ok(lista).build();
         } catch (DatosInvalidosException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(ex.getMessage())).build();
@@ -119,7 +120,6 @@ public class AdminsEmpresaResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
-    */
 
     @GET
     @Path("lista-completa/{correo}")

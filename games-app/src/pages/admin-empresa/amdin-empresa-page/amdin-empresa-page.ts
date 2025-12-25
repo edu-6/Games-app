@@ -6,7 +6,7 @@ import { Header } from "../../../components/header/header";
 import { RouterLink } from '@angular/router';
 import { AmdinEmpresaCard } from "../../../components/admin-empresa/amdin-empresa-card/amdin-empresa-card";
 import { ModalGenerico } from '../../../shared/modal-generico/modal-generico';
-
+import { BusquedaAdmins } from '../../../models/admin-empresa/busqueda-admins';
 @Component({
   selector: 'app-amdin-empresa-page',
   imports: [Header, ReactiveFormsModule, RouterLink, AmdinEmpresaCard, ModalGenerico],
@@ -25,6 +25,8 @@ export class AmdinEmpresaPage {
 
   huboEliminacion: boolean = false;
   mensajeEliminacion!: string;
+
+  correoDeAdmin!: string;
 
   protected admins: AdminEmpresaSimple[] = [];
   protected adminsEncontrados: AdminEmpresaSimple[] = [];
@@ -96,19 +98,25 @@ export class AmdinEmpresaPage {
     this.adminEncontrado = null;
     console.log("Estado del formulario:", this.barraBusqueda.valid);
     console.log("Valores actual:", this.barraBusqueda.value);
-    if (this.barraBusqueda.valid) {
-      this.adminBuscado = this.barraBusqueda.value['adminBuscado'];
-      this.adminsServicios.buscarAdmins(this.adminBuscado).subscribe({
-        next: (admins: AdminEmpresaSimple[]) => {
-          this.mostrarTodos = false;
-          this.adminsEncontrados = admins;
-        },
-        error: (error: any) => {
-          this.hayError = true;
-          this.mensajeError = error.error.mensaje;
-          console.log(error.error);
-        }
-      });
+
+    let correoDeAdmin = localStorage.getItem('correo');
+    if (correoDeAdmin) {
+      if (this.barraBusqueda.valid) {
+        this.adminBuscado = this.barraBusqueda.value['adminBuscado'];
+        // parasar la intefaz como parametro
+        this.adminsServicios.buscarAdmins({correoDelBuscador: correoDeAdmin,parametroDeBusqueda: this.adminBuscado}).subscribe({
+          next: (admins: AdminEmpresaSimple[]) => {
+            this.mostrarTodos = false;
+            this.adminsEncontrados = admins;
+          },
+          error: (error: any) => {
+            this.hayError = true;
+            this.mensajeError = error.error.mensaje;
+            console.log(error.error);
+          }
+        });
+      }
+
     }
 
     this.mostrarTodos = false;

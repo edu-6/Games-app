@@ -11,6 +11,7 @@ import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.Entidad;
 import com.mycompany.rest.api.games.modelos.empresas.admin.AdminEmpresa;
 import com.mycompany.rest.api.games.modelos.empresas.admin.AdminEmpresaSimple;
+import com.mycompany.rest.api.games.modelos.empresas.admin.BusquedaAdmins;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -82,10 +83,10 @@ public class AdminEmpresaCrudService extends CrudService {
      * @throws SQLException 
      */
     
-    public ArrayList<AdminEmpresaSimple> buscarAdminsEnEmpresa(String correoAdmin) throws DatosInvalidosException, SQLException{
+    public ArrayList<AdminEmpresaSimple> buscarAdminsEnEmpresa(BusquedaAdmins busqueda) throws DatosInvalidosException, SQLException{
         AdminEmpresaDB db = new AdminEmpresaDB();
-        int id_empresa = db.obtenerNombreEmpresa(correoAdmin);
-        return  db.buscarAdminsEmpresa(correoAdmin, id_empresa);
+        int id_empresa = db.obtenerNombreEmpresa(busqueda.getCorreoDelBuscador());
+        return  db.buscarAdminsEmpresa(busqueda.getParametroDeBusqueda(), id_empresa);
     }
     
     /**
