@@ -14,39 +14,116 @@ import { EmpresasEditarPage } from '../pages/empresas-pages/empresas-editar-page
 import { AmdinEmpresaPage } from '../pages/admin-empresa/amdin-empresa-page/amdin-empresa-page';
 import { AmdinEmpresaForm } from '../components/admin-empresa/amdin-empresa-form/amdin-empresa-form';
 import { AmdinEmpresaEditarPage } from '../pages/admin-empresa/amdin-empresa-editar-page/amdin-empresa-editar-page';
+import { GuardiaRolesServicio } from '../services/seguridad/GuardiaDeRolesServicio';
 
 
 export const routes: Routes = [
 
-    {path: "", component: LoginForm,},
-    {  path: "registro",component: RegistroForm },
-    { path: "inicio",component: InicioPage },
+    { path: "", component: LoginForm, },
+    {
+        path: "registro",
+        component: RegistroForm,
+    },
+    { path: "inicio", component: InicioPage },
 
-    
-    { path:"categorias",component:CategoriasPage },
-    { path: "categorias/nueva", component: NuevaCategoriaPage},
-    { path: "categorias/edicion/:categoria", component: EditarCategoriaPage},
+
+    //Categorias
+    {
+        path: "categorias",
+        component: CategoriasPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA'] },
+    },
+    {
+        path: "categorias/nueva",
+        component: NuevaCategoriaPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA'] },
+    },
+    {
+        path: "categorias/edicion/:categoria",
+        component: EditarCategoriaPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA'] },
+    },
+
+
 
     //Admins sistema
-    { path: "admins-sistema", component:  AdminsSistemaPage},
-    { path: "admins-sistema/form", component:  AdminSistemaForm},
-    { path: "admins-sistema/edicion/:correo", component:  AdminsSistemaEditarPage},
+    {
+        path: "admins-sistema",
+        component: AdminsSistemaPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA'] },
+    },
+    {
+        path: "admins-sistema/form",
+        component: AdminSistemaForm,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA'] },
+    },
+    {
+        path: "admins-sistema/edicion/:correo",
+        component: AdminsSistemaEditarPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA'] },
+    },
+
+
+
 
     //Empresas 
-    { path: "empresas", component: EmpresasPage},
-    { path: "empresas/form", component: EmpresaForm},
-    { path: "empresas/edicion/:nombre", component: EmpresasEditarPage},
-    
+    {
+        path: "empresas",
+        component: EmpresasPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA'] },
+    },
+    {
+        path: "empresas/form",
+        component: EmpresaForm,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA'] },
+    },
+    {
+        path: "empresas/edicion/:nombre",
+        component: EmpresasEditarPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA'] },
+    },
+
     // Admins empresas 
-    { path: "admins-empresa", component: AmdinEmpresaPage},
-    { path: "admins-empresa/form/:nombre", component: AmdinEmpresaForm},
-    { path: "admins-empresa/form", component: AmdinEmpresaForm},
-    { path: "admins-empresa/edicion/:correo", component: AmdinEmpresaEditarPage}
+    {
+        path: "admins-empresa",
+        component: AmdinEmpresaPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_EMPRESA'] },
+    },
+    {
+        path: "admins-empresa/form/:nombre",
+        component: AmdinEmpresaForm,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA', 'ADMIN_EMPRESA'] },
+    },
+    {
+        path: "admins-empresa/form",
+        component: AmdinEmpresaForm,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_SISTEMA', 'ADMIN_EMPRESA'] },
+    },
+    {
+        path: "admins-empresa/edicion/:correo",
+        component: AmdinEmpresaEditarPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_EMPRESA'] },
+    }
 
 
 
-    
-    
+
+
+
+
 
 
 ];
