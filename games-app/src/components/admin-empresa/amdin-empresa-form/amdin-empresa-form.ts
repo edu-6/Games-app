@@ -6,6 +6,7 @@ import { AdminEmpresaService } from '../../../services/admin-empresa-service';
 import { AdminSistema } from '../../../models/admins-sistema/admin-creacion';
 import { Header } from '../../header/header';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { GuardiaRolesServicio } from '../../../services/seguridad/GuardiaDeRolesServicio';
 
 @Component({
   selector: 'app-amdin-empresa-form',
@@ -29,7 +30,11 @@ export class AmdinEmpresaForm implements OnInit {
   edicionExistosa: boolean = false;
   nombreEmpresa !: string;
 
-  constructor(private formBuilder: FormBuilder, private adminEmpresaServicios: AdminEmpresaService, private router: ActivatedRoute) {
+  esAdminSistema !: boolean;
+
+  constructor(private formBuilder: FormBuilder, private guardService : GuardiaRolesServicio,
+     private adminEmpresaServicios: AdminEmpresaService, private router: ActivatedRoute) {
+      this.esAdminSistema = guardService.userRoleInAllowedRoles(['ADMIN_SISTEMA']);
   }
 
 

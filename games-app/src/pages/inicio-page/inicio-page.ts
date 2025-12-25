@@ -8,5 +8,10 @@ import { Header } from '../../components/header/header';
   styleUrl: './inicio-page.css',
 })
 export class InicioPage {
+  getRol():string | null{
+    return localStorage.getItem('rol');
+}
 
 }
+
+

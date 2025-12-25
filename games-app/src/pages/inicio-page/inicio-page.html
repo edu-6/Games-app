@@ -1,2 +1,9 @@
 <app-header></app-header>
-<p>Usuario ha sido logueado! </p>
+
+@if (getRol(); as rol) {
+  <p>¡Usuario ha sido logueado!</p>
+  <p>Tu rol es: <strong>{{ rol }}</strong></p>
+} @else {
+  <p>Por favor, inicia sesión.</p>
+}
+

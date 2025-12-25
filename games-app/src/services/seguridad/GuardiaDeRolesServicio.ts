@@ -12,7 +12,7 @@ export class GuardiaRolesServicio implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
         if (!this.userRoleInAllowedRoles(route.data['allowedRoles'])) {
-            this.router.navigate(['/']);
+            this.router.navigate(['/no-permitido-page']);
             return false;
         }
 

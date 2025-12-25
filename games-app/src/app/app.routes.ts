@@ -15,6 +15,7 @@ import { AmdinEmpresaPage } from '../pages/admin-empresa/amdin-empresa-page/amdi
 import { AmdinEmpresaForm } from '../components/admin-empresa/amdin-empresa-form/amdin-empresa-form';
 import { AmdinEmpresaEditarPage } from '../pages/admin-empresa/amdin-empresa-editar-page/amdin-empresa-editar-page';
 import { GuardiaRolesServicio } from '../services/seguridad/GuardiaDeRolesServicio';
+import { NoPermitidoPage } from '../pages/no-permitido-page/no-permitido-page';
 
 
 export const routes: Routes = [
@@ -26,7 +27,10 @@ export const routes: Routes = [
     },
     { path: "inicio", component: InicioPage },
 
+    {
+        path: "no-permitido-page", component: NoPermitidoPage
 
+    },
     //Categorias
     {
         path: "categorias",
