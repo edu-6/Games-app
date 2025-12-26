@@ -1,1 +1,160 @@
-<p>juego-form works!</p>
+<form [formGroup]="formulario" (submit)="enviar()">
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-10 col-lg-8">
+
+
+          @if (hayError) {
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{mensajeError}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          }
+
+          @if (creacionExitosa) {
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Exito!</strong> Se registró exitosamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          }
+
+
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5">
+
+              <h3 class="mb-5 text-center">formulario juego</h3>
+
+
+
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                  <label class="form-label">Suba una imagen (Opcional)</label>
+                  <input class="form-control" type="file" id="formFile" (change)="AlCargarArchivo($event)">
+                </div>
+                @if(hayArchivoCargado){
+                <div class="col-md-6">
+                  <img [src]="urlTemporal" alt="..." class="img-thumbnail avatar">
+                </div>
+                }
+
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                  <label class="form-label">Nickname:</label>
+
+                  <input type="text" class="form-control" name="code" formControlName=""
+                    [class.is-invalid]="formulario.controls['nickname'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      ingrese un nickname (Max 50)
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Nombre:</label>
+                  <input type="text" class="form-control" name="name" formControlName="nombre"
+                    [class.is-invalid]="formulario.controls['nombre'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      ingrese su nombre (Max 100)
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Requerimientos</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                  <label class="form-label">Correo:</label>
+                  <input type="email" class="form-control" name="code" formControlName="correo"
+                    [class.is-invalid]="formulario.controls['correo'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      ingrese un correo (Max 100)
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Contraseña:</label>
+                  <input type="password" class="form-control" name="name" formControlName="contrasena"
+                    [class.is-invalid]="formulario.controls['contrasena'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      ingrese una contraseña (Max 100)
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                  <label for="eventType" class="form-label">País:</label>
+
+                  <select id="eventType" name="eventType" class="form-control" formControlName="nombrePais"
+                    [class.is-invalid]="formulario.controls['nombrePais'].invalid && intentoEnviarlo">
+                    <option *ngFor="let option of paisesEnums | keyvalue" [value]="option.key">
+                      {{ option.value }}
+                    </option>
+                  </select>
+                  <div class="invalid-feedback">
+                    <div>
+                      Seleccione un pais
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="limit" class="form-label">Número telefónico:</label>
+                  <input type="number" class="form-control" id="limit" name="limit" formControlName="telefono"
+                    [class.is-invalid]="formulario.controls['telefono'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      Ingrese telefono valido (8 digitos)
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                  <label for="startDate" class="form-label">Fecha de nacimiento:</label>
+                  <input type="date" class="form-control" id="startDate" name="startDate"
+                    formControlName="fechaNacimiento"
+                    [class.is-invalid]="formulario.controls['fechaNacimiento'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      Ingrese una fecha valida
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <button class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>
+              </div>
+
+              <div class="mt-4">
+                <button type="button" routerLink="" class="btn btn-secondary py-3 w-100">Regresar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

@@ -17,6 +17,7 @@ import { AmdinEmpresaEditarPage } from '../pages/admin-empresa/amdin-empresa-edi
 import { GuardiaRolesServicio } from '../services/seguridad/GuardiaDeRolesServicio';
 import { NoPermitidoPage } from '../pages/no-permitido-page/no-permitido-page';
 import { JuegosPage } from '../pages/juegos/juegos-page/juegos-page';
+import { JuegoForm } from '../components/juegos/juego-form/juego-form';
 
 
 export const routes: Routes = [
@@ -130,9 +131,16 @@ export const routes: Routes = [
         component: JuegosPage,
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['ADMIN_EMPRESA', 'ADMIN_SISTEMA', 'GAMER'] },
-    }
+    },
 
     /// Juegos
+
+    {
+        path:"juegos/form",
+        component: JuegoForm,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_EMPRESA'] },
+    }
 
 
 
