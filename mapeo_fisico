@@ -98,7 +98,7 @@ CREATE TABLE gamer(
 
 
 INSERT INTO admin_sistema(admin_nombre, admin_correo, admin_contraseña)
-VALUES ('Primer admin','admin1@gmail.com','12345');
+VALUES ('Primer admin','admin1','123');
 
 
 
