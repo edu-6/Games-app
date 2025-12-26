@@ -7,6 +7,29 @@ CREATE TABLE pais (
 );
 
 
+CREATE TABLE clasificacion_edad(
+    nombre VARCHAR(20) PRIMARY KEY NOT NULL
+);
+
+INSERT INTO clasificacion_edad (nombre) values ('E todos'),('T adolescentes'),('M adultos'); 
+
+CREATE TABLE juego(
+    juego_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    juego_nombre VARCHAR(100) NOT NULL,
+    clasificacion_edad VARCHAR(20) NOT NULL,
+    juego_descripcion VARCHAR(200) NOT NULL,
+    juego_requerimientos VARCHAR(200) NOT NULL,
+    juego_precio DOUBLE(10, 2) NOT NULL,
+    fecha_lanzamiento DATE NOT NULL,
+    activo BOOLEAN NOT NULL,
+    juego_permite_comentarios BOOLEAN NOT NULL,
+    juego_codigo_empresa INTEGER NOT NULL,
+    juego_avatar MEDIUMBLOB,
+    CONSTRAINT fk_juego_clasificacion FOREIGN KEY (clasificacion_edad) REFERENCES clasificacion_edad   (nombre),
+    CONSTRAINT fk_juego_empresa FOREIGN KEY (juego_codigo_empresa) REFERENCES empresa (id_empresa) ON DELETE CASCADE
+);
+
+
 CREATE TABLE tabla_configuracion (
     porcentaje_comision INTEGER NOT NULL,
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY
