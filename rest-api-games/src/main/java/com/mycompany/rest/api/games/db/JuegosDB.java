@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.rest.api.games.db.juegos;
+package com.mycompany.rest.api.games.db;
 
 import com.mycompany.rest.api.games.db.Crud;
 import com.mycompany.rest.api.games.db.DBConnectionSingleton;
@@ -11,11 +11,14 @@ import static com.mycompany.rest.api.games.db.AdminEmpresaDB.RECUPERAR_IMAGEN;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.AvatarEntidad;
 import com.mycompany.rest.api.games.modelos.Entidad;
+import com.mycompany.rest.api.games.modelos.juegos.BusquedaJuego;
+import com.mycompany.rest.api.games.modelos.juegos.CreadorDeBusquedaJuego;
 import com.mycompany.rest.api.games.modelos.juegos.Juego;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -93,6 +96,43 @@ public class JuegosDB extends Crud {
             query.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    
+    
+    public ArrayList<Juego> buscarJuegos(CreadorDeBusquedaJuego creador) throws SQLException {
+        ArrayList<Juego> juegos = new ArrayList();
+        creador.armarBusqueda(); // arma la busqueda
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement ps = connection.prepareStatement(creador.getBusquedaFinal())) {
+            BusquedaJuego busqueda = creador.getSearch();
+            if (creador.isFiltraNombre()) {
+                ps.setString(1, busqueda.getNombre());
+            }
+            if (creador.isFiltraPrecio()) {
+                ps.setDouble(2, busqueda.getPrecioMinimo());
+                ps.setDouble(3, busqueda.getPrecioMaximo());
+            }
+
+            if (creador.isFiltraEmpresa()) {
+                ps.setInt(4, creador.getIdEmpresa());
+            }
+
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                Juego juego = new Juego(
+                        result.getString("juego_nombre"),
+                        result.getString("clasificacion_edad"),
+                        result.getString("juego_descripcion"),
+                        result.getString("juego_requerimientos"),
+                        result.getDouble("juego_precio"),
+                        result.getDate("fecha_lanzamiento").toLocalDate(),
+                        result.getBoolean("activo"),
+                        result.getBoolean("juego_permite_comentarios")
+                );
+                
+                juegos.add(juego);
+            }
+            return juegos;
         }
     }
 

@@ -27,8 +27,8 @@
 
 
             @if(this.tipoBusquedaActual === "empresa"){
-            <select id="eventType" name="eventType" class="form-control" formControlName="clasificacion"
-                [class.is-invalid]="barraBusqueda.controls['clasificacion'].invalid && intentoEnviarlo">
+            <select id="eventType" name="eventType" class="form-control" formControlName="empresa"
+                [class.is-invalid]="barraBusqueda.controls['empresa'].invalid && intentoEnviarlo">
                 <option *ngFor="let empresa of empresas" [ngValue]="empresa.nombre">
                     {{ empresa.nombre }}
                 </option>

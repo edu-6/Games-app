@@ -4,8 +4,8 @@
  */
 package com.mycompany.rest.api.games.servicios;
 
-import com.mycompany.rest.api.games.db.usuarios.GamersDB;
-import com.mycompany.rest.api.games.db.usuarios.RecargoTarjeta;
+import com.mycompany.rest.api.games.db.GamersDB;
+import com.mycompany.rest.api.games.modelos.cartera.RecargoTarjeta;
 import com.mycompany.rest.api.games.dtos.gamers.NuevoGamerRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;

@@ -9,48 +9,55 @@ package com.mycompany.rest.api.games.modelos.juegos;
  * @author edu
  */
 public class BusquedaJuego {
-    
-    private static final String BUSQUEDA_BASE = "select *from juego where 1=1";
-    private static final String FILTRO_NOMBRE = " and juego_nombre = ?";
-    private static final String FILTRO_PRECIO = " and juego_precio >  ? and juego_precio < ?";
-    private static final String FILTRO_EMPRESA = " and juego_id_empresa = ?";
-    
-    
     private String nombre;
     private double precioMaximo;
     private double precioMinimo;
     private String categoria;
-    private String correoAdmin; // sirve para filtar los juegos en base a empresa con el correo del admin
-    private int idEmpresa;
+    private String correoAdmin;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public double getPrecioMaximo() {
+        return precioMaximo;
+    }
+
+    public double getPrecioMinimo() {
+        return precioMinimo;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public String getCorreoAdmin() {
+        return correoAdmin;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setPrecioMaximo(double precioMaximo) {
+        this.precioMaximo = precioMaximo;
+    }
+
+    public void setPrecioMinimo(double precioMinimo) {
+        this.precioMinimo = precioMinimo;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setCorreoAdmin(String correoAdmin) {
+        this.correoAdmin = correoAdmin;
+    }
     
-    // final
-    private String busquedaFinal;
-    private int numeroFiltros;
-
-    public BusquedaJuego() {
-    }
-
-    public String armarBusqueda(){
-        numeroFiltros = 0; // reiniciar
-        busquedaFinal = BUSQUEDA_BASE; // SI NO HAY FILTROS 
-        
-        if (nombre != null) {
-            busquedaFinal += FILTRO_NOMBRE;
-            numeroFiltros++;
-        }
-        
-        if(precioMinimo > 0 && precioMaximo > precioMinimo){
-            busquedaFinal += FILTRO_PRECIO;
-            numeroFiltros++;
-        }
-        
-        if(idEmpresa >0){
-            busquedaFinal += FILTRO_EMPRESA;
-            numeroFiltros++;
-        }
-        
-        return busquedaFinal;
-
-    }
-
+    
+    
+    
+    
+    
 }

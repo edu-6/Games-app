@@ -6,7 +6,6 @@ package com.mycompany.rest.api.games.db;
 
 import com.mycompany.rest.api.games.modelos.usuarios.UsuarioLogin;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

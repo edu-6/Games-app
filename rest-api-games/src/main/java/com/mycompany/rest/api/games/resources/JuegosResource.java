@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.rest.api.games.resources;
-import com.mycompany.rest.api.games.db.juegos.JuegosDB;
+import com.mycompany.rest.api.games.db.JuegosDB;
+import com.mycompany.rest.api.games.dtos.JuegoResponse;
 import com.mycompany.rest.api.games.dtos.NuevoJuegoRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.AvatarEntidad;
+import com.mycompany.rest.api.games.modelos.juegos.BusquedaJuego;
 import com.mycompany.rest.api.games.modelos.juegos.Juego;
 import com.mycompany.rest.api.games.servicios.JuegosCrudService;
 import jakarta.ws.rs.Consumes;
@@ -24,6 +26,8 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.StreamingOutput;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 /**
@@ -50,6 +54,21 @@ public class JuegosResource {
             return Response
                     .status(Response.Status.CONFLICT).entity(new ErrorResponse(e.getMessage())).build();
         } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        }
+    }
+
+    @POST
+    @Path("/buscar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarJuegos(BusquedaJuego busqueda) {
+        try {
+            JuegosCrudService crudService = new JuegosCrudService();
+            List<JuegoResponse> juegos = crudService.buscarJuegos(busqueda).stream().map(JuegoResponse::new).toList();
+            return Response.ok(juegos).build();
+        } catch (SQLException e) {
+            e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
@@ -87,7 +106,6 @@ public class JuegosResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
-
 
     @PUT
     @Consumes(MediaType.MULTIPART_FORM_DATA)

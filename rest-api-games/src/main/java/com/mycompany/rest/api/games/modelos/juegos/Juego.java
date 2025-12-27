@@ -29,6 +29,20 @@ public class Juego extends EntidadBackend {
 
     }
 
+    public Juego(String nombre, String clasificacion, String descripcion, String requerimientos, Double precio, LocalDate fechaLanzamiento, boolean activo, boolean permiteComentarios) {
+        this.nombre = nombre;
+        this.clasificacion = clasificacion;
+        this.descripcion = descripcion;
+        this.requerimientos = requerimientos;
+        this.precio = precio;
+        this.fechaLanzamiento = fechaLanzamiento;
+        this.activo = activo;
+        this.permiteComentarios = permiteComentarios;
+    }
+    
+    
+    
+
     public Juego(NuevoJuegoRequest juego) {
         this.nombre = juego.getNombre();
         this.clasificacion = juego.getClasificacion();

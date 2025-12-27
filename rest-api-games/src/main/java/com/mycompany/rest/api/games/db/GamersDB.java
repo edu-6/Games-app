@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.rest.api.games.db.usuarios;
+package com.mycompany.rest.api.games.db;
 
+import com.mycompany.rest.api.games.modelos.cartera.RecargoTarjeta;
 import com.mycompany.rest.api.games.db.DBConnectionSingleton;
 import com.mycompany.rest.api.games.db.ValidadorUsuarioUnico;
 import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;

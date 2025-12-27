@@ -11,14 +11,14 @@ import com.mycompany.rest.api.games.modelos.Entidad;
  * @author edu
  */
 public class JuegoFrontend extends Entidad {
-    private String nombre;
-    private String clasificacion;
-    private String descripcion;
-    private String requerimientos;
-    private Double precio;
-    private boolean activo;
-    private boolean permiteComentarios;
-    private String correoCreador;
+    protected String nombre;
+    protected String clasificacion;
+    protected String descripcion;
+    protected String requerimientos;
+    protected Double precio;
+    protected boolean activo;
+    protected boolean permiteComentarios;
+    protected String correoCreador;
 
     public String getClasificacion() {
         return clasificacion;

@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 import { AdminEmpresaSimple } from "../models/admin-empresa/admin-empresa-simple";
 import { BusquedaAdmins } from "../models/admin-empresa/busqueda-admins";
 import { Juego } from "../models/juegos/juego";
+import { BusquedaJuego } from "../models/juegos/busqueda-juego";
 
 
 @Injectable({
@@ -25,8 +26,8 @@ export class JuegosService {
 
 
   // post porque  en get solo se puede usar parametros 
-  public buscarAdmins(busqueda: BusquedaAdmins): Observable<AdminEmpresaSimple []>{
-    return this.httpCliente.post<AdminEmpresaSimple[]>(this.constantesRest.getApiURL() +"admins-empresa/busqueda", busqueda);
+  public buscarJuegos(busqueda: BusquedaJuego): Observable<Juego []>{
+    return this.httpCliente.post<Juego[]>(this.constantesRest.getApiURL() +"juegos/buscar", busqueda);
   }
 
   public buscarJuegoUnico(id: string): Observable<Juego>{

@@ -7,6 +7,9 @@ import { RouterLink } from '@angular/router';
 import { GuardiaRolesServicio } from '../../../services/seguridad/GuardiaDeRolesServicio';
 import { Empresa } from '../../../models/empresa/empresa';
 import { EmpresasService } from '../../../services/empresas-service';
+import { BusquedaJuego } from '../../../models/juegos/busqueda-juego';
+import { Juego } from '../../../models/juegos/juego';
+import { JuegosService } from '../../../services/juegos-service';
 
 @Component({
   selector: 'app-juegos-page',
@@ -22,9 +25,11 @@ export class JuegosPage implements OnInit {
   empresas  !: Empresa[];
   tiposBusqueda!: string[];
   tipoBusquedaActual: string = "nombre";
+  juegos!: Juego[];
 
   constructor(private formBuilder: FormBuilder,
-    private empresasServicio: EmpresasService, private guardiaServicio: GuardiaRolesServicio) {
+    private empresasServicio: EmpresasService,
+    private juegosService: JuegosService, private guardiaServicio: GuardiaRolesServicio) {
     this.esAdminEmpresa = guardiaServicio.userRoleInAllowedRoles(['ADMIN_EMPRESA']);
 
     // inicializar los tipos de busqueda segun el rol del usuario
@@ -42,7 +47,8 @@ export class JuegosPage implements OnInit {
         nombre: ["", [Validators.required]],
         precioMin: ["", [Validators.required, Validators.min(1)]],
         precioMax: ["", [Validators.required], Validators.min(1)],
-        clasificacion: ["", [Validators.required]]
+        clasificacion: ["", [Validators.required]],
+        empresa: ["", [Validators.required]]
       }
     );
     // obtener las empresas
@@ -64,16 +70,35 @@ export class JuegosPage implements OnInit {
   }
 
   buscarJuego() {
-    switch (this.tipoBusquedaActual) {
-      case "nombre":
-        console.log(" busqueda por nombre");
-        break;
-      case "precio":
-        console.log(" busqueda por precio");
-        break;
-      case "empresa":
-        console.log(" busqueda por empresa");
-        break;
+    const nombre = this.barraBusqueda.get('nombre')?.value || null;
+    const pMin = this.barraBusqueda.get('precioMin')?.value || 0;
+    const pMax = this.barraBusqueda.get('precioMax')?.value || 0;
+    const categoriaSeleccionada = null; // aquí se agrega la categoría (despues)
+    const empresa = this.barraBusqueda.get('empresa')?.value || null;
+    let correoAdmin: string | null = null;
+
+    if (this.esAdminEmpresa) {
+      correoAdmin = localStorage.getItem('correo');
+    } else {
+      correoAdmin = empresa; // se usa el nombre de la empresas para encontrar id
     }
+    const busqueda = new BusquedaJuego(
+      nombre,
+      pMax,
+      pMin,
+      categoriaSeleccionada,
+      correoAdmin
+    );
+
+    this.juegosService.buscarJuegos(busqueda).subscribe({
+      next: (juegos: Juego[]) => {
+        this.juegos = juegos;
+        console.log(juegos);
+      },
+      error: (error: any) => {
+        console.log(error.error.mensajeError);
+      }
+
+    });
   }
 }
