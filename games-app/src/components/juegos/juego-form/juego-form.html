@@ -25,8 +25,6 @@
 
               <h3 class="mb-5 text-center">formulario juego</h3>
 
-
-
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
                   <label class="form-label">Suba una imagen (Opcional)</label>
@@ -40,20 +38,13 @@
 
               </div>
 
+              <div class="col-md-6 mb-4 mb-md-0">
+
+              </div>
+
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
-                  <label class="form-label">Nickname:</label>
 
-                  <input type="text" class="form-control" name="code" formControlName=""
-                    [class.is-invalid]="formulario.controls['nickname'].invalid && intentoEnviarlo">
-                  <div class="invalid-feedback">
-                    <div>
-                      ingrese un nickname (Max 50)
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
                   <label class="form-label">Nombre:</label>
                   <input type="text" class="form-control" name="name" formControlName="nombre"
                     [class.is-invalid]="formulario.controls['nombre'].invalid && intentoEnviarlo">
@@ -63,89 +54,87 @@
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Requerimientos</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-
-              <div class="row mb-4">
-                <div class="col-md-6 mb-4 mb-md-0">
-                  <label class="form-label">Correo:</label>
-                  <input type="email" class="form-control" name="code" formControlName="correo"
-                    [class.is-invalid]="formulario.controls['correo'].invalid && intentoEnviarlo">
-                  <div class="invalid-feedback">
-                    <div>
-                      ingrese un correo (Max 100)
-                    </div>
-                  </div>
-                </div>
 
                 <div class="col-md-6">
-                  <label class="form-label">Contraseña:</label>
-                  <input type="password" class="form-control" name="name" formControlName="contrasena"
-                    [class.is-invalid]="formulario.controls['contrasena'].invalid && intentoEnviarlo">
-                  <div class="invalid-feedback">
-                    <div>
-                      ingrese una contraseña (Max 100)
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="row mb-4">
-                <div class="col-md-6 mb-4 mb-md-0">
-                  <label for="eventType" class="form-label">País:</label>
-
-                  <select id="eventType" name="eventType" class="form-control" formControlName="nombrePais"
-                    [class.is-invalid]="formulario.controls['nombrePais'].invalid && intentoEnviarlo">
-                    <option *ngFor="let option of paisesEnums | keyvalue" [value]="option.key">
+                  <label for="eventType" class="form-label">clasificacion edad :</label>
+                  <select id="eventType" name="eventType" class="form-control" formControlName="clasificacionEdad"
+                    [class.is-invalid]="formulario.controls['clasificacionEdad'].invalid && intentoEnviarlo">
+                    <option *ngFor="let option of clasificacionesEnum | keyvalue" [value]="option.key">
                       {{ option.value }}
                     </option>
                   </select>
                   <div class="invalid-feedback">
                     <div>
-                      Seleccione un pais
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="limit" class="form-label">Número telefónico:</label>
-                  <input type="number" class="form-control" id="limit" name="limit" formControlName="telefono"
-                    [class.is-invalid]="formulario.controls['telefono'].invalid && intentoEnviarlo">
-                  <div class="invalid-feedback">
-                    <div>
-                      Ingrese telefono valido (8 digitos)
+                      Seleccione una clasificacion
                     </div>
                   </div>
                 </div>
               </div>
 
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
+                <textarea formControlName="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                  [class.is-invalid]="formulario.controls['descripcion'].invalid && intentoEnviarlo"></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Requerimientos</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" formControlName = "requerimientos" rows="3"
+                  [class.is-invalid]="formulario.controls['requerimientos'].invalid && intentoEnviarlo"></textarea>
+              </div>
+
 
               <div class="row mb-4">
+
+
+
                 <div class="col-md-6 mb-4 mb-md-0">
-                  <label for="startDate" class="form-label">Fecha de nacimiento:</label>
+
+                  <label for="limit" class="form-label">Precio:</label>
+                  <input type="number" class="form-control" id="limit" name="limit" formControlName="precio"
+                    [class.is-invalid]="formulario.controls['precio'].invalid && intentoEnviarlo">
+                  <div class="invalid-feedback">
+                    <div>
+                      Ingrese el precio
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="startDate" class="form-label">Fecha de lanzamiento:</label>
                   <input type="date" class="form-control" id="startDate" name="startDate"
-                    formControlName="fechaNacimiento"
-                    [class.is-invalid]="formulario.controls['fechaNacimiento'].invalid && intentoEnviarlo">
+                    formControlName="fechaLanzamiento"
+                    [class.is-invalid]="formulario.controls['fechaLanzamiento'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
                     <div>
                       Ingrese una fecha valida
                     </div>
                   </div>
                 </div>
+
+              </div>
+
+
+              <div class=" col-md-6 form-check form-switch">
+                <input class="form-check-input" formControlName="permiteComentarios" type="checkbox" role="switch"
+                  id="flexSwitchCheckDefault">
+                <label class="form-check-label text-center" for="flexSwitchCheckDefault">Visualizacion de
+                  comentarios</label>
+              </div>
+
+              <div class=" col-md-6 form-check form-switch">
+                <input class="form-check-input" formControlName="activo" type="checkbox" role="switch"
+                  id="flexSwitchCheckDefault">
+                <label class="form-check-label text-center" for="flexSwitchCheckDefault">Venta activa
+                </label>
+              </div>
+
+              <div class="row mb-4">
+
               </div>
 
               <div class="mt-4">
-                <button class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>
+                <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
               </div>
 
               <div class="mt-4">

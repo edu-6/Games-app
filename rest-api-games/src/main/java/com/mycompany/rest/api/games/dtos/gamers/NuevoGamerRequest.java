@@ -24,7 +24,7 @@ public class NuevoGamerRequest {
     
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate fechaNacimiento;
+    private LocalDate fechaNacimiento;  
 
     public String getNombre() {
         return nombre;

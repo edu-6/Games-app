@@ -24,7 +24,7 @@ import java.sql.SQLException;
 public class JuegosDB extends Crud {
 
     private static final String CREAR_JUEGO = "INSERT INTO juego (juego_nombre, clasificacion_edad, juego_descripcion, juego_requerimientos, juego_precio, fecha_lanzamiento, activo, juego_permite_comentarios, juego_codigo_empresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String EDITAR_JUEGO = "UPDATE juego SET juego_nombre = ?, clasificacion_edad = ?, juego_descripcion = ?, juego_requerimientos = ?, juego_precio = ?, activo = ?, juego_permite_comentarios = ? WHERE juego_id = ?";
+    private static final String EDITAR_JUEGO = "UPDATE juego SET juego_nombre = ?, clasificacion_edad = ?, juego_descripcion = ?, juego_requerimientos = ?, juego_precio = ?, activo = ?, juego_permite_comentarios = ? WHERE juego_nombre = ?";
     private static final String ELIMINAR_JUEGO = "DELETE FROM juego WHERE juego_nombre = ?";
     private static final String EXISTE_JUEGO = "SELECT * FROM juego WHERE juego_id = ?";
     private static final String OBTENER_TODOS = "SELECT * FROM juego";
@@ -52,7 +52,7 @@ public class JuegosDB extends Crud {
             ps.setDate(6, java.sql.Date.valueOf(juego.getFechaLanzamiento()));
             ps.setBoolean(7, juego.isActivo());
             ps.setBoolean(8, juego.isPermiteComentarios());
-            ps.setInt(9, juego.getCodigoEmpresa());
+            ps.setInt(9, juego.getIdEmpresa());
             ps.executeUpdate();
         }
     }
@@ -68,7 +68,6 @@ public class JuegosDB extends Crud {
             ps.setDouble(5, juego.getPrecio());
             ps.setBoolean(6, juego.isActivo());
             ps.setBoolean(7, juego.isPermiteComentarios());
-            ps.setInt(8, juego.getId());
             ps.executeUpdate();
         }
     }

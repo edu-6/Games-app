@@ -3,11 +3,11 @@ import { Juego } from '../../../models/juegos/juego';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ClasificacionEdad } from '../../../models/juegos/clasificaicon-edad';
 import { JuegosService } from '../../../services/juegos-service';
-import { KeyValuePipe } from '@angular/common';
+import { KeyValuePipe, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-juego-form',
-  imports: [ReactiveFormsModule, KeyValuePipe],
+  imports: [ReactiveFormsModule, KeyValuePipe, NgFor],
   templateUrl: './juego-form.html',
   styleUrl: './juego-form.css',
 })
@@ -19,6 +19,7 @@ export class JuegoForm implements OnInit {
   clasificaciones = ClasificacionEdad;
   urlTemporal !: String;
   mensajeError !: String;
+  clasificacionesEnum = ClasificacionEdad;
 
   hayArchivoCargado: boolean = false;
   intentoEnviarlo: boolean = false;
@@ -44,6 +45,7 @@ export class JuegoForm implements OnInit {
         precio: [null, [Validators.required, Validators.min(1)]],
         requerimientos: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
         fechaLanzamiento: [new Date().toISOString().substring(0, 10), Validators.required],
+        correoCreador : [this.generarCorreoDelCreador()] // se genera segun el usuario en sesión
       }
     );
   }
@@ -64,6 +66,16 @@ export class JuegoForm implements OnInit {
 
 
     }
+  }
+
+
+  generarCorreoDelCreador(): string {
+    let correo : string  | null = null;
+    correo = localStorage.getItem('correo');
+    if(correo != null){
+      return correo;
+    }
+    return "vacio";
   }
 
 

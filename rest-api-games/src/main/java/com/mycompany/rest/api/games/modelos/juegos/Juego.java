@@ -4,6 +4,7 @@
  */
 package com.mycompany.rest.api.games.modelos.juegos;
 
+import com.mycompany.rest.api.games.dtos.NuevoJuegoRequest;
 import com.mycompany.rest.api.games.modelos.EntidadBackend;
 import java.time.LocalDate;
 import org.apache.commons.lang3.StringUtils;
@@ -13,8 +14,6 @@ import org.apache.commons.lang3.StringUtils;
  * @author edu
  */
 public class Juego extends EntidadBackend {
-
-    private int id;
     private String nombre;
     private String clasificacion;
     private String descripcion;
@@ -23,29 +22,42 @@ public class Juego extends EntidadBackend {
     private LocalDate fechaLanzamiento;
     private boolean activo;
     private boolean permiteComentarios;
-    private int codigoEmpresa;
+    private String correoCreador;
+    private int idEmpresa;
 
     public Juego() {
 
     }
 
-    public Juego(int id, String nombre, String clasificacion, String descripcion, String requerimientos, Double precio, LocalDate fechaLanzamiento, boolean activo, boolean permiteComentarios, int codigoEmpresa) {
-        this.id = id;
-        this.nombre = nombre;
-        this.clasificacion = clasificacion;
-        this.descripcion = descripcion;
-        this.requerimientos = requerimientos;
-        this.precio = precio;
-        this.fechaLanzamiento = fechaLanzamiento;
-        this.activo = activo;
-        this.permiteComentarios = permiteComentarios;
-        this.codigoEmpresa = codigoEmpresa;
+    public Juego(NuevoJuegoRequest juego) {
+        this.nombre = juego.getNombre();
+        this.clasificacion = juego.getClasificacion();
+        this.descripcion = juego.getDescripcion();
+        this.requerimientos = juego.getRequerimientos();
+        this.precio = juego.getPrecio();
+        this.fechaLanzamiento = juego.getFechaLanzamiento();
+        this.activo = juego.isActivo();
+        this.permiteComentarios = juego.isPermiteComentarios();
+        this.correoCreador = juego.getCorreoCreador();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getCorreoCreador() {
+        return correoCreador;
     }
 
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setCorreoCreador(String correoCreador) {
+        this.correoCreador = correoCreador;
+    }
+
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+    
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -76,14 +88,6 @@ public class Juego extends EntidadBackend {
 
     public void setPermiteComentarios(boolean permiteComentarios) {
         this.permiteComentarios = permiteComentarios;
-    }
-
-    public void setCodigoEmpresa(int codigoEmpresa) {
-        this.codigoEmpresa = codigoEmpresa;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getNombre() {
@@ -118,10 +122,6 @@ public class Juego extends EntidadBackend {
         return permiteComentarios;
     }
 
-    public int getCodigoEmpresa() {
-        return codigoEmpresa;
-    }
-
     @Override
     public boolean valido() {
         return this.nombre != null
@@ -130,7 +130,6 @@ public class Juego extends EntidadBackend {
                 && this.requerimientos != null
                 && this.precio != null
                 && this.fechaLanzamiento != null
-                && this.codigoEmpresa > 0
                 && StringUtils.isNotBlank(this.nombre)
                 && StringUtils.isNotBlank(this.clasificacion)
                 && StringUtils.isNotBlank(this.descripcion)

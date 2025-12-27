@@ -4,6 +4,7 @@
  */
 package com.mycompany.rest.api.games.resources;
 import com.mycompany.rest.api.games.db.juegos.JuegosDB;
+import com.mycompany.rest.api.games.dtos.NuevoJuegoRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
@@ -34,10 +35,10 @@ public class JuegosResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crearNuevoJuego(Juego juego) {
+    public Response crearNuevoJuego(NuevoJuegoRequest nuevo) {
         JuegosCrudService crudService = new JuegosCrudService();
         try {
-            crudService.crearEntidad(juego);
+            crudService.crearEntidad(nuevo);
 
             return Response.status(Response.Status.CREATED).build();
 

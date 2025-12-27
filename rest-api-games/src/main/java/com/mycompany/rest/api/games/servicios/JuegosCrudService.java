@@ -4,7 +4,9 @@
  */
 package com.mycompany.rest.api.games.servicios;
 
+import com.mycompany.rest.api.games.db.AdminEmpresaDB;
 import com.mycompany.rest.api.games.db.juegos.JuegosDB;
+import com.mycompany.rest.api.games.dtos.NuevoJuegoRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
@@ -20,8 +22,18 @@ public class JuegosCrudService extends CrudService {
 
     @Override
     public void crearEntidad(Entidad entidad) throws IdentidadRepetidaException, DatosInvalidosException, SQLException {
-        Juego juego = (Juego) entidad;
         JuegosDB db = new JuegosDB();
+       AdminEmpresaDB  adminsDB = new AdminEmpresaDB();
+       NuevoJuegoRequest nuevo = (NuevoJuegoRequest) entidad;
+       Juego juego = new Juego(nuevo);
+       
+       
+       // se busca el id de empresa
+       int id = adminsDB.encontrarIdEmpresa(juego.getCorreoCreador());
+       juego.setIdEmpresa(id); // se le pone el id de empresa
+       
+       
+        
         if(!juego.valido()){
             throw new DatosInvalidosException("Datos invalidos o campos demasiado largos");
         }
