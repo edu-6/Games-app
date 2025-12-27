@@ -18,6 +18,8 @@ import { GuardiaRolesServicio } from '../services/seguridad/GuardiaDeRolesServic
 import { NoPermitidoPage } from '../pages/no-permitido-page/no-permitido-page';
 import { JuegosPage } from '../pages/juegos/juegos-page/juegos-page';
 import { JuegoForm } from '../components/juegos/juego-form/juego-form';
+import { CarteraPage } from '../pages/cartera/cartera-page/cartera-page';
+import { RecargoCarteraPage } from '../pages/cartera/recargo-cartera-page/recargo-cartera-page';
 
 
 export const routes: Routes = [
@@ -140,7 +142,23 @@ export const routes: Routes = [
         component: JuegoForm,
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['ADMIN_EMPRESA'] },
-    }
+    },
+
+
+    //Tarjeta
+     {
+        path:"cartera",
+        component: CarteraPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['GAMER'] },
+    },
+
+     {
+        path:"cartera/form",
+        component: RecargoCarteraPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['GAMER'] },
+    },
 
 
 

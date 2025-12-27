@@ -5,11 +5,13 @@
 package com.mycompany.rest.api.games.servicios;
 
 import com.mycompany.rest.api.games.db.usuarios.GamersDB;
+import com.mycompany.rest.api.games.db.usuarios.RecargoTarjeta;
 import com.mycompany.rest.api.games.dtos.gamers.NuevoGamerRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
 import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;
 import com.mycompany.rest.api.games.modelos.gamers.Gamer;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,7 +19,7 @@ import com.mycompany.rest.api.games.modelos.gamers.Gamer;
  */
 public class GamersCrudService {
     
-    public Gamer crearGamer(NuevoGamerRequest nuevoGamerRequest) throws DatosInvalidosException, IdentidadRepetidaException
+    public Gamer crearGamer(NuevoGamerRequest nuevoGamerRequest) throws DatosInvalidosException, IdentidadRepetidaException, SQLException
              {
         GamersDB gamersDb = new GamersDB();
         
@@ -35,8 +37,25 @@ public class GamersCrudService {
         }
         
         gamersDb.crearNuevoGamer(gamer);
+        gamersDb.crearCarteraGamer(gamer.getCorreo());
         
         return gamer;
+    }
+    
+    
+    public void recargarTarjeta(RecargoTarjeta recargo) throws SQLException{
+        GamersDB db = new GamersDB();
+        double saldo = db.obtenerSaldoTarjeta(recargo.getCorreoGamer());
+        double nuevoSaldo = saldo + recargo.getDeposito();
+        
+        recargo.setDeposito(nuevoSaldo); // se le pone el nuevo saldo
+        db.recargarTarjetaGamer(recargo);
+    }
+    
+    
+    public double obtenerSaldo(String correo) throws SQLException{
+        GamersDB db = new GamersDB();
+        return db.obtenerSaldoTarjeta(correo);
     }
 
     private Gamer extraerGamer(NuevoGamerRequest request) throws DatosInvalidosException {

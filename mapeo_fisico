@@ -97,6 +97,13 @@ CREATE TABLE gamer(
 );
 
 
+CREATE TABLE cartera_gamer(
+    correo_gamer VARCHAR(100) NOT NULL,
+    saldo DOUBLE(10,2) NOT NULL,
+    CONSTRAINT fk_cartera FOREIGN KEY (correo_gamer) REFERENCES gamer (gamer_correo) ON DELETE CASCADE
+);
+
+
 INSERT INTO admin_sistema(admin_nombre, admin_correo, admin_contraseña)
 VALUES ('Primer admin','admin1','123');
 

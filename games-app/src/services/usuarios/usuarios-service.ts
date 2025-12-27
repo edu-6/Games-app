@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { GamerRegistro } from "../../models/usuarios/usuario-gamer/gamer-registro";
 import { ConstantesRest } from "../../shared/restapi/constantes-rest";
+import { SaldoTarjeta } from "../../models/usuarios/tarjeta/saldo-tarjeta";
+import { RecargoTarjeta } from "../../models/usuarios/tarjeta/recargo-tarjeta";
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +24,15 @@ export class UsuarioServicios {
 
   public crearNuevoGamer(gamer: GamerRegistro): Observable<void> {
     return this.httpClient.post<void>(`${this.constantesRest.getApiURL()}gamers`, gamer);
+  }
+
+
+  public verSaltoTarjeta(correo: string): Observable<SaldoTarjeta>{
+    return this.httpClient.get<SaldoTarjeta>(`${this.constantesRest.getApiURL()}gamers/saldo/${correo}`);
+  }
+
+
+  public recargarTarjeta(recargo: RecargoTarjeta): Observable<void>{
+    return this.httpClient.put<void>(this.constantesRest.API_URL + 'gamers/tarjeta', recargo);
   }
 }

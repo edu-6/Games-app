@@ -19,10 +19,13 @@
             <li class="nav-item"><a routerLink="/files" routerLinkActive="active" class="nav-link">Files</a></li>
             <li class="nav-item"><a routerLink="/files" class="nav-link">About</a></li>
         }
-        @if(adminEmpresa || gamer){
-            
-            <li class="nav-item"><a routerLink="/juegos" routerLinkActive="active" class="nav-link">Juegos</a></li>
+        @if(adminEmpresa){
             <li class="nav-item"><a routerLink="/admins-empresa" routerLinkActive="active" class="nav-link">Admins Empresa</a></li>
+        }
+
+        @if(gamer){
+             <li class="nav-item"><a routerLink="/juegos" routerLinkActive="active" class="nav-link">Juegos</a></li>
+            <li class="nav-item"><a routerLink="/cartera" routerLinkActive="active" class="nav-link">Cartera</a></li>
         }
             <button class="btn btn-link text-danger text-decoration-none d-flex align-items-center" (click)="logout()">
                 <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
