@@ -29,9 +29,9 @@ export class JuegosPage implements OnInit {
 
     // inicializar los tipos de busqueda segun el rol del usuario
     if (this.esAdminEmpresa) {
-      this.tiposBusqueda = ['nombre', 'precio'];
+      this.tiposBusqueda = ['nombre'];
     } else {
-      this.tiposBusqueda = ['nombre', 'precio', 'empresa'];
+      this.tiposBusqueda = ['nombre', 'empresa'];
     }
   }
 
@@ -59,8 +59,6 @@ export class JuegosPage implements OnInit {
     if (tipo == 0) {
       this.tipoBusquedaActual = "nombre";
     } else if (tipo == 1) {
-      this.tipoBusquedaActual = "precio";
-    } else {
       this.tipoBusquedaActual = "empresa";
     }
   }

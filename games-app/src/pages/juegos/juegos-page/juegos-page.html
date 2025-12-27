@@ -11,16 +11,23 @@
             <input class="form-control flex-grow-1" type="search" placeholder="Search" formControlName="nombre">
             }
 
-            @if(this.tipoBusquedaActual === "precio"){
+            <!--@if(this.tipoBusquedaActual === "precio"){
             <input type="number" placeholder="precio minimo" class="form-control" id="limit" name="limit"
                 formControlName="precioMin">
             <input type="number" [class.is-invalid]="barraBusqueda.controls['precioMax'].invalid && intentoEnviarlo"
                 class="form-control" placeholder="precio maximo " id="limit" name="limit" formControlName="precioMax">
-            }
+        }-->
+
+
+            <input type="number" placeholder="precio minimo" class="form-control" id="limit" name="limit"
+                formControlName="precioMin">
+            <input type="number" [class.is-invalid]="barraBusqueda.controls['precioMax'].invalid && intentoEnviarlo"
+                class="form-control" placeholder="precio maximo " id="limit" name="limit" formControlName="precioMax">
+
+
 
             @if(this.tipoBusquedaActual === "empresa"){
-            <select  id="eventType" name="eventType" class="form-control"
-                formControlName="clasificacion"
+            <select id="eventType" name="eventType" class="form-control" formControlName="clasificacion"
                 [class.is-invalid]="barraBusqueda.controls['clasificacion'].invalid && intentoEnviarlo">
                 <option *ngFor="let empresa of empresas" [ngValue]="empresa.nombre">
                     {{ empresa.nombre }}
