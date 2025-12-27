@@ -40,7 +40,7 @@ public class JuegosCrudService extends CrudService {
         if(db.existeEntidad(juego.getNombre())){
             throw new IdentidadRepetidaException("ya existe el juego con nombre: "+ juego.getNombre());
         }
-        db.crearEntidad(entidad);
+        db.crearEntidad(juego);
     }
 
     @Override

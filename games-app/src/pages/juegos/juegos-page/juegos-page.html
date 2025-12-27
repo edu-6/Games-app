@@ -5,15 +5,36 @@
     <div class="d-flex flex-column align-items-center gap-3 w-100">
 
         <div [formGroup]="barraBusqueda" class="d-flex justify-content-center gap-2 w-100">
-            
+
+
+            @if(this.tipoBusquedaActual === "nombre"){
             <input class="form-control flex-grow-1" type="search" placeholder="Search" formControlName="nombre">
-            <input type="number" placeholder="precio minimo" class="form-control" id="limit" name="limit" formControlName="precioMin">
-            <input type="number" [class.is-invalid]="barraBusqueda.controls['precioMax'].invalid && intentoEnviarlo" class="form-control"placeholder="precio maximo " id="limit" name="limit" formControlName="precioMax">
-            <select id="eventType" name="eventType" class="form-control" formControlName="clasificacion"
-                    [class.is-invalid]="barraBusqueda.controls['clasificacion'].invalid && intentoEnviarlo">
-                    <option *ngFor="let option of clasificacionesEnum | keyvalue" [value]="option.key">
-                      {{ option.value }}
-                    </option>
+            }
+
+            @if(this.tipoBusquedaActual === "precio"){
+            <input type="number" placeholder="precio minimo" class="form-control" id="limit" name="limit"
+                formControlName="precioMin">
+            <input type="number" [class.is-invalid]="barraBusqueda.controls['precioMax'].invalid && intentoEnviarlo"
+                class="form-control" placeholder="precio maximo " id="limit" name="limit" formControlName="precioMax">
+            }
+
+            @if(this.tipoBusquedaActual === "empresa"){
+            <select  id="eventType" name="eventType" class="form-control"
+                formControlName="clasificacion"
+                [class.is-invalid]="barraBusqueda.controls['clasificacion'].invalid && intentoEnviarlo">
+                <option *ngFor="let empresa of empresas" [ngValue]="empresa.nombre">
+                    {{ empresa.nombre }}
+                </option>
+            </select>
+            }
+
+
+            <select (change)="this.cambiarTipoDeBusqueda($event)" id="eventType" name="eventType" class="form-control"
+                formControlName="clasificacion"
+                [class.is-invalid]="barraBusqueda.controls['clasificacion'].invalid && intentoEnviarlo">
+                <option *ngFor="let option of tiposBusqueda | keyvalue" [value]="option.key">
+                    {{ option.value }}
+                </option>
             </select>
             <button class="btn btn-outline-success" (click)="buscarJuego()">
                 Search
@@ -21,10 +42,13 @@
         </div>
 
 
+        @if(esAdminEmpresa){
         <div class="d-flex justify-content-center gap-2">
             <a routerLink="/juegos/form" class="btn btn-primary">
                 <i class="bi bi-file-earmark-plus"></i> Juego
             </a>
         </div>
+        }
+
     </div>
 </div>

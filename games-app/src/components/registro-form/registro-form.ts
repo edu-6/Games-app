@@ -92,7 +92,7 @@ export class RegistroForm implements OnInit {
                 console.log("supuestamente se subió");
               },
               error: (error: any) => {
-                console.log(error);
+                console.log(error.error.mensaje);
               }
 
             });

@@ -11,7 +11,7 @@ CREATE TABLE clasificacion_edad(
     nombre VARCHAR(20) PRIMARY KEY NOT NULL
 );
 
-INSERT INTO clasificacion_edad (nombre) values ('E todos'),('T adolescentes'),('M adultos'); 
+INSERT INTO clasificacion_edad (nombre) values ('E'),('T'),('M'); 
 
 CREATE TABLE juego(
     juego_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,

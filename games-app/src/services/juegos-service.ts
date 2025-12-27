@@ -44,9 +44,9 @@ export class JuegosService {
 
   public subirImagen(imagen: File, id: string): Observable<void> {
     let formData: FormData = new FormData(); // clase que permite enviar los archivos en binarios
-    formData.append('correo', id);
+    formData.append('nombre', id);
     formData.append('imagen', imagen);
-    return this.httpCliente.put<void>(this.constantesRest.API_URL + 'admins-empresa', formData);
+    return this.httpCliente.put<void>(this.constantesRest.API_URL + 'juegos', formData);
   }
 
 

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ClasificacionEdad } from '../../../models/juegos/clasificaicon-edad';
 import { JuegosService } from '../../../services/juegos-service';
 import { KeyValuePipe, NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-juego-form',
@@ -25,12 +26,13 @@ export class JuegoForm implements OnInit {
   intentoEnviarlo: boolean = false;
   hayError: boolean = false;
   creacionExitosa: boolean = false;
-  creacionJsonExistosa: boolean = false;
+  edicionExitods: boolean = false;
+  estaEnEdicion: boolean = false;
 
 
 
 
-  constructor(private formBuilder: FormBuilder, private juegoServicios: JuegosService) {
+  constructor(private formBuilder: FormBuilder, private juegoServicios: JuegosService, private router : Router) {
   }
 
   ngOnInit(): void {
@@ -39,13 +41,13 @@ export class JuegoForm implements OnInit {
 
         nombre: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
         descripcion: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
-        clasificacionEdad: [null, [Validators.required]],
+        clasificacion: [null, [Validators.required]],
         permiteComentarios: [true, Validators.required],
         activo: [true, Validators.required],
         precio: [null, [Validators.required, Validators.min(1)]],
         requerimientos: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
         fechaLanzamiento: [new Date().toISOString().substring(0, 10), Validators.required],
-        correoCreador : [this.generarCorreoDelCreador()] // se genera segun el usuario en sesión
+        correoCreador: [this.generarCorreoDelCreador()] // se genera segun el usuario en sesión
       }
     );
   }
@@ -70,41 +72,43 @@ export class JuegoForm implements OnInit {
 
 
   generarCorreoDelCreador(): string {
-    let correo : string  | null = null;
+    let correo: string | null = null;
     correo = localStorage.getItem('correo');
-    if(correo != null){
+    if (correo != null) {
       return correo;
     }
     return "vacio";
   }
 
 
-  enviar(): void {
-    this.intentoEnviarlo = true;
+  resetearEstados(): void {
+    this.creacionExitosa = false;
+    this.edicionExitods = false;
     this.hayError = false;
+    this.intentoEnviarlo = true;
+  }
+
+  enviar(): void{
+    if(this.estaEnEdicion){
+      // editar
+    }else{
+      this.crear();
+    }
+  }
+
+
+  crear(): void {
+    this.resetearEstados();
     if (this.formulario.valid) {
       this.nuevoJuego = this.formulario.value as Juego;
       console.log("formulario listo");
       this.juegoServicios.crearJuego(this.nuevoJuego).subscribe({
         next: () => {
           this.creacionExitosa = true;
-          this.creacionJsonExistosa = true;
           console.log(this.nuevoJuego);
 
-          // se sube la imagen después del usuario
-          if (this.fotoSeleccionada) {
-            console.log(" se va subir imagen");
-            this.juegoServicios.subirImagen(this.fotoSeleccionada, this.nuevoJuego.nombre).subscribe({
-              next: () => {
-                console.log("supuestamente se subió");
-              },
-              error: (error: any) => {
-                console.log(error);
-              }
-
-            });
-          }
-
+          this.cargarImagen(); // después de que se haya creado
+          this.router.navigate(['/juegos']);
         },
         error: (error: any) => {
           this.mensajeError = error.error.mensaje;
@@ -116,5 +120,24 @@ export class JuegoForm implements OnInit {
       console.log("form invalido");
     }
   }
+
+
+  cargarImagen(): void {
+    // se sube la imagen después del usuario
+    if (this.fotoSeleccionada) {
+      console.log(" se va subir imagen");
+      this.juegoServicios.subirImagen(this.fotoSeleccionada, this.nuevoJuego.nombre).subscribe({
+        next: () => {
+          console.log("supuestamente se subió");
+        },
+        error: (error: any) => {
+          console.log(error.error.mensaje);
+        }
+      });
+    }
+  }
+
+
+
 
 }

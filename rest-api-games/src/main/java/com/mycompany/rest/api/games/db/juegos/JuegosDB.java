@@ -26,7 +26,7 @@ public class JuegosDB extends Crud {
     private static final String CREAR_JUEGO = "INSERT INTO juego (juego_nombre, clasificacion_edad, juego_descripcion, juego_requerimientos, juego_precio, fecha_lanzamiento, activo, juego_permite_comentarios, juego_codigo_empresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String EDITAR_JUEGO = "UPDATE juego SET juego_nombre = ?, clasificacion_edad = ?, juego_descripcion = ?, juego_requerimientos = ?, juego_precio = ?, activo = ?, juego_permite_comentarios = ? WHERE juego_nombre = ?";
     private static final String ELIMINAR_JUEGO = "DELETE FROM juego WHERE juego_nombre = ?";
-    private static final String EXISTE_JUEGO = "SELECT * FROM juego WHERE juego_id = ?";
+    private static final String EXISTE_JUEGO = "SELECT * FROM juego WHERE juego_nombre = ?";
     private static final String OBTENER_TODOS = "SELECT * FROM juego";
     private static final String BUSCAR_JUEGO_POR_NOMBRE = "SELECT * FROM juego WHERE juego_nombre = ?";
     private static final String AGREGAR_IMAGEN = "UPDATE juego set juego_avatar = ? WHERE juego_nombre = ?";

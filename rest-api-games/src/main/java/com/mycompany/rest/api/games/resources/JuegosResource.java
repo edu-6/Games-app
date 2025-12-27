@@ -43,6 +43,7 @@ public class JuegosResource {
             return Response.status(Response.Status.CREATED).build();
 
         } catch (DatosInvalidosException e) {
+            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(e.getMessage())).build();
 
         } catch (IdentidadRepetidaException e) {
@@ -90,7 +91,7 @@ public class JuegosResource {
 
     @PUT
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response agregarImagen(@FormDataParam("correo") String id, @FormDataParam("imagen") InputStream imagenCargada) {
+    public Response agregarImagen(@FormDataParam("nombre") String id, @FormDataParam("imagen") InputStream imagenCargada) {
         JuegosCrudService crudService = new JuegosCrudService();
         JuegosDB db = new JuegosDB();
         crudService.agregarImagen(new AvatarEntidad(id, imagenCargada), db);
