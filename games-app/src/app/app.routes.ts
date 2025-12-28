@@ -146,7 +146,7 @@ export const routes: Routes = [
     },
 
     {
-        path: "juegos/detalles:juego",
+        path: "juegos/detalles/:nombre",
         component: JuegoDetalles,
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['ADMIN_EMPRESA', 'GAMER'] },

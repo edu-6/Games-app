@@ -31,7 +31,7 @@ export class JuegosService {
   }
 
   public buscarJuegoUnico(id: string): Observable<Juego>{
-    return this.httpCliente.get<Juego >(`${this.constantesRest.getApiURL()}juegos/juegoUnico/${id}`);
+    return this.httpCliente.get<Juego >(`${this.constantesRest.getApiURL()}juegos/${id}`);
   }
 
   public editarJuego(admin: Juego): Observable<void>{

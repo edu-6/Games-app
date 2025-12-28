@@ -22,7 +22,7 @@
                 <a routerLink="/cartera" class="btn btn-primary">Editar</a>
                 }
 
-                <button routerLink="/juegos/detalles:{{juego}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                <button routerLink="/juegos/detalles/:{{juego.nombre}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"
                     title="Ver" (click)="eliminarAccion()">
                     <i class="bi bi-eye-fill"></i>
                 </button>

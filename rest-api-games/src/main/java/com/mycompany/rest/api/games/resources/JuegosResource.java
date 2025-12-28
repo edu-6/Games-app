@@ -71,6 +71,19 @@ public class JuegosResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
+    
+    @GET
+    @Path("{nombre}")
+    public Response buscarJuego(@PathParam("nombre") String id) {
+        JuegosCrudService crudService = new JuegosCrudService();
+        try {
+            JuegoResponse juego = new JuegoResponse(crudService.buscarJuego(id));
+            return Response.ok(juego).build();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        }
+    }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

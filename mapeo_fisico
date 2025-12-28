@@ -13,6 +13,14 @@ CREATE TABLE clasificacion_edad(
 
 INSERT INTO clasificacion_edad (nombre) values ('E'),('T'),('M'); 
 
+CREATE TABLE empresa (
+    nombre_empresa VARCHAR(40) NOT NULL,
+    id_empresa INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    permite_comentarios BOOLEAN NOT NULL,
+    empresa_avatar MEDIUMBLOB
+);
+
+
 CREATE TABLE juego(
     juego_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     juego_nombre VARCHAR(100) NOT NULL,
@@ -35,12 +43,6 @@ CREATE TABLE tabla_configuracion (
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY
 );
 
-CREATE TABLE empresa (
-    nombre_empresa VARCHAR(40) NOT NULL,
-    id_empresa INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    permite_comentarios BOOLEAN NOT NULL,
-    empresa_avatar MEDIUMBLOB
-);
 
 CREATE TABLE negociacion_empresa (
     id_empresa INTEGER PRIMARY KEY NOT NULL,

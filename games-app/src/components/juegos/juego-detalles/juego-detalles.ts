@@ -11,5 +11,5 @@ export class JuegoDetalles {
   urlTemporal: string = "asñldfk";
   hayArchivoCargado: boolean= false;
   @Input({required : true})
-  juego!: Juego;
+  juego !: Juego;
 }

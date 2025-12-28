@@ -99,6 +99,16 @@ public class JuegosDB extends Crud {
     }
     
     
+    public Juego buscarJuego(String id) throws SQLException{
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement query = connection.prepareStatement(BUSCAR_JUEGO_POR_NOMBRE);) {
+            query.setString(1, id);
+            ResultSet result = query.executeQuery();
+            result.next();
+            return this.extraerJuego(result);
+        }
+    }
+    
+    
     public ArrayList<Juego> buscarJuegos(CreadorDeBusquedaJuego creador) throws SQLException {
         ArrayList<Juego> juegos = new ArrayList();
         creador.armarBusqueda(); // arma la busqueda
@@ -123,7 +133,15 @@ public class JuegosDB extends Crud {
 
             ResultSet result = ps.executeQuery();
             while (result.next()) {
-                Juego juego = new Juego(
+                juegos.add(extraerJuego(result));
+            }
+            return juegos;
+        }
+    }
+    
+    
+    private Juego extraerJuego(ResultSet result) throws SQLException{
+        return  new Juego(
                         result.getString("juego_nombre"),
                         result.getString("clasificacion_edad"),
                         result.getString("juego_descripcion"),
@@ -133,11 +151,6 @@ public class JuegosDB extends Crud {
                         result.getBoolean("activo"),
                         result.getBoolean("juego_permite_comentarios")
                 );
-                
-                juegos.add(juego);
-            }
-            return juegos;
-        }
     }
 
 }
