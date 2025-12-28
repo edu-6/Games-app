@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header">
+        {{juego.nombre}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{juego.nombre}}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary"> ${{ juego.precio }}</h6>
+        <div class="row">
+
+            <div class="col-md-6">
+                @if(urlFoto){
+                <img [src]="urlFoto" class="img-thumbnail avatar" width="150">
+                }
+            </div>
+            <div class="col-md-6 d-flex align-items-start gap-2">
+                @if(esAdminEmpresa){
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    title="Eliminar" (click)="eliminarAccion()">
+                    <i class="bi bi-trash"></i>
+                </button>
+
+                <a routerLink="/cartera" class="btn btn-primary">Editar</a>
+                }
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    title="Ver" (click)="eliminarAccion()">
+                    <i class="bi bi-eye-fill"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

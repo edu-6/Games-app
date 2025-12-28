@@ -10,10 +10,11 @@ import { EmpresasService } from '../../../services/empresas-service';
 import { BusquedaJuego } from '../../../models/juegos/busqueda-juego';
 import { Juego } from '../../../models/juegos/juego';
 import { JuegosService } from '../../../services/juegos-service';
+import { JuegoCard } from "../../../components/juegos/juego-card/juego-card";
 
 @Component({
   selector: 'app-juegos-page',
-  imports: [Header, ReactiveFormsModule, RouterLink, FormsModule, ReactiveFormsModule, KeyValuePipe, NgFor],
+  imports: [Header, ReactiveFormsModule, RouterLink, FormsModule, ReactiveFormsModule, KeyValuePipe, NgFor, JuegoCard],
   templateUrl: './juegos-page.html',
   styleUrl: './juegos-page.css',
 })
@@ -98,7 +99,10 @@ export class JuegosPage implements OnInit {
       error: (error: any) => {
         console.log(error.error.mensajeError);
       }
-
     });
+  }
+
+  guardarEntidadSeleccionada(evet: any){
+
   }
 }

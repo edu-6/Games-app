@@ -35,7 +35,7 @@
             </select>
             }
 
-
+            @if(!esAdminEmpresa){
             <select (change)="this.cambiarTipoDeBusqueda($event)" id="eventType" name="eventType" class="form-control"
                 formControlName="clasificacion"
                 [class.is-invalid]="barraBusqueda.controls['clasificacion'].invalid && intentoEnviarlo">
@@ -43,6 +43,8 @@
                     {{ option.value }}
                 </option>
             </select>
+            }
+            
             <button class="btn btn-outline-success" (click)="buscarJuego()">
                 Search
             </button>
@@ -58,4 +60,11 @@
         }
 
     </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @for (juego of juegos; track $index) {
+    <app-juego-card [juego]="juego" (entidadSeleccionada)="guardarEntidadSeleccionada($event)" />
+    <!--Aquí se pone como atributo de la tarjeta la categoría que se encontrós-->
+    }
 </div>

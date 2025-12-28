@@ -12,8 +12,8 @@ public class CreadorDeBusquedaJuego {
 
     private static final String BUSQUEDA_BASE = "select *from juego where 1=1";
     private static final String FILTRO_NOMBRE = " and juego_nombre = ?";
-    private static final String FILTRO_PRECIO = " and juego_precio >  ? and juego_precio < ?";
-    private static final String FILTRO_EMPRESA = " and juego_id_empresa = ?";
+    private static final String FILTRO_PRECIO = " and juego_precio >= ? and juego_precio <= ?";
+    private static final String FILTRO_EMPRESA = " and juego_codigo_empresa = ?";
 
     private int idEmpresa;
     private BusquedaJuego search;

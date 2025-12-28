@@ -6,8 +6,6 @@ package com.mycompany.rest.api.games.db;
 
 import com.mycompany.rest.api.games.db.Crud;
 import com.mycompany.rest.api.games.db.DBConnectionSingleton;
-import com.mycompany.rest.api.games.db.ImagenesDB;
-import static com.mycompany.rest.api.games.db.AdminEmpresaDB.RECUPERAR_IMAGEN;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.AvatarEntidad;
 import com.mycompany.rest.api.games.modelos.Entidad;
@@ -33,6 +31,7 @@ public class JuegosDB extends Crud {
     private static final String OBTENER_TODOS = "SELECT * FROM juego";
     private static final String BUSCAR_JUEGO_POR_NOMBRE = "SELECT * FROM juego WHERE juego_nombre = ?";
     private static final String AGREGAR_IMAGEN = "UPDATE juego set juego_avatar = ? WHERE juego_nombre = ?";
+    private static final String RECUPERAR_IMAGEN = "select juego_avatar from juego where juego_nombre = ?";
 
     @Override
     public boolean existeEntidad(String nombre) throws SQLException {
@@ -103,18 +102,23 @@ public class JuegosDB extends Crud {
     public ArrayList<Juego> buscarJuegos(CreadorDeBusquedaJuego creador) throws SQLException {
         ArrayList<Juego> juegos = new ArrayList();
         creador.armarBusqueda(); // arma la busqueda
+        int index = 1;
         try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement ps = connection.prepareStatement(creador.getBusquedaFinal())) {
             BusquedaJuego busqueda = creador.getSearch();
             if (creador.isFiltraNombre()) {
-                ps.setString(1, busqueda.getNombre());
+                ps.setString(index, busqueda.getNombre());
+                index++;
             }
             if (creador.isFiltraPrecio()) {
-                ps.setDouble(2, busqueda.getPrecioMinimo());
-                ps.setDouble(3, busqueda.getPrecioMaximo());
+                ps.setDouble(index, busqueda.getPrecioMinimo());
+                index++;
+                ps.setDouble(index, busqueda.getPrecioMaximo());
+                index++;
             }
 
             if (creador.isFiltraEmpresa()) {
-                ps.setInt(4, creador.getIdEmpresa());
+                ps.setInt(index, creador.getIdEmpresa());
+                index++;
             }
 
             ResultSet result = ps.executeQuery();
