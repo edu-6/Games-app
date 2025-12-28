@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Juego } from '../../../models/juegos/juego';
 import { JuegosService } from '../../../services/juegos-service';
 import { GuardiaRolesServicio } from '../../../services/seguridad/GuardiaDeRolesServicio';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-juego-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './juego-card.html',
   styleUrl: './juego-card.css',
 })

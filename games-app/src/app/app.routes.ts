@@ -20,6 +20,7 @@ import { JuegosPage } from '../pages/juegos/juegos-page/juegos-page';
 import { JuegoForm } from '../components/juegos/juego-form/juego-form';
 import { CarteraPage } from '../pages/cartera/cartera-page/cartera-page';
 import { RecargoCarteraPage } from '../pages/cartera/recargo-cartera-page/recargo-cartera-page';
+import { JuegoDetalles } from '../components/juegos/juego-detalles/juego-detalles';
 
 
 export const routes: Routes = [
@@ -129,7 +130,7 @@ export const routes: Routes = [
 
     {
 
-        path:"juegos",
+        path: "juegos",
         component: JuegosPage,
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['ADMIN_EMPRESA', 'ADMIN_SISTEMA', 'GAMER'] },
@@ -138,23 +139,31 @@ export const routes: Routes = [
     /// Juegos
 
     {
-        path:"juegos/form",
+        path: "juegos/form",
         component: JuegoForm,
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['ADMIN_EMPRESA'] },
     },
 
+    {
+        path: "juegos/detalles:juego",
+        component: JuegoDetalles,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['ADMIN_EMPRESA', 'GAMER'] },
+
+    },
+
 
     //Tarjeta
-     {
-        path:"cartera",
+    {
+        path: "cartera",
         component: CarteraPage,
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['GAMER'] },
     },
 
-     {
-        path:"cartera/form",
+    {
+        path: "cartera/form",
         component: RecargoCarteraPage,
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['GAMER'] },
