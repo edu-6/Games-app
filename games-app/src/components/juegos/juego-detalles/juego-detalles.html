@@ -1,3 +1,4 @@
+<app-header></app-header>
 <section class="vh-100">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -47,11 +48,17 @@
                             </div>
                         </div>
                         <div class="row mb-4">
+                            @if(yaEstaComprado){
+                                <label for=""> YA LO TIENES!</label>
+                            }@else {
                             <div class="mt-4">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Comprar</button>
+                                <button routerLink="/juegos/compra/{{juego.nombre}}" class="btn btn-primary w-100 py-3"
+                                    type="submit">Comprar</button>
                             </div>
+                            }
+
                             <div class="mt-4">
-                                <button type="button" routerLink=""
+                                <button type="button" routerLink="/juegos"
                                     class="btn btn-secondary py-3 w-100">Regresar</button>
                             </div>
                         </div>

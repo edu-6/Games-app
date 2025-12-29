@@ -110,6 +110,20 @@ INSERT INTO admin_sistema(admin_nombre, admin_correo, admin_contraseña)
 VALUES ('Primer admin','admin1','123');
 
 
+CREATE TABLE compra_juego (
+    compra_codigo_compra INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    compra_codigo_videojuego INTEGER NOT NULL,
+    compra_correo_usuario VARCHAR(100) NOT NULL,
+    compra_monto DOUBLE NOT NULL,
+    compra_comision DOUBLE NOT NULL,
+    compra_porcentaje_comision INTEGER NOT NULL,
+    fecha_compra DATE NOT NULL,
+    instalado BOOLEAN NOT NULL,
+    CONSTRAINT fk_compra FOREIGN KEY (compra_codigo_videojuego) REFERENCES juego (juego_id) ON DELETE CASCADE,
+    CONSTRAINT fk_compra_gamer FOREIGN KEY (compra_correo_usuario) REFERENCES gamer (gamer_correo) ON DELETE CASCADE
+);
+
+
 
 
 

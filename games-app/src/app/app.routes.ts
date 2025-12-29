@@ -22,6 +22,8 @@ import { CarteraPage } from '../pages/cartera/cartera-page/cartera-page';
 import { RecargoCarteraPage } from '../pages/cartera/recargo-cartera-page/recargo-cartera-page';
 import { JuegoDetalles } from '../components/juegos/juego-detalles/juego-detalles';
 import { JuegoDetallesPage } from '../pages/juegos/juego-detalles-page/juego-detalles-page';
+import { CompraJuego } from '../models/compras/compra-juego';
+import { CompraDeJuego } from '../components/juegos/compra-juego/compra-juego';
 
 
 export const routes: Routes = [
@@ -129,6 +131,8 @@ export const routes: Routes = [
     },
 
 
+        /// Juegos
+
     {
 
         path: "juegos",
@@ -136,8 +140,6 @@ export const routes: Routes = [
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['ADMIN_EMPRESA', 'ADMIN_SISTEMA', 'GAMER'] },
     },
-
-    /// Juegos
 
     {
         path: "juegos/form",
@@ -152,6 +154,12 @@ export const routes: Routes = [
         canActivate: [GuardiaRolesServicio],    
         data: { allowedRoles: ['ADMIN_EMPRESA', 'GAMER'] },
 
+    },
+    {
+        path: "juegos/compra/:nombre",
+        component: CompraDeJuego,
+        canActivate: [GuardiaRolesServicio],    
+        data: { allowedRoles: ['GAMER', "ADMIN_EMPRESA"] },
     },
 
 

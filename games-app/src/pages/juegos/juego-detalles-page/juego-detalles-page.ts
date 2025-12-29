@@ -3,6 +3,7 @@ import { JuegoDetalles } from "../../../components/juegos/juego-detalles/juego-d
 import { ActivatedRoute } from '@angular/router';
 import { Juego } from '../../../models/juegos/juego';
 import { JuegosService } from '../../../services/juegos-service';
+import { Header } from "../../../components/header/header";
 
 @Component({
   selector: 'app-juego-detalles-page',
@@ -11,7 +12,7 @@ import { JuegosService } from '../../../services/juegos-service';
   styleUrl: './juego-detalles-page.css',
 })
 export class JuegoDetallesPage implements OnInit {
-  juego !: Juego
+  juego !: Juego;
   nombreJuego !: string;
 
   constructor(private router: ActivatedRoute, private juegosServicios: JuegosService){

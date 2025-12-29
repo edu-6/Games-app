@@ -1,0 +1,50 @@
+<app-header></app-header>
+<form [formGroup]="formulario" (submit)="enviar()">
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-10 col-lg-8">
+
+          @if (hayError) {
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{mensajeError}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          }
+
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5">
+              <h2 class="mb-5 text-center">{{nombreJuego}}</h2>
+              <h2 class="mb-5 text-center">Precio: ${{juego.precio}}</h2>
+              <h3 class="mb-5 text-center">Tu saldo: {{saldo}}</h3>
+
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <label for="startDate" class="form-label">Fecha de compra:</label>
+                  <input type="date" class="form-control" id="startDate" formControlName="fechaCompra"
+                    [class.is-invalid]="formulario.controls['fechaCompra'].invalid && intentoEnviarlo">
+
+                  @if (formulario.controls['fechaCompra'].invalid && intentoEnviarlo) {
+                  <div class="invalid-feedback">
+                    Ingrese una fecha válida
+                  </div>
+                  }
+                </div>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary btn-lg" type="submit">Confirmar Compra</button>
+              </div>
+
+              <br>
+              <div class="mt-4">
+                <button type="button" routerLink="/juegos/detalles/{{this.juego.nombre}}" class="btn btn-secondary py-3 w-100">Regresar</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
