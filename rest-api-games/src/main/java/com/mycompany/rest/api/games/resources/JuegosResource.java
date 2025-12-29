@@ -27,6 +27,8 @@ import jakarta.ws.rs.core.StreamingOutput;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 /**
@@ -81,7 +83,9 @@ public class JuegosResource {
             return Response.ok(juego).build();
         } catch (SQLException e) {
             e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        } catch (NoEncontradoException e) {
+             return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
 

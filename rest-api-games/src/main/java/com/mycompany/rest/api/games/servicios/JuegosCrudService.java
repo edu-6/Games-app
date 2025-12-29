@@ -64,9 +64,13 @@ public class JuegosCrudService extends CrudService {
         db.eliminarEntidad(parametro);
     }
     
-    public Juego buscarJuego(String id) throws SQLException{
+    public Juego buscarJuego(String id) throws SQLException, NoEncontradoException{
         JuegosDB db = new JuegosDB();
-        return db.buscarJuego(id);
+        Juego juego = db.buscarJuego(id);
+        if(juego != null){
+         return juego;   
+        }
+        throw new NoEncontradoException();
     }
 
     public ArrayList<Juego> buscarJuegos(BusquedaJuego busqueda) throws SQLException {

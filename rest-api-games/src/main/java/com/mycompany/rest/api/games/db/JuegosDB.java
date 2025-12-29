@@ -103,8 +103,10 @@ public class JuegosDB extends Crud {
         try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement query = connection.prepareStatement(BUSCAR_JUEGO_POR_NOMBRE);) {
             query.setString(1, id);
             ResultSet result = query.executeQuery();
-            result.next();
-            return this.extraerJuego(result);
+            if(result.next()){
+                return this.extraerJuego(result);
+            }
+            return null;
         }
     }
     
