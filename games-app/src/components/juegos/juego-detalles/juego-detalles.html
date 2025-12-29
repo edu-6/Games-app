@@ -1,86 +1,59 @@
 <section class="vh-100">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-10 col-lg-8">
-
-
+            <div class="col-10 col-md-12 col-lg-8">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5">
-
                         <h3 class="mb-5 text-center">{{juego.nombre}}</h3>
-
                         <div class="row mb-4">
                             @if(hayArchivoCargado){
                             <div class="col-md-6">
                                 <img [src]="urlTemporal" alt="..." class="img-thumbnail avatar">
                             </div>
                             }
-
                         </div>
-
                         <div class="col-md-6 mb-4 mb-md-0">
-
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-6 mb-4 mb-md-0">
-
-                                <label class="form-label">Nombre:</label>
-                                <label class="form-label">Nombre: {{juego.nombre}}</label>
+                                <label class="form-label"> <strong>Nombre: </strong></label>
+                                <label class="form-label"> {{juego.nombre}}</label>
                                 <label class="form-label">{{juego.nombre}}</label>
-                                <input type="text" class="form-control" name="name" formControlName="nombre">
                             </div>
-
                             <div class="col-md-6">
-                                <label for="eventType" class="form-label">clasificacion edad :</label>
+                                <label for="eventType" class="form-label"><strong>Clasificacion edad: </strong>
+                                    {{juego.clasificacion}}</label>
                             </div>
                         </div>
-
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
-                            <textarea  readonly type="hidden" formControlName="descripcion" class="form-control">{{juego.descripcion}}</textarea>
+                            <label for="exampleFormControlTextarea1"
+                                class="form-label"><strong>Descripcion:</strong></label>
+                            <textarea readonly type="hidden" formControlName="descripcion"
+                                class="form-control">{{juego.descripcion}}</textarea>
                         </div>
-
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Requerimientos</label>
-                            <textarea type="hidden" readonly class="form-control" id="exampleFormControlTextarea1"></textarea>
+                            <label for="inputField" class="form-label"><strong>Requerimientos</strong></label>
+                            <textarea type="hidden" readonly class="form-control"
+                                id="exampleFormControlTextarea1">{{juego.requerimientos}}</textarea>
                         </div>
-
-
                         <div class="row mb-4">
                             <div class="col-md-6 mb-4 mb-md-0">
-
-                                <label for="limit" class="form-label">Precio:</label>
-                                <input type="hidden" class="form-control" id="limit" name="limit"
-                                    formControlName="precio">
-                                <div class="invalid-feedback">
-                                    <div>
-                                        Ingrese el precio
-                                    </div>
-                                </div>
+                                <label for="limit" class="form-label"><strong>Precio: </strong>
+                                    ${{juego.precio}}</label>
                             </div>
-
                             <div class="col-md-6">
-                                <label for="startDate" class="form-label">Fecha de lanzamiento:</label>
-                                <input type="date" class="form-control" id="startDate" name="startDate"
-                                    formControlName="fechaLanzamiento">
-                                <div class="invalid-feedback">
-                                    <div>
-                                        Ingrese una fecha valida
-                                    </div>
-                                </div>
+                                <label for="startDate" class="form-label"><strong>Fecha de lanzamiento:</strong>
+                                    {{juego.fechaLanzamiento}}</label>
                             </div>
-
                         </div>
                         <div class="row mb-4">
-
-                        </div>
-
-                        <div class="mt-4">
-                            <button class="btn btn-primary w-100 py-3" type="submit">Comprar</button>
-                        </div>
-
-                        <div class="mt-4">
-                            <button type="button" routerLink="" class="btn btn-secondary py-3 w-100">Regresar</button>
+                            <div class="mt-4">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Comprar</button>
+                            </div>
+                            <div class="mt-4">
+                                <button type="button" routerLink=""
+                                    class="btn btn-secondary py-3 w-100">Regresar</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -15,10 +15,14 @@ export class JuegoDetallesPage implements OnInit {
   nombreJuego !: string;
 
   constructor(private router: ActivatedRoute, private juegosServicios: JuegosService){
+    this.nombreJuego = this.router.snapshot.params['nombre'];
+    console.log(this.nombreJuego);
   }
 
   ngOnInit(): void {
-     this.nombreJuego = this.router.snapshot.params['nombre'];
+
+     
+     console.log("si llegó"+ this.nombreJuego);
         if(!this.nombreJuego){
           console.log(" no está llegando bien");
         }

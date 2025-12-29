@@ -21,6 +21,7 @@ import { JuegoForm } from '../components/juegos/juego-form/juego-form';
 import { CarteraPage } from '../pages/cartera/cartera-page/cartera-page';
 import { RecargoCarteraPage } from '../pages/cartera/recargo-cartera-page/recargo-cartera-page';
 import { JuegoDetalles } from '../components/juegos/juego-detalles/juego-detalles';
+import { JuegoDetallesPage } from '../pages/juegos/juego-detalles-page/juego-detalles-page';
 
 
 export const routes: Routes = [
@@ -147,8 +148,8 @@ export const routes: Routes = [
 
     {
         path: "juegos/detalles/:nombre",
-        component: JuegoDetalles,
-        canActivate: [GuardiaRolesServicio],
+        component: JuegoDetallesPage,
+        canActivate: [GuardiaRolesServicio],    
         data: { allowedRoles: ['ADMIN_EMPRESA', 'GAMER'] },
 
     },
