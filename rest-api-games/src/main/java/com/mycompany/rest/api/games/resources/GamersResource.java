@@ -4,14 +4,20 @@
  */
 package com.mycompany.rest.api.games.resources;
 
+import com.mycompany.rest.api.games.db.GamersDB;
+import com.mycompany.rest.api.games.dtos.gamers.GamerResponse;
 import com.mycompany.rest.api.games.modelos.cartera.RecargoTarjeta;
 import com.mycompany.rest.api.games.modelos.cartera.SaldoTarjeta;
 import com.mycompany.rest.api.games.dtos.gamers.NuevoGamerRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
+import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;
+import com.mycompany.rest.api.games.modelos.gamers.Gamer;
+import com.mycompany.rest.api.games.modelos.gamers.GamerSimple;
 import com.mycompany.rest.api.games.servicios.GamersCrudService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -21,8 +27,11 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.StreamingOutput;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 /**
@@ -67,7 +76,56 @@ public class GamersResource {
         } 
     }
     
+    @DELETE
+    @Path("{correo}")
+    public Response eliminarGamer(@PathParam("correo") String correo){
+        GamersCrudService crudService = new GamersCrudService();
+        try {
+            crudService.eliminarGamer(correo);
+            return Response.ok().build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        }
+    }
     
+    
+    @GET
+    @Path("gamer-simple/{correo}")
+    public Response obtenerGamerSimple(@PathParam("correo") String correo) {
+        GamersCrudService crudService = new GamersCrudService();
+        try {
+            GamerSimple gamer = crudService.buscarGamerSimple(correo);
+            return Response.ok(gamer).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        } 
+    }
+    
+    @GET
+    @Path("gamer-completo/{correo}")
+    public Response obtenerGamerCompleto(@PathParam("correo") String correo) {
+        GamersCrudService crudService = new GamersCrudService();
+        try {
+            Gamer gamer = crudService.buscarGamerCompleto(correo);
+            GamerResponse gamer2  = new GamerResponse(gamer);
+            return Response.ok(gamer2).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        } 
+    }
+    
+    @PUT
+    public Response editarGamer(NuevoGamerRequest gamerRequest) {
+        GamersCrudService crudService = new GamersCrudService();
+        try {
+            crudService.editarGamer(gamerRequest);
+            return Response.ok().build(); 
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        } catch (DatosInvalidosException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(e.getMessage())).build();
+        } 
+    }
     
     @GET
     @Path("saldo/{correo}")
@@ -90,6 +148,26 @@ public class GamersResource {
         crudService.agregarImagenGamer(new AvatarGamer(correo, imagenCargada));
         return Response.status(Response.Status.CREATED).build();
 
+    }
+    
+    @GET
+    @Path("imagenes/{id}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response recuperarImagen(@PathParam("id") String correo) {
+        GamersCrudService crudService = new GamersCrudService();
+
+        try {
+            StreamingOutput stream = crudService.recuperarImagen(correo,new GamersDB());
+            if (stream == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(stream).build();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
+        } catch (NoEncontradoException ex) {
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(ex.getMessage())).build();
+        }
     }
 
 }

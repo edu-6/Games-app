@@ -45,6 +45,7 @@ export class JuegosPage implements OnInit {
       this.tiposBusqueda = ['nombre'];
     } else {
       this.tiposBusqueda = ['nombre', 'empresa'];
+      this.obtenerEmpresas();
     }
   }
 
@@ -126,5 +127,14 @@ export class JuegosPage implements OnInit {
       }
     });
 
+  }
+
+
+  obtenerEmpresas(): void{
+    this.empresasServicio.obtenerEmpresas().subscribe({
+      next:(empresas: Empresa[])=>{
+        this.empresas = empresas;
+      }
+    });
   }
 }

@@ -1,0 +1,10 @@
+
+<app-header></app-header>
+@if(gamer){
+    <app-gamer-card [gamer]="gamer" (gamerFueSeleccionado)="guardarGamerSeleccionado($event)"></app-gamer-card>
+}@else {
+    <h1 no se encontró el gamer></h1>
+}
+
+<!--Este modal sirve la eliminación-->
+<app-modal-generico [mensaje]="mensajeEliminacion" (confirmationExecuter)="eliminarRegistro()" />

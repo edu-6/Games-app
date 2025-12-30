@@ -13,45 +13,22 @@ import java.time.LocalDate;
  *
  * @author edu
  */
-public class NuevoGamerRequest {
-    
-    private String nombre;
-    private String nombrePais;
-    private String correo;
-    private String nickname;
-    private String contrasena;
-    private String telefono;
+public class NuevoGamerRequest extends GamerDTOSimple {
+   
     
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate fechaNacimiento;  
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getNombrePais() {
-        return nombrePais;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
     
+    
+    
+
 }

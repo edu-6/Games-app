@@ -25,6 +25,8 @@ import { JuegoDetallesPage } from '../pages/juegos/juego-detalles-page/juego-det
 import { CompraJuego } from '../models/compras/compra-juego';
 import { CompraDeJuego } from '../components/juegos/compra-juego/compra-juego';
 import { JuegoEditarPage } from '../pages/juegos/juego-editar-page/juego-editar-page';
+import { PerfilPage } from '../pages/gamers/perfil-page/perfil-page';
+import { EditarPerfilPage } from '../pages/gamers/editar-perfil-page/editar-perfil-page';
 
 
 export const routes: Routes = [
@@ -60,6 +62,8 @@ export const routes: Routes = [
         data: { allowedRoles: ['ADMIN_SISTEMA'] },
     },
 
+
+    // Gamer
 
 
     //Admins sistema
@@ -129,6 +133,20 @@ export const routes: Routes = [
         component: AmdinEmpresaEditarPage,
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['ADMIN_EMPRESA'] },
+    },
+
+    // Gamers
+    {
+        path: "gamers/perfil",
+        component: PerfilPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['GAMER'] },
+    },
+    {
+        path: "gamers/perfil/editar/:correo",
+        component: EditarPerfilPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['GAMER'] },
     },
 
 

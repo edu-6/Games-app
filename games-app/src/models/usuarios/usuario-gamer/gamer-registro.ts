@@ -4,7 +4,7 @@ export interface GamerRegistro {
     telefono: number,
     correo: string,
     nickname: string,
-    constraseña: string,
+    contrasena: string,
     fechaNacimiento: Date,
     pais: PaisEnum
 

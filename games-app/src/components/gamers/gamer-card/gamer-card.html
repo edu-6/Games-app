@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-header">
+        {{gamer.nombre}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Nombre: {{gamer.nombre}}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Correo: {{ gamer.correo }}</h6>
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+                @if(urlFoto){
+                <img [src]="urlFoto" class="img-thumbnail avatar" width="150">
+                }
+            </div>
+
+            <div class="col-md-6">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    title="Eliminar" (click)="eliminarAccion()">
+                    <i class="bi bi-trash"></i>
+                </button>
+
+                <a routerLink="/gamers/perfil/editar/{{gamer.correo}}" class="btn btn-primary">Editar</a>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>

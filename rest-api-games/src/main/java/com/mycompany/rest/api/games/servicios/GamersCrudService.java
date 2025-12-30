@@ -4,13 +4,20 @@
  */
 package com.mycompany.rest.api.games.servicios;
 
+import com.mycompany.rest.api.games.db.Crud;
 import com.mycompany.rest.api.games.db.GamersDB;
 import com.mycompany.rest.api.games.modelos.cartera.RecargoTarjeta;
 import com.mycompany.rest.api.games.dtos.gamers.NuevoGamerRequest;
 import com.mycompany.rest.api.games.exceptions.DatosInvalidosException;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
+import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.modelos.gamers.AvatarGamer;
 import com.mycompany.rest.api.games.modelos.gamers.Gamer;
+import com.mycompany.rest.api.games.modelos.gamers.GamerSimple;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.StreamingOutput;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.SQLException;
 
 /**
@@ -41,6 +48,33 @@ public class GamersCrudService {
         
         return gamer;
     }
+    
+    
+    public void editarGamer(NuevoGamerRequest request) throws SQLException, DatosInvalidosException{
+        GamersDB gamersDb = new GamersDB();
+        Gamer gamer = extraerGamer(request);
+        gamersDb.editarGamer(gamer);
+    }
+    
+    
+    public GamerSimple buscarGamerSimple(String correo) throws SQLException {
+         GamersDB gamersDb = new GamersDB();
+        return gamersDb.buscarGamerSimplePorCorreo(correo);
+    }
+
+    public Gamer buscarGamerCompleto(String correo) throws SQLException {
+         GamersDB gamersDb = new GamersDB();
+        return gamersDb.buscarGamerPorCorreo(correo);
+        
+    }
+
+    public void eliminarGamer(String correo) throws SQLException {
+         GamersDB gamersDb = new GamersDB();
+         gamersDb.eliminarGamer(correo);
+
+    }
+
+
     
     
     public void recargarTarjeta(RecargoTarjeta recargo) throws SQLException{
@@ -89,6 +123,21 @@ public class GamersCrudService {
             e.printStackTrace();
         }
         
+    }
+    
+    public StreamingOutput recuperarImagen(String correo, GamersDB db) throws SQLException, NoEncontradoException {
+        byte [] imagen = db.recuperarImagen(correo);
+        if(imagen == null){
+            throw new NoEncontradoException();
+        }
+        // retornar un straming output
+        return new StreamingOutput() {
+        @Override
+        public void write(OutputStream os) throws IOException, WebApplicationException {
+            os.write(imagen);
+            os.flush();
+        }
+    };
     }
     
     
