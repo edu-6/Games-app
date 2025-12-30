@@ -34,12 +34,12 @@ export class JuegosService {
     return this.httpCliente.get<Juego >(`${this.constantesRest.getApiURL()}juegos/${id}`);
   }
 
-  public editarJuego(admin: Juego): Observable<void>{
-    return this.httpCliente.put<void>(this.constantesRest.getApiURL() + 'juegos', admin);
+  public editarJuego(juego: Juego): Observable<void>{
+    return this.httpCliente.put<void>(this.constantesRest.getApiURL() + 'juegos', juego);
   }
 
   public eliminarJuego(id: string): Observable<void>{
-    return this.httpCliente.delete<void>(`${this.constantesRest.getApiURL()}admins-empresa/${id}`);
+    return this.httpCliente.delete<void>(`${this.constantesRest.getApiURL()}juegos/${id}`);
   }
 
 

@@ -23,12 +23,11 @@ import java.util.ArrayList;
  * @author edu
  */
 public class JuegosDB extends Crud {
-
+    private static final String BUSCAR_ID_JUEGO = "SELECT juego_id from juego where juego_nombre = ?";
     private static final String CREAR_JUEGO = "INSERT INTO juego (juego_nombre, clasificacion_edad, juego_descripcion, juego_requerimientos, juego_precio, fecha_lanzamiento, activo, juego_permite_comentarios, juego_codigo_empresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String EDITAR_JUEGO = "UPDATE juego SET juego_nombre = ?, clasificacion_edad = ?, juego_descripcion = ?, juego_requerimientos = ?, juego_precio = ?, activo = ?, juego_permite_comentarios = ? WHERE juego_nombre = ?";
+    private static final String EDITAR_JUEGO = "UPDATE juego SET juego_nombre = ?, clasificacion_edad = ?, juego_descripcion = ?, juego_requerimientos = ?, juego_precio = ?, activo = ?, juego_permite_comentarios = ? WHERE juego_id = ?";
     private static final String ELIMINAR_JUEGO = "DELETE FROM juego WHERE juego_nombre = ?";
     private static final String EXISTE_JUEGO = "SELECT * FROM juego WHERE juego_nombre = ?";
-    private static final String OBTENER_TODOS = "SELECT * FROM juego";
     private static final String BUSCAR_JUEGO_POR_NOMBRE = "SELECT * FROM juego WHERE juego_nombre = ?";
     private static final String AGREGAR_IMAGEN = "UPDATE juego set juego_avatar = ? WHERE juego_nombre = ?";
     private static final String RECUPERAR_IMAGEN = "select juego_avatar from juego where juego_nombre = ?";
@@ -70,6 +69,7 @@ public class JuegosDB extends Crud {
             ps.setDouble(5, juego.getPrecio());
             ps.setBoolean(6, juego.isActivo());
             ps.setBoolean(7, juego.isPermiteComentarios());
+            ps.setInt(8, juego.getId_juego());
             ps.executeUpdate();
         }
     }
@@ -86,6 +86,17 @@ public class JuegosDB extends Crud {
     public byte[] recuperarImagen(String id) throws SQLException, NoEncontradoException {
         ImagenesDB db = new ImagenesDB();
         return db.recuperarImagen(RECUPERAR_IMAGEN, id, "juego_avatar");
+    }
+    
+    public int buscarIdJuego(String nombre) throws SQLException{
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement query = connection.prepareStatement(BUSCAR_ID_JUEGO);) {
+           query.setString(1, nombre);
+            ResultSet result = query.executeQuery();
+            if(result.next()){
+                return result.getInt("juego_id");
+            }
+        }
+        return -1;
     }
 
     public void agregarImagen(AvatarEntidad avatar) {

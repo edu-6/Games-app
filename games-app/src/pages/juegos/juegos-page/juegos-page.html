@@ -68,3 +68,6 @@
     <!--Aquí se pone como atributo de la tarjeta la categoría que se encontrós-->
     }
 </div>
+
+<!--Este modal sirve la eliminación-->
+<app-modal-generico [mensaje]="mensajeEliminacion" (confirmationExecuter)="eliminarRegistro()" />

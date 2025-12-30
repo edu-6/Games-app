@@ -24,6 +24,7 @@ public class Juego extends EntidadBackend {
     private boolean permiteComentarios;
     private String correoCreador;
     private int idEmpresa;
+    private int id_juego;
 
     public Juego() {
 
@@ -136,6 +137,14 @@ public class Juego extends EntidadBackend {
         return permiteComentarios;
     }
 
+    public int getId_juego() {
+        return id_juego;
+    }
+
+    public void setId_juego(int id_juego) {
+        this.id_juego = id_juego;
+    }
+    
     @Override
     public boolean valido() {
         return this.nombre != null

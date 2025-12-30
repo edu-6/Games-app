@@ -50,7 +50,9 @@ public class JuegosCrudService extends CrudService {
         if (!db.existeEntidad(juego.getNombre())) {
             throw new NoEncontradoException();
         }
-
+        
+        int id_juego = db.buscarIdJuego(juego.getNombre());
+        juego.setId_juego(id_juego); // se le agrega su id
         db.editarEntidad(entidad);
     }
 

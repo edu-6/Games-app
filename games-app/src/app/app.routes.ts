@@ -24,6 +24,7 @@ import { JuegoDetalles } from '../components/juegos/juego-detalles/juego-detalle
 import { JuegoDetallesPage } from '../pages/juegos/juego-detalles-page/juego-detalles-page';
 import { CompraJuego } from '../models/compras/compra-juego';
 import { CompraDeJuego } from '../components/juegos/compra-juego/compra-juego';
+import { JuegoEditarPage } from '../pages/juegos/juego-editar-page/juego-editar-page';
 
 
 export const routes: Routes = [
@@ -152,7 +153,7 @@ export const routes: Routes = [
         path: "juegos/detalles/:nombre",
         component: JuegoDetallesPage,
         canActivate: [GuardiaRolesServicio],    
-        data: { allowedRoles: ['ADMIN_EMPRESA', 'GAMER'] },
+        data: { allowedRoles: [ 'GAMER'] },
 
     },
     {
@@ -160,6 +161,13 @@ export const routes: Routes = [
         component: CompraDeJuego,
         canActivate: [GuardiaRolesServicio],    
         data: { allowedRoles: ['GAMER', "ADMIN_EMPRESA"] },
+    },
+    {
+
+        path:"juegos/editar/:nombre",
+        component: JuegoEditarPage,
+         canActivate: [GuardiaRolesServicio],    
+        data: { allowedRoles: [ "ADMIN_EMPRESA"] },
     },
 
 

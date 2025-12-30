@@ -110,8 +110,8 @@ public class JuegosResource {
     }
 
     @DELETE
-    @Path("{correo}")
-    public Response eliminarJuego(@PathParam("correo") String id) {
+    @Path("{nombre}")
+    public Response eliminarJuego(@PathParam("nombre") String id) {
         JuegosCrudService crudService = new JuegosCrudService();
         try {
             crudService.eliminarEntidad(id);

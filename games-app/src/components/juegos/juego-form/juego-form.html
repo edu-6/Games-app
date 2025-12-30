@@ -30,7 +30,7 @@
                   <label class="form-label">Suba una imagen (Opcional)</label>
                   <input class="form-control" type="file" id="formFile" (change)="AlCargarArchivo($event)">
                 </div>
-                @if(hayArchivoCargado){
+                @if(urlTemporal){
                 <div class="col-md-6">
                   <img [src]="urlTemporal" alt="..." class="img-thumbnail avatar">
                 </div>
@@ -45,7 +45,10 @@
               <div class="row mb-4">
                 <div class="col-md-6 mb-4 mb-md-0">
 
-                  <label class="form-label">Nombre:</label>
+                  <label class="form-label">Nombre: </label>
+                  @if(estaEnEdicion){
+                    <label class="form-label"><strong> {{juegoEdicion.nombre}}</strong></label>
+                  }@else {
                   <input type="text" class="form-control" name="name" formControlName="nombre"
                     [class.is-invalid]="formulario.controls['nombre'].invalid && intentoEnviarlo">
                   <div class="invalid-feedback">
@@ -53,6 +56,8 @@
                       ingrese su nombre (Max 100)
                     </div>
                   </div>
+                  }
+
                 </div>
 
                 <div class="col-md-6">
@@ -79,7 +84,8 @@
 
               <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Requerimientos</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" formControlName = "requerimientos" rows="3"
+                <textarea class="form-control" id="exampleFormControlTextarea1" formControlName="requerimientos"
+                  rows="3"
                   [class.is-invalid]="formulario.controls['requerimientos'].invalid && intentoEnviarlo"></textarea>
               </div>
 
@@ -138,7 +144,7 @@
               </div>
 
               <div class="mt-4">
-                <button type="button" routerLink="" class="btn btn-secondary py-3 w-100">Regresar</button>
+                <button type="button" routerLink="/juegos" class="btn btn-secondary py-3 w-100">Regresar</button>
               </div>
             </div>
           </div>
