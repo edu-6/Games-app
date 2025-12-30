@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 
 /**
  *
@@ -15,6 +17,8 @@ import java.sql.SQLException;
  */
 public class ComprasDB {
 
+    private static final String ENCONTRAR_CLASIFICACION_JUEGO = "SELECT clasificacion_edad from juego where juego_id = ?";
+    private static final String BUSCAR_FECHA_NACIMIENTO_USUARIO = "select gamer_fecha_nacimiento from gamer where gamer_correo = ? ";
     private static final String BUSCAR_COMPRA = "select * from compra_juego where compra_codigo_videojuego = ? and compra_correo_usuario = ?";
     private static final String OBTENER_ID_JUEGO_POR_NOMBRE = "SELECT juego_id from juego where juego_nombre = ?";
     private static final String OBTENER_PRECIO = "SELECT juego_precio from juego where juego_id = ?";
@@ -103,5 +107,38 @@ public class ComprasDB {
             return result.next();
         }
     }
+    
+    public boolean gamerEsMayorDeEdad(String correo) throws SQLException{
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement insert = connection.prepareStatement(BUSCAR_FECHA_NACIMIENTO_USUARIO)) {
+            insert.setString(1, correo);
+            ResultSet result = insert.executeQuery();
+            if(result.next()){
+                LocalDate fechaNacimiento = result.getDate("gamer_fecha_nacimiento").toLocalDate();
+                LocalDate fechaHoy = LocalDate.now();
+                Period periodo = Period.between(fechaNacimiento, fechaHoy);
+                int edad = periodo.getYears();
+                return edad >= 18;
+            }
+            return false;
+        }
+    }
+    
+    
+    public boolean juegoEsParaAdultos(int idJuego) throws SQLException{
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement insert = connection.prepareStatement(ENCONTRAR_CLASIFICACION_JUEGO)) {
+            insert.setInt(1, idJuego);
+            ResultSet result = insert.executeQuery();
+            if(result.next()){
+                String categoria = result.getString("clasificacion_edad");
+                if(categoria.equals("M")){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    
+    
+    
 
 }

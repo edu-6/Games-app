@@ -7,6 +7,7 @@ package com.mycompany.rest.api.games.resources;
 import com.mycompany.rest.api.games.dtos.compras.CompraExistenciaResponse;
 import com.mycompany.rest.api.games.dtos.compras.CompraRequest;
 import com.mycompany.rest.api.games.exceptions.IdentidadRepetidaException;
+import com.mycompany.rest.api.games.exceptions.MenorDeEdadException;
 import com.mycompany.rest.api.games.exceptions.NoEncontradoException;
 import com.mycompany.rest.api.games.exceptions.SaldoInsuficienteException;
 import com.mycompany.rest.api.games.modelos.compras.CompraExistencia;
@@ -43,6 +44,8 @@ public class ComprasResource {
             return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse(e.getMessage())).build();
         } catch (IdentidadRepetidaException e) {
             return Response.status(Response.Status.CONFLICT).entity(new ErrorResponse(e.getMessage())).build();
+        } catch (MenorDeEdadException e) {
+            return Response.status(Response.Status.FORBIDDEN).entity(new ErrorResponse(e.getMessage())).build();
         }      
     }
     
