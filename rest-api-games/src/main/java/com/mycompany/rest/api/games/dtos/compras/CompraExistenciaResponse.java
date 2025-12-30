@@ -12,9 +12,23 @@ public class CompraExistenciaResponse {
     
     private boolean existe;
 
+    public CompraExistenciaResponse() {
+    }
+    
+     
+
     public CompraExistenciaResponse(boolean existe) {
         this.existe = existe;
     }
+
+    public boolean isExiste() {
+        return existe;
+    }
+
+    public void setExiste(boolean existe) {
+        this.existe = existe;
+    }
+    
     
     
 }

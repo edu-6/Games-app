@@ -15,6 +15,7 @@ import com.mycompany.rest.api.games.servicios.ComprasCrudService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -50,6 +51,7 @@ public class ComprasResource {
     @POST
     @Path("existencia")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response existeVenta(CompraExistencia request){
         ComprasCrudService crudService = new ComprasCrudService();
         try {
@@ -57,6 +59,7 @@ public class ComprasResource {
             CompraExistenciaResponse respuesta = new CompraExistenciaResponse(existe);
             return Response.ok(respuesta).build();
         } catch (SQLException e) {
+            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(e.getMessage())).build();
         }    
     }

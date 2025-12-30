@@ -17,13 +17,15 @@ import { CompraExistenciaResponse } from '../../../models/compras/existencia-res
 export class JuegoDetalles implements OnInit {
   urlTemporal: string = "asñldfk";
   hayArchivoCargado: boolean = false;
-  yaEstaComprado: boolean = false;
+  yaEstaComprado !: boolean;
   @Input({ required: true })
   juego !: Juego;
 
   constructor(private juegosService: JuegosService, private comprasService: ComprasService) {
+    
   }
   ngOnInit(): void {
+    this.averiguarSiYaLoCompro();
     this.juegosService.obtenerImagen(this.juego.nombre).subscribe({
       next: (datos: Blob) => {
         this.urlTemporal = URL.createObjectURL(datos);
@@ -33,6 +35,12 @@ export class JuegoDetalles implements OnInit {
         console.log(error.error.mensaje);
       }
     });
+    
+  }
+
+
+  averiguarSiYaLoCompro(): void{
+    console.log(" se está averiguando");
     let correo: string | null = localStorage.getItem('correo');
     if (correo != null) {
       this.comprasService.buscarCompraAnterior(new CompraExistencia(this.juego.nombre, correo)).subscribe({

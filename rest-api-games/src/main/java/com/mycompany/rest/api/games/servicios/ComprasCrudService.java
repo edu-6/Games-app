@@ -65,6 +65,6 @@ public class ComprasCrudService {
     public boolean existeCompra(CompraExistencia compra) throws SQLException{
         ComprasDB db = new ComprasDB();
         int id_juego = db.obtenerIdJuegoPorNombre(compra.getNombreJuego());
-        return db.existeCompra(id_juego, compra.getCorreo());
+        return db.existeCompra(id_juego, compra.getCorreoUsuario());
     }
 }

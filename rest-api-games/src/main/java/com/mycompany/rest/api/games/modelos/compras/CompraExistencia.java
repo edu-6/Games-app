@@ -9,29 +9,27 @@ package com.mycompany.rest.api.games.modelos.compras;
  * @author edu
  */
 public class CompraExistencia {
-    private String correo;
+    private String correoUsuario;
     private String nombreJuego;
 
     public CompraExistencia() {
     }
 
-    public CompraExistencia(String correo, String nombreJuego) {
-        this.correo = correo;
+    public CompraExistencia(String correoUsuario, String nombreJuego) {
+        this.correoUsuario = correoUsuario;
         this.nombreJuego = nombreJuego;
     }
-    
-    
 
-    public String getCorreo() {
-        return correo;
+    public String getCorreoUsuario() {
+        return correoUsuario;
     }
 
     public String getNombreJuego() {
         return nombreJuego;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCorreoUsuario(String correoUsuario) {
+        this.correoUsuario = correoUsuario;
     }
 
     public void setNombreJuego(String nombreJuego) {
