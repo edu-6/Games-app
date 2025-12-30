@@ -1,0 +1,35 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="Blank_A4" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5cbfa4de-cb5e-462c-9848-99caefc80e4f">
+	<query language="sql"><![CDATA[]]></query>
+	<field name="precio" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="parametro" class="java.lang.String"/>
+	<background splitType="Stretch"/>
+	<title height="79" splitType="Stretch">
+		<element kind="staticText" uuid="057e84c7-82fd-43d6-87c7-3bf0b3d0c6ad" x="240" y="30" width="100" height="30">
+			<text><![CDATA[Primer reporte]]></text>
+		</element>
+	</title>
+	<detail>
+		<band height="202" splitType="Stretch">
+			<element kind="textField" uuid="81c9fa7e-3840-4ca7-95ce-9729c78d80e5" x="190" y="30" width="100" height="30">
+				<expression><![CDATA[$F{nombre}]]></expression>
+			</element>
+			<element kind="staticText" uuid="714ddffa-6df4-4115-9477-9d222d6bd8c3" x="90" y="30" width="100" height="30">
+				<text><![CDATA[nombre]]></text>
+			</element>
+			<element kind="textField" uuid="62c33b8e-27cb-471c-8dce-5e62faa0461f" x="190" y="60" width="100" height="30">
+				<expression><![CDATA[$F{precio}]]></expression>
+			</element>
+			<element kind="staticText" uuid="4333fa3b-6c89-4aa0-bb0a-cb660a747cfc" x="90" y="60" width="100" height="30">
+				<text><![CDATA[precio]]></text>
+			</element>
+			<element kind="textField" uuid="dd9d9f90-a767-444a-a197-319689757e24" x="192" y="93" width="100" height="30">
+				<expression><![CDATA[$F{parametro}]]></expression>
+			</element>
+			<element kind="staticText" uuid="0d1af5db-0401-47a9-9e0c-2dab61d2ca1b" x="92" y="93" width="100" height="30">
+				<text><![CDATA[parametro]]></text>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

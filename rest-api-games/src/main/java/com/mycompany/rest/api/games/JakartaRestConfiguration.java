@@ -13,7 +13,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class JakartaRestConfiguration extends ResourceConfig {
     
     public JakartaRestConfiguration() {
-        packages("com.mycompany.rest.api.games.resources").register(MultiPartFeature.class);
+        packages("com.mycompany.rest.api.games.resources", "com.mycompany.rest.api.reportes").register(MultiPartFeature.class);
     }
     
 }
