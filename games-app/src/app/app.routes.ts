@@ -27,6 +27,7 @@ import { CompraDeJuego } from '../components/juegos/compra-juego/compra-juego';
 import { JuegoEditarPage } from '../pages/juegos/juego-editar-page/juego-editar-page';
 import { PerfilPage } from '../pages/gamers/perfil-page/perfil-page';
 import { EditarPerfilPage } from '../pages/gamers/editar-perfil-page/editar-perfil-page';
+import { GruposPage } from '../pages/grupos/grupos-page/grupos-page';
 
 
 export const routes: Routes = [
@@ -145,6 +146,15 @@ export const routes: Routes = [
     {
         path: "gamers/perfil/editar/:correo",
         component: EditarPerfilPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['GAMER'] },
+    },
+
+
+    //GRUPOS
+    {
+        path: "grupos",
+        component: GruposPage,
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['GAMER'] },
     },

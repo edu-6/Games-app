@@ -58,7 +58,4 @@ public class UsuarioResponse extends Entidad {
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    
-    
-    
 }
