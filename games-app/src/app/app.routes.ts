@@ -28,6 +28,8 @@ import { JuegoEditarPage } from '../pages/juegos/juego-editar-page/juego-editar-
 import { PerfilPage } from '../pages/gamers/perfil-page/perfil-page';
 import { EditarPerfilPage } from '../pages/gamers/editar-perfil-page/editar-perfil-page';
 import { GruposPage } from '../pages/grupos/grupos-page/grupos-page';
+import { GrupoForm } from '../components/grupos/grupo-form/grupo-form';
+import { GruposEditarPage } from '../pages/grupos/grupos-editar-page/grupos-editar-page';
 
 
 export const routes: Routes = [
@@ -158,6 +160,20 @@ export const routes: Routes = [
         canActivate: [GuardiaRolesServicio],
         data: { allowedRoles: ['GAMER'] },
     },
+    {
+        path: "grupos/form",
+        component: GrupoForm,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['GAMER'] },
+    },{
+        path: "grupos/edicion/:id",
+        component: GruposEditarPage,
+        canActivate: [GuardiaRolesServicio],
+        data: { allowedRoles: ['GAMER'] },
+    },
+    
+
+
 
 
         /// Juegos

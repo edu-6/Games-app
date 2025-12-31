@@ -1,0 +1,10 @@
+
+@if(grupoEdicion){
+    <app-grupo-form [estaEnEdicion]="true" [grupoEdicion]="grupoEdicion"></app-grupo-form>
+}@else {
+    <div class="container mt-5">
+        <div class="alert alert-danger" role="alert">
+            No se encontró información para el grupo con identificador: {{idGrupo}}
+        </div>
+    </div>
+}

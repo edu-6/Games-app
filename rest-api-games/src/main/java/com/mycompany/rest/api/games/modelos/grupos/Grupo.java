@@ -16,6 +16,11 @@ public class Grupo extends EntidadBackend {
     protected String nombre;
     protected String correoAdmin;
 
+    public Grupo() {
+    }
+    
+    
+
     public Grupo(String nombre, String correoAdmin) {
         this.nombre = nombre;
         this.correoAdmin = correoAdmin;

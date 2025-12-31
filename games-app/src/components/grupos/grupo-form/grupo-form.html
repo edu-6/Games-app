@@ -1,0 +1,111 @@
+<app-header></app-header>
+<form [formGroup]="formulario" (submit)="enviar()">
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-10 col-lg-8">
+
+                    @if (hayError) {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error!</strong> {{mensajeError}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    }
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+
+                            <h3 class="mb-5 text-center">Grupo</h3>
+                            <div class="row mb-4">
+                                <!---
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <label class="form-label">Suba una imagen (Opcional)</label>
+                                    <input class="form-control" type="file" id="formFile"
+                                        (change)="AlCargarArchivo($event)">
+                                </div> -->
+                                @if(urlTemporal){
+                                <div class="col-md-6">
+                                    <img [src]="urlTemporal" alt="..." class="img-thumbnail avatar">
+                                </div>
+                                }
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nombre:</label>
+                                    <input type="text" class="form-control" name="name" formControlName="nombre"
+                                        [class.is-invalid]="formulario.controls['nombre'].invalid && intentoEnviarlo">
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Ingrese el nombre del grupo (Max 100)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                @if(grupoEdicion){ <!-- si está en edición-->
+                                <a class="btn btn-primary" (click)="abrirFormularioDeParticipante()">
+                                    <i class="bi bi-plus-circle"></i> Nuevo integrante
+                                </a>
+                                }
+
+                                @if(quiereAgregarNuevo){
+                                <input #correoInput type="text" class="form-control"
+                                    placeholder="correo : integrante@gmail.com">
+
+                                <div class="d-flex gap-2 mt-2">
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="confirmarAgregarParticipante(correoInput.value)">
+                                        Agregar
+                                    </button>
+                                    <button type="button" (click)="cancelarAgregacion()" class="btn btn-secondary">
+                                        Cancelar
+                                    </button>
+                                </div>
+                                }
+
+
+                                <div class="mt-5">
+                                    <h4 class="mb-3">Integrantes del Grupo ({{participantes.length}})</h4>
+
+                                    <div class="list-group shadow-sm">
+                                        @for (p of participantes; track p.correo) {
+                                        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3">
+                                            <div>
+                                                <div class="fw-bold text-primary">
+                                                    <i class="bi bi-person-fill me-2"></i>{{p.nombre}}
+                                                </div>
+                                                <small class="text-muted">{{p.correo}}</small>
+                                            </div>
+                                            @if(this.generarCorreoAdminCreador() === p.correo){ <!-- si son el mismo-->
+                                                <h1>(Tu)</h1>
+                                            }@else {
+                                            <button type="button" class="btn btn-outline-danger btn-sm border-0"
+                                                (click)="eliminarParticipante(p.correo)">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                            }
+
+                                        </div>
+                                        } @empty {
+                                        <div class="alert alert-light text-center border">
+                                            No hay integrantes agregados aún.
+                                        </div>
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="mt-4">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
+                            </div>
+                            <div class="mt-4">
+                                <button type="button" routerLink="/grupos"
+                                    class="btn btn-secondary py-3 w-100">Regresar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

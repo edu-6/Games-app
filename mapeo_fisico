@@ -134,5 +134,14 @@ CREATE TABLE grupo (
 );
 
 
+CREATE TABLE participante_grupo (
+    correo_participante VARCHAR(100) NOT NULL,
+    id_grupo INT NOT NULL,
+    PRIMARY KEY (correo_participante, id_grupo),
+    CONSTRAINT fk_participante_gamer FOREIGN KEY (correo_participante) REFERENCES gamer (gamer_correo) ON DELETE CASCADE,
+    CONSTRAINT fk_participante_id_grupo FOREIGN KEY (id_grupo) REFERENCES grupo (grupo_id) ON DELETE CASCADE
+);
+
+
 
 

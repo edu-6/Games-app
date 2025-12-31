@@ -18,6 +18,11 @@ public class GrupoCompleto extends Grupo {
         this.numeroIntegrantes = numeroIntegrantes;
     }
 
+    public GrupoCompleto() {
+    }
+    
+    
+
     public int getId() {
         return id;
     }

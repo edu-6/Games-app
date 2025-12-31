@@ -19,7 +19,7 @@ export class EmpresasEditarPage implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
     this.nombreEmpresa = this.router.snapshot.params['nombre'];
     console.log(this.nombreEmpresa);
     this.empresaServicios.buscarEmpresaUnica(this.nombreEmpresa).subscribe({
