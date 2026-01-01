@@ -69,4 +69,9 @@ public class ComentariosCrudService {
         return respuesta;
     }
     
+    public boolean verificarPermisoComentarios(String nombreJuego) throws SQLException {
+        ComentariosDB db = new ComentariosDB();
+        return db.juegoPermiteComentarios(nombreJuego);
+    }
+    
 }

@@ -87,4 +87,19 @@ public class ComentariosResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
+    
+    
+    @GET
+    @Path("/permisos/{nombreJuego}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response verificarPermisos(@PathParam("nombreJuego") String nombreJuego) {
+        ComentariosCrudService service = new ComentariosCrudService();
+        try {
+            boolean permitido = service.verificarPermisoComentarios(nombreJuego);
+            // se usa map para hacer un json para el parametro 
+            return Response.ok(java.util.Collections.singletonMap("permitido", permitido)).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

@@ -26,7 +26,7 @@ export class ComentariosService {
 
   public crearSubcomentario(subcomentario: SubcomentarioRequest): Observable<void> {
     return this.httpCliente.post<void>(
-      `${this.constantesRest.getApiURL()}comentarios/respuesta`, 
+      `${this.constantesRest.getApiURL()}comentarios/respuesta`,
       subcomentario
     );
   }
@@ -34,6 +34,12 @@ export class ComentariosService {
   public obtenerSubcomentarios(idPadre: number): Observable<SubcomentarioResponse[]> {
     return this.httpCliente.get<SubcomentarioResponse[]>(
       `${this.constantesRest.getApiURL()}comentarios/respuestas/${idPadre}`
+    );
+  }
+
+  public verificarPermisoComentarios(nombreJuego: string): Observable<{ permitido: boolean }> {
+    return this.httpCliente.get<{ permitido: boolean }>(
+      `${this.constantesRest.getApiURL()}comentarios/permisos/${nombreJuego}`
     );
   }
 

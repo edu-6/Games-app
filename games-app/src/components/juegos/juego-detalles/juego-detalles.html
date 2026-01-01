@@ -66,7 +66,9 @@
             </div>
         </div>
         @if(hayJuego){
-        <app-comentarios-component [juego]="juego" [yaEstaComprado]="yaEstaComprado"></app-comentarios-component>
+            @if(comentariosHabilitados && yaEstaComprado){
+                 <app-comentarios-component [juego]="juego" [yaEstaComprado]="yaEstaComprado"></app-comentarios-component>
+            }
         }
 
     </div>

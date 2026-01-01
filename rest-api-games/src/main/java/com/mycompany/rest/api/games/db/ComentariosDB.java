@@ -21,6 +21,12 @@ import java.util.List;
  * @author edu
  */
 public class ComentariosDB {
+    
+    private static final String COMENTARIOS_ACTIVADOS = "SELECT 1 FROM juego j " +
+                 "INNER JOIN empresa e ON j.juego_codigo_empresa = e.id_empresa " +
+                 "WHERE j.juego_nombre = ? " +
+                 "AND j.juego_permite_comentarios = 1 " + 
+                 "AND e.permite_comentarios = 1";
 
     private static final String REGISTRAR_SUB_COMENTARIO = "INSERT INTO subcomentario_juego "
             + "(id_comentario_padre, correo_usuario, texto_subcomentario, fecha_subcomentario) "
@@ -114,6 +120,15 @@ public class ComentariosDB {
             }
         }
         return lista;
+    }
+    
+    
+    public boolean juegoPermiteComentarios(String nombre) throws SQLException {
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement pstmt = connection.prepareStatement(COMENTARIOS_ACTIVADOS)) {
+            pstmt.setString(1, nombre);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next();
+        }
     }
 
 }
