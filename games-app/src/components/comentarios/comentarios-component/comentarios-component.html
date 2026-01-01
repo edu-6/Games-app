@@ -1,5 +1,35 @@
+<div class="row d-flex justify-content-center mt-5 pb-5">
+  <div class="col-10 col-md-12 col-lg-8">
+    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+      <div class="card-body p-4" [formGroup]="formulario">
+        @if(yaEstaComprado){        
+        <h4 class="mb-4">Deja un comentario</h4>
+        <div class="form-outline mb-3">
+          <textarea class="form-control" placeholder="Escribe algo " formControlName="texto" rows="3"
+            style="border-radius: 0.5rem;"></textarea>
+          <div class="text-end">
+            <small class="text-muted">{{ formulario.get('texto')?.value?.length || 0 }}/500</small>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end mb-4">
+          <button type="button" (click)="enviarComentario()" [disabled]="formulario.invalid"
+            class="btn btn-primary px-4">
+            Enviar comentario
+          </button>
+        </div>
+      }
+        <hr class="my-4">
+        <div class="comentarios-lista">
+          <h5 class="mb-4">Comentarios</h5>
 
-<div class="form-floating">
-  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-  <label for="floatingTextarea2">Comments</label>
+          @if(listaComentarios.length === 0){
+          <p class="text-muted text-center italic">Aún no hay comentarios</p>
+          }
+          @for(item of listaComentarios; track item.idComentario){
+          <app-comentario-vista [comentario]="item" [yaEstaComprado]="yaEstaComprado"></app-comentario-vista>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

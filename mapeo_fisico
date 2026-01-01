@@ -142,6 +142,25 @@ CREATE TABLE participante_grupo (
     CONSTRAINT fk_participante_id_grupo FOREIGN KEY (id_grupo) REFERENCES grupo (grupo_id) ON DELETE CASCADE
 );
 
+CREATE TABLE comentario_juego (
+    id_comentario INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+    id_juego INTEGER NOT NULL, correo_usuario VARCHAR(100) NOT NULL, 
+    texto_comentario VARCHAR(500) NOT NULL, 
+    fecha_comentario DATETIME NOT NULL,
+    CONSTRAINT fk_comentario_juego FOREIGN KEY (id_juego) REFERENCES juego (juego_id) ON DELETE CASCADE,
+    CONSTRAINT fk_comentario_gamer FOREIGN KEY (correo_usuario) REFERENCES gamer (gamer_correo) ON DELETE CASCADE
+);
+
+CREATE TABLE subcomentario_juego (
+  id_subcomentario INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_comentario_padre INTEGER NOT NULL, 
+  correo_usuario VARCHAR(100) NOT NULL,
+  texto_subcomentario VARCHAR(500) NOT NULL, 
+  fecha_subcomentario DATETIME NOT NULL, 
+  CONSTRAINT fk_sub_comentario_padre FOREIGN KEY (id_comentario_padre) REFERENCES comentario_juego (id_comentario) ON DELETE CASCADE,
+  CONSTRAINT fk_sub_comentario_gamer FOREIGN KEY (correo_usuario) REFERENCES gamer (gamer_correo) ON DELETE CASCADE
+);
+
 
 
 

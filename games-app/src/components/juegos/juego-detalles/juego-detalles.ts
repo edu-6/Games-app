@@ -7,10 +7,11 @@ import { CompraJuego } from '../../../models/compras/compra-juego';
 import { Header } from "../../header/header";
 import { CompraExistencia } from '../../../models/compras/CompraExistencia';
 import { CompraExistenciaResponse } from '../../../models/compras/existencia-response';
+import { ComentariosComponent } from "../../comentarios/comentarios-component/comentarios-component";
 
 @Component({
   selector: 'app-juego-detalles',
-  imports: [RouterLink, Header],
+  imports: [RouterLink, Header, ComentariosComponent],
   templateUrl: './juego-detalles.html',
   styleUrl: './juego-detalles.css',
 })
@@ -18,6 +19,7 @@ export class JuegoDetalles implements OnInit {
   urlTemporal: string = "asñldfk";
   hayArchivoCargado: boolean = false;
   yaEstaComprado !: boolean;
+  hayJuego : boolean = false;
   @Input({ required: true })
   juego !: Juego;
 
@@ -25,6 +27,8 @@ export class JuegoDetalles implements OnInit {
     
   }
   ngOnInit(): void {
+    console.log(this.juego.nombre+ "nombre del juego en detalles");
+    this.hayJuego  = (this.juego != null);
     this.averiguarSiYaLoCompro();
     this.juegosService.obtenerImagen(this.juego.nombre).subscribe({
       next: (datos: Blob) => {

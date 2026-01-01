@@ -1,63 +1,62 @@
 <app-header></app-header>
-<section class="vh-100">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
+
+<section class="py-5" style="min-height: 100vh;">
+    <div class="container">
+        <div class="row d-flex justify-content-center mb-5">
             <div class="col-10 col-md-12 col-lg-8">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5">
                         <h3 class="mb-5 text-center">{{juego.nombre}}</h3>
+
                         <div class="row mb-4">
                             @if(hayArchivoCargado){
                             <div class="col-md-6">
-                                <img [src]="urlTemporal" alt="..." class="img-thumbnail avatar">
+                                <img [src]="urlTemporal" alt="..." class="img-thumbnail avatar"
+                                    style="max-height: 300px;">
                             </div>
                             }
                         </div>
-                        <div class="col-md-6 mb-4 mb-md-0">
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-6 mb-4 mb-md-0">
-                                <label class="form-label"> <strong>Nombre: </strong></label>
-                                <label class="form-label"> {{juego.nombre}}</label>
-                                <label class="form-label">{{juego.nombre}}</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="eventType" class="form-label"><strong>Clasificacion edad: </strong>
-                                    {{juego.clasificacion}}</label>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1"
-                                class="form-label"><strong>Descripcion:</strong></label>
-                            <textarea readonly type="hidden" formControlName="descripcion"
-                                class="form-control">{{juego.descripcion}}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputField" class="form-label"><strong>Requerimientos</strong></label>
-                            <textarea type="hidden" readonly class="form-control"
-                                id="exampleFormControlTextarea1">{{juego.requerimientos}}</textarea>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-6 mb-4 mb-md-0">
-                                <label for="limit" class="form-label"><strong>Precio: </strong>
-                                    ${{juego.precio}}</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="startDate" class="form-label"><strong>Fecha de lanzamiento:</strong>
-                                    {{juego.fechaLanzamiento}}</label>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            @if(yaEstaComprado){
-                            <button class="btn btn-primary w-100 py-3">Ya lo tienes</button>
-                            }@else {
-                            <div class="mt-4">
-                                <button routerLink="/juegos/compra/{{juego.nombre}}" class="btn btn-primary w-100 py-3"
-                                    type="submit">Comprar</button>
-                            </div>
-                            }
 
-                            <div class="mt-4">
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <p><strong>Nombre: </strong> {{juego.nombre}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Clasificación: </strong> {{juego.clasificacion}}</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Descripción:</strong></label>
+                            <textarea readonly class="form-control" rows="3">{{juego.descripcion}}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Requerimientos:</strong></label>
+                            <textarea readonly class="form-control" rows="3">{{juego.requerimientos}}</textarea>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <p><strong>Precio: </strong> ${{juego.precio}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Lanzamiento: </strong> {{juego.fechaLanzamiento}}</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            @if(yaEstaComprado){
+                            <div class="col-12">
+                                <button class="btn btn-success w-100 py-3" disabled>Ya lo tienes</button>
+                            </div>
+                            } @else {
+                            <div class="col-12 mt-2">
+                                <button [routerLink]="['/juegos/compra', juego.nombre]"
+                                    class="btn btn-primary w-100 py-3">Comprar</button>
+                            </div>
+                            }
+                            <div class="col-12 mt-3">
                                 <button type="button" routerLink="/juegos"
                                     class="btn btn-secondary py-3 w-100">Regresar</button>
                             </div>
@@ -66,5 +65,9 @@
                 </div>
             </div>
         </div>
+        @if(hayJuego){
+        <app-comentarios-component [juego]="juego" [yaEstaComprado]="yaEstaComprado"></app-comentarios-component>
+        }
+
     </div>
 </section>
