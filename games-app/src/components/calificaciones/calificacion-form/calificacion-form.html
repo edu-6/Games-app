@@ -1,0 +1,15 @@
+<form [formGroup]="formulario" (submit)="enviar()">
+    <div class="col-md-6 mb-4 mb-md-0">
+        <label for="limit" class="form-label">Calificar:</label>
+        <input type="number" class="form-control" id="limit" name="limit" formControlName="precio"
+            [class.is-invalid]="formulario.controls['precio'].invalid && intentoEnviarlo">
+        <div class="invalid-feedback">
+            <div>
+                Ingrese calificacion (1-5)
+            </div>
+        </div>
+        <div class="mt-4">
+            <button class="btn btn-primary w-100 py-3" type="submit">Enviar calificacion</button>
+        </div>
+    </div>
+</form>

@@ -161,6 +161,10 @@ CREATE TABLE subcomentario_juego (
   CONSTRAINT fk_sub_comentario_gamer FOREIGN KEY (correo_usuario) REFERENCES gamer (gamer_correo) ON DELETE CASCADE
 );
 
-
-
-
+CREATE TABLE calificacion_juego(
+    correo_usuario VARCHAR(100) NOT NULL,
+    cantidad_estrellas INTEGER NOT NULL,
+    id_juego INTEGER NOT NULL,
+    CONSTRAINT fk_calificacion_usuario FOREIGN KEY (correo_usuario) REFERENCES gamer (gamer_correo) ON DELETE CASCADE,
+    CONSTRAINT fk_calificacion_juego FOREIGN KEY (id_juego) REFERENCES juego (juego_id) ON DELETE CASCADE
+);
